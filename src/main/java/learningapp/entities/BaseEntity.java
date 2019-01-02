@@ -8,6 +8,9 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.Getter;
+
+@Getter
 @MappedSuperclass
 public abstract class BaseEntity {
 

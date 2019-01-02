@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.0.4.RELEASE'
+        swaggerVersion = '2.8.0'
     }
     repositories {
         mavenCentral()
@@ -37,4 +38,9 @@ dependencies {
 
     //lombok
     compileOnly('org.projectlombok:lombok')
+
+    //swagger
+    compile("io.springfox:springfox-swagger2:${swaggerVersion}")
+    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+
 }
