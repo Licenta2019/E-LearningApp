@@ -24,10 +24,17 @@ repositories {
 
 
 dependencies {
+    //spring-boot
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
-    runtime('com.h2database:h2')
-    runtime('org.postgresql:postgresql')
-    compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //h2
+    runtime('com.h2database:h2')
+
+    //postgres
+    runtime('org.postgresql:postgresql')
+
+    //lombok
+    compileOnly('org.projectlombok:lombok')
 }
