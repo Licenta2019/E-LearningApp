@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +25,9 @@ public class User extends BaseEntity {
 
     @NotNull
     private String password;
+
+    @Email
+    private String email;
 
     @NotNull
     @Enumerated(EnumType.STRING)

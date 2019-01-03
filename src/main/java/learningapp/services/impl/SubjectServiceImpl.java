@@ -7,15 +7,24 @@ import org.springframework.stereotype.Service;
 
 import learningapp.dtos.SubjectDto;
 import learningapp.dtos.TopicDto;
+import learningapp.entities.Subject;
+import learningapp.entities.Topic;
 import learningapp.mappers.SubjectMapper;
+import learningapp.mappers.TopicMapper;
 import learningapp.repositories.SubjectRepository;
+import learningapp.repositories.TopicRepository;
 import learningapp.services.SubjectService;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
+    //TODO(Paul) add exceptions for validation
+
     @Autowired
     private SubjectRepository subjectRepository;
+
+    @Autowired
+    private TopicRepository topicRepository;
 
     @Override
     public UUID addSubject(SubjectDto dto) {
@@ -24,7 +33,12 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public UUID addTopicToSubject(UUID id, TopicDto topicDto) {
-        return null;
+        Subject subject = subjectRepository.findById(id).orElseThrow(() -> new RuntimeException("no such subject!"));
+
+        Topic topic = TopicMapper.toTopicEntity(topicDto);
+        topic.setSubject(subject);
+
+        return topicRepository.save(topic).getId();
     }
 
 }

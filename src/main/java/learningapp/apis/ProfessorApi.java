@@ -11,13 +11,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import learningapp.dtos.SubjectDto;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
-@Api(tags = "Authentication API", description = "The API for authentication")
+@Api(tags = "Professor API", description = "The API for professor")
 public interface ProfessorApi {
+
     @ApiOperation(
-            value = "User log in",
-            produces = APPLICATION_JSON_VALUE
+            value = "Add a subject"
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful response"),
