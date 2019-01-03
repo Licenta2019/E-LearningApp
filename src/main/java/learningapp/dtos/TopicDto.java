@@ -1,22 +1,21 @@
-package learningapp.entities;
+package learningapp.dtos;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import learningapp.entities.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Topic extends BaseEntity {
+public class TopicDto {
+
+    private static final long serialVersionUID = 2L;
 
     @NotNull
     private String name;

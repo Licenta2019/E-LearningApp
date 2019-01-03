@@ -25,12 +25,8 @@ public class Professor extends BaseEntity {
     @NotNull
     private String name;
 
-    @Email
-    private String email;
-
     @OneToOne
     private User user;
-
 
     @ManyToMany
     @JoinTable(name = "professor_subject",

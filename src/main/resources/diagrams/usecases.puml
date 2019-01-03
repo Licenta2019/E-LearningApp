@@ -1,0 +1,14 @@
+@startuml
+!pragma graphviz_dot jdot
+Professor --> (LogIn)
+Professor --> (LogOut)
+Professor --> (Add Subject)
+Professor --> (Add Topic)
+Professor --> (Validate question)
+
+
+Student --> (LogIn)
+Student --> (LogOut)
+Student --> (Add question)
+
+@enduml
