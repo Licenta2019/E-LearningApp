@@ -1,4 +1,4 @@
-package learningapp.dtos;
+package learningapp.dtos.subject;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +21,7 @@ public class SubjectDto implements Serializable {
     @NotNull
     private String name;
 
+    @NotNull
     private List<TopicDto> topicDtos;
 
 }

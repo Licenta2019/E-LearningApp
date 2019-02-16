@@ -8,16 +8,18 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class Question extends BaseEntity {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class TestQuestion extends BaseEntity {
 
     @ManyToOne
     private Topic topic;
@@ -26,6 +28,6 @@ public class Question extends BaseEntity {
     private String text;
 
     @OneToMany(mappedBy = "question")
-    private List<Answer> answers;
+    private List<TestAnswer> answers;
 
 }
