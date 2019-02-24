@@ -2,7 +2,7 @@ package learningapp.dtos.subject;
 
 import java.util.UUID;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class TopicDto {
 
     private UUID id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
 }

@@ -2,9 +2,10 @@ package learningapp.dtos.question;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +20,12 @@ public class TestQuestionDto implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
-    @NotBlank
-    private String text;
+    private UUID id;
 
-    @OneToMany(mappedBy = "question")
+    @NotBlank
+    private String questionText;
+
+    @NotNull
     private List<TestAnswerDto> answerDtos;
 
 }

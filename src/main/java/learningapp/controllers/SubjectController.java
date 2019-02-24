@@ -1,6 +1,5 @@
 package learningapp.controllers;
 
-
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +20,8 @@ import learningapp.dtos.subject.SubjectDto;
 import learningapp.dtos.subject.TopicDto;
 import learningapp.services.SubjectService;
 
+import static learningapp.mappers.GeneralMapper.uuidFromString;
+
 @RestController(value = "ProfessorController")
 @RequestMapping(path = "/subject")
 public class SubjectController implements SubjectApi {
@@ -34,22 +35,22 @@ public class SubjectController implements SubjectApi {
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UUID createSubject(@RequestBody @Valid SubjectDto subjectDto) {
+    public UUID addSubject(@RequestBody @Valid SubjectDto subjectDto) {
         return subjectService.addSubject(subjectDto);
     }
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{subjectId}/topic")
-    public UUID createSubject(@PathVariable UUID subjectId, @RequestBody @Valid TopicDto topicDto) {
-        return subjectService.addTopicToSubject(subjectId, topicDto);
+    public UUID addTopicToSubject(@PathVariable String subjectId, @RequestBody @Valid TopicDto topicDto) {
+        return subjectService.addTopicToSubject(uuidFromString(subjectId), topicDto);
     }
 
     @Override
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{subjectId}")
-    public SubjectDto getSubject(@PathVariable UUID subjectId) {
-        return subjectService.getSubject(subjectId);
+    public SubjectDto getSubject(@PathVariable String subjectId) {
+        return subjectService.getSubject(uuidFromString(subjectId));
     }
 
     @Override
@@ -62,8 +63,8 @@ public class SubjectController implements SubjectApi {
     @Override
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{subjectId}")
-    public UUID updateSubject(@PathVariable UUID subjectId, @RequestBody @Valid SubjectDto subjectDto) {
-        return subjectService.updateSubject(subjectId, subjectDto);
+    public UUID updateSubject(@PathVariable String subjectId, @RequestBody @Valid SubjectDto subjectDto) {
+        return subjectService.updateSubject(uuidFromString(subjectId), subjectDto);
     }
 
 }

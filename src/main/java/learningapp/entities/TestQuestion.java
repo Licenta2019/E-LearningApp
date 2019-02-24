@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,10 +24,12 @@ public class TestQuestion extends BaseEntity {
     @ManyToOne
     private Topic topic;
 
-    @NotNull
+    @NotBlank
     private String text;
 
     @OneToMany(mappedBy = "question")
     private List<TestAnswer> answers;
+
+    private boolean wasValidated = false;
 
 }

@@ -1,6 +1,7 @@
 package learningapp.dtos.question;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,8 +19,10 @@ public class TestAnswerDto implements Serializable {
 
     private static final long serialVersionUID = 4L;
 
+    private UUID id;
+
     @NotBlank
-    private String text;
+    private String answerText;
 
     @NotNull
     private boolean isCorrect;

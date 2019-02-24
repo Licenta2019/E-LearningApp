@@ -22,7 +22,7 @@ public interface SubjectApi {
             @ApiResponse(code = 201, message = "Successful created"),
             @ApiResponse(code = 400, message = "The server cannot or will not process the request due to an apparent client error")
     })
-    UUID createSubject(@ApiParam(value = "the subject data", required = true) SubjectDto subjectDto);
+    UUID addSubject(@ApiParam(value = "the subject data", required = true) SubjectDto subjectDto);
 
     @ApiOperation(
             value = "Add a topic"
@@ -32,7 +32,7 @@ public interface SubjectApi {
             @ApiResponse(code = 201, message = "Successful created"),
             @ApiResponse(code = 400, message = "The server cannot or will not process the request due to an apparent client error")
     })
-    UUID createSubject(@ApiParam(value = "the subject id", required = true) UUID subjectId,
+    UUID addTopicToSubject(@ApiParam(value = "the subject id", required = true) String subjectId,
                        @ApiParam(value = "the topic data", required = true) TopicDto topicDto);
 
     @ApiOperation(
@@ -42,7 +42,7 @@ public interface SubjectApi {
             @ApiResponse(code = 200, message = "Successful response"),
             @ApiResponse(code = 400, message = "The server cannot or will not process the request due to an apparent client error")
     })
-    SubjectDto getSubject(@ApiParam(value = "the subject id", required = true) UUID subjectId);
+    SubjectDto getSubject(@ApiParam(value = "the subject id", required = true) String subjectId);
 
     @ApiOperation(
             value = "Get all subjects"
@@ -60,7 +60,7 @@ public interface SubjectApi {
             @ApiResponse(code = 200, message = "Successful response"),
             @ApiResponse(code = 400, message = "The server cannot or will not process the request due to an apparent client error")
     })
-    UUID updateSubject(@ApiParam(value = "the subject id", required = true) UUID subjectId,
+    UUID updateSubject(@ApiParam(value = "the subject id", required = true) String subjectId,
                        @ApiParam(value = "the subject data", required = true) SubjectDto subjectDto);
 
 }

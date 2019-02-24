@@ -14,6 +14,7 @@ public class SubjectMapper {
 
     public static SubjectDto toSubjectDto(Subject subject) {
         return SubjectDto.builder()
+                .id(subject.getId())
                 .name(subject.getName())
                 .topicDtos(toTopicDtoList(subject.getTopics()))
                 .build();

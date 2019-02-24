@@ -10,11 +10,14 @@ import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
+import learningapp.exceptions.NotFoundException;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
 import learningapp.services.TestService;
 
+import static learningapp.exceptions.ExceptionMessages.QUESTION_NOT_FOUND;
+import static learningapp.exceptions.ExceptionMessages.SUBJECT_NOT_FOUND;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntity;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionEntity;
 
@@ -38,7 +41,7 @@ public class TestServiceImpl implements TestService {
     @Override
     @Transactional
     public UUID addTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
-        Topic topic = topicRepository.findById(topicId).orElseThrow(() -> new RuntimeException("Topic not found!"));
+        Topic topic = topicRepository.findById(topicId).orElseThrow(() -> new NotFoundException(SUBJECT_NOT_FOUND));
 
         TestQuestion testQuestion = toTestQuestionEntity(testQuestionDto);
 
@@ -50,6 +53,21 @@ public class TestServiceImpl implements TestService {
         }
 
         return testQuestion.getId();
+    }
+
+    @Override
+    @Transactional
+    public UUID updateTestQuestion(TestQuestionDto testQuestionDto) {
+        TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
+
+        //TODO(fix mapper for update)
+        return null;
+    }
+
+    private TestQuestion getTestQuestionEntity(UUID questionId) {
+        return testQuestionRepository.findById(questionId)
+                .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
+
     }
 
     private void addTestAnswer(TestAnswerDto testAnswerDto, TestQuestion question) {

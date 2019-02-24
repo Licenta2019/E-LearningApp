@@ -15,4 +15,12 @@ public interface TestService {
      */
     UUID addTestQuestion(UUID topicId, TestQuestionDto testQuestionDto);
 
+    /**
+     * Method that updates a test question via a specific test question dto.
+     *
+     * @param testQuestionDto - data for new question dto
+     * @return
+     */
+    UUID updateTestQuestion(TestQuestionDto testQuestionDto);
+
 }

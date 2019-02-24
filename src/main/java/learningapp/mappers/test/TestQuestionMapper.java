@@ -11,7 +11,7 @@ public class TestQuestionMapper {
 
     public static TestQuestion toTestQuestionEntity(TestQuestionDto dto) {
         return TestQuestion.builder()
-                .text(dto.getText())
+                .text(dto.getQuestionText())
                 .answers(toTestAnswerEntityList(dto.getAnswerDtos()))
                 .build();
     }
