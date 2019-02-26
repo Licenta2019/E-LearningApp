@@ -1,5 +1,6 @@
 package learningapp.apis;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.annotations.Api;
@@ -15,4 +16,5 @@ public interface TestApi {
     UUID updateQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,
                         @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
 
+    List<TestQuestionDto> getAllQuestionsByTopic(@ApiParam(value = "id of the related topic", required = true) String topicId);
 }

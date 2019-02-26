@@ -1,11 +1,13 @@
 package learningapp.controllers;
 
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,7 +42,14 @@ public class TestController implements TestApi {
     @Override
     @PutMapping("/topic/{topicId}/question/{questionId}")
     public UUID updateQuestion(@PathVariable String topicId, @RequestBody TestQuestionDto questionDto) {
-        return testService.updateTestQuestion(questionDto);
+        return testService.updateTestQuestion(uuidFromString(topicId), questionDto);
+    }
+
+    @Override
+    @GetMapping("/topic/{topicId}/questions")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<TestQuestionDto> getAllQuestionsByTopic(String topicId) {
+        return testService.getAllQuestionsByTopic(uuidFromString(topicId));
     }
 
 }

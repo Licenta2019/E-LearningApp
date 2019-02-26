@@ -1,5 +1,6 @@
 package learningapp.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import learningapp.dtos.question.TestQuestionDto;
@@ -19,8 +20,16 @@ public interface TestService {
      * Method that updates a test question via a specific test question dto.
      *
      * @param testQuestionDto - data for new question dto
+     * @param topicId
      * @return
      */
-    UUID updateTestQuestion(TestQuestionDto testQuestionDto);
+    UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto);
 
+    /**
+     * Return all questions for a specific topic.
+     *
+     * @param topicId - the topic's id
+     * @return
+     */
+    List<TestQuestionDto> getAllQuestionsByTopic(UUID topicId);
 }
