@@ -1,6 +1,16 @@
 package learningapp.utils;
 
+import learningapp.entities.UserRole;
+
 public class TestConstants {
+
+    public static final String USER_NAME = "username";
+    public static final String USER_PASSWORD = "password";
+    public static final String USER_EMAIL = "a.user@ww.com";
+    public static final UserRole USER_ROLE = UserRole.STUDENT;
+
+    public static final String INEXISTENT_USER = "inuser";
+    public static final String INEXISTENT_PASSWORD = "inpass";
 
     public static final String INEXISTENT_ID = "70bf77c2-b5a6-48f7-935a-3fc68b82f83a";
 

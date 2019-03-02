@@ -3,6 +3,7 @@ package learningapp.services;
 import java.util.Arrays;
 
 import org.assertj.core.api.ThrowableAssert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,16 +14,19 @@ import learningapp.entities.Subject;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
+import learningapp.entities.User;
 import learningapp.repositories.SubjectRepository;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
+import learningapp.repositories.UserRepository;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static learningapp.factory.SubjectFactory.generateSubject;
 import static learningapp.factory.TestAnswerFactory.generateTestAnswer;
 import static learningapp.factory.TestQuestionFactory.generateTestQuestion;
 import static learningapp.factory.TopicFactory.generateTopic;
+import static learningapp.factory.UserFactory.generateUser;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = H2TestConfiguration.class)
@@ -39,6 +43,13 @@ public class BaseIntegrationTest {
 
     @Autowired
     protected TestAnswerRepository testAnswerRepository;
+
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Test
+    public void fakeTest() {
+    }
 
     public void assertThatThrownByError(ThrowableAssert.ThrowingCallable consumer, Class matchingException, String exceptionMessage) {
         assertThatThrownBy(consumer)
@@ -70,6 +81,10 @@ public class BaseIntegrationTest {
         testAnswerRepository.save(testAnswer);
 
         return testQuestion;
+    }
+
+    public User createRandomUser() {
+        return userRepository.save(generateUser());
     }
 
 }

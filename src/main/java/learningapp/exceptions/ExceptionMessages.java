@@ -3,6 +3,9 @@ package learningapp.exceptions;
 
 public final class ExceptionMessages {
 
+    //User
+    public static final String USER_NOT_FOUND = "User not found!";
+
     //Subject
     public static final String SUBJECT_NOT_FOUND = "Subject not found!";
     public static final String DUPLICATE_SUBJECT = "A subject with this name already exists!";
