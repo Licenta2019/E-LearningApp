@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import static learningapp.mappers.GeneralMapper.uuidFromString;
 
 @RestController(value = "TestController")
 @RequestMapping(path = "/test")
+@CrossOrigin
 public class TestController implements TestApi {
 
     private final TestService testService;
@@ -48,7 +50,7 @@ public class TestController implements TestApi {
     @Override
     @GetMapping("/topic/{topicId}/questions")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<TestQuestionDto> getAllQuestionsByTopic(String topicId) {
+    public List<TestQuestionDto> getAllInvalidatedQuestionsByTopic(String topicId) {
         return testService.getAllQuestionsByTopic(uuidFromString(topicId));
     }
 

@@ -2,6 +2,7 @@ package learningapp.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,8 @@ import learningapp.dtos.AuthenticationDto;
 import learningapp.services.AuthenticationService;
 
 @RestController(value = "authentication")
-@RequestMapping(path = "/login")
+@RequestMapping(path = "/")
+@CrossOrigin
 public class AuthenticationController implements AuthenticationApi {
 
     private final AuthenticationService authenticationService;
@@ -22,7 +24,7 @@ public class AuthenticationController implements AuthenticationApi {
     }
 
     @Override
-    @PostMapping
+    @PostMapping(value = "login")
     public void login(@RequestBody @Valid AuthenticationDto authenticationDto) {
         authenticationService.login(authenticationDto);
     }

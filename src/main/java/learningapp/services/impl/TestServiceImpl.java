@@ -82,7 +82,7 @@ public class TestServiceImpl implements TestService {
         Topic topic = topicRepository.findById(topicId)
                 .orElseThrow(() -> new NotFoundException(TOPIC_NOT_FOUND));
 
-        return toTestQuestionDtoList(testQuestionRepository.findAllByTopic(topic));
+        return toTestQuestionDtoList(testQuestionRepository.findAllByTopicAndWasValidated(topic,false));
     }
 
     private void updateTestAnswer(TestAnswerDto testAnswerDto) {
