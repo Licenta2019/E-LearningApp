@@ -30,4 +30,6 @@ public class TestQuestionDto implements Serializable {
     @NotNull
     private List<TestAnswerDto> answerDtos;
 
+    private String explanation;
+
 }

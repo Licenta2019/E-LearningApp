@@ -12,8 +12,4 @@ DROP TABLE professor;
 
 DROP TABLE application_user;
 
-DROP TABLE question;
-
-DROP TABLE answer;
-
 DROP TABLE student;

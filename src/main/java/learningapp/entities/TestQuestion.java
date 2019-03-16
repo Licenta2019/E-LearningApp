@@ -37,4 +37,7 @@ public class TestQuestion extends BaseEntity {
     @Min(0)
     @Max(10)
     private int difficulty = 0;
+
+    private String explanation;
+
 }

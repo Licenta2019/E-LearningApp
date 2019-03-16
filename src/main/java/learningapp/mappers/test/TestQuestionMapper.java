@@ -17,6 +17,7 @@ public class TestQuestionMapper {
         return TestQuestion.builder()
                 .text(dto.getQuestionText())
                 .answers(toTestAnswerEntityList(dto.getAnswerDtos()))
+                .explanation(dto.getExplanation())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class TestQuestionMapper {
                 .id(testQuestion.getId())
                 .questionText(testQuestion.getText())
                 .answerDtos(toTestAnswerDtoList(testQuestion.getAnswers()))
+                .explanation(testQuestion.getExplanation())
                 .build();
     }
 

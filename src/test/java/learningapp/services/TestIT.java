@@ -49,12 +49,8 @@ public class TestIT extends BaseIntegrationTest {
         assertNotNull(testQuestionId);
 
         TestQuestion testQuestion = testQuestionRepository.findById(testQuestionId).get();
-        assertEquals(testQuestion.getText(), testQuestionDto.getQuestionText());
 
-        List<TestAnswer> testAnswerList = testAnswerRepository.findByQuestion(testQuestion);
-        assertNotNull(testAnswerList);
-        assertEquals(testAnswerList.size(), testQuestionDto.getAnswerDtos().size());
-        assertAnswersEquals(testAnswerList, testQuestionDto.getAnswerDtos());
+        assertTestQuestionEquals(testQuestion, testQuestionDto);
     }
 
     @Test
@@ -135,8 +131,12 @@ public class TestIT extends BaseIntegrationTest {
     }
 
     private void assertTestQuestionEquals(TestQuestion testQuestion, TestQuestionDto testQuestionDto) {
-        assertEquals(testQuestion.getId(), testQuestionDto.getId());
+
+        if (testQuestionDto.getId() != null) {
+            assertEquals(testQuestion.getId(), testQuestionDto.getId());
+        }
         assertEquals(testQuestion.getText(), testQuestionDto.getQuestionText());
+        assertEquals(testQuestion.getExplanation(), testQuestionDto.getExplanation());
 
         assertAnswersEquals(testAnswerRepository.findByQuestion(testQuestion), testQuestionDto.getAnswerDtos());
     }
