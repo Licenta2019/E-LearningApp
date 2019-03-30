@@ -14,4 +14,5 @@ public interface TestAnswerRepository extends JpaRepository<TestAnswer, UUID> {
 
     List<TestAnswer> findByQuestion(TestQuestion testQuestion);
 
+    void deleteAllByQuestion(TestQuestion testQuestion);
 }

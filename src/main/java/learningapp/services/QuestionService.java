@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import learningapp.dtos.question.TestQuestionDto;
 
-public interface TestService {
+public interface QuestionService {
 
     /**
      * Method that saves a test question dto via a specific test question dto.
@@ -32,4 +32,13 @@ public interface TestService {
      * @return
      */
     List<TestQuestionDto> getAllQuestionsByTopic(UUID topicId);
+
+    /**
+     * Validate a test question via it's dto.
+     * Perform an update and after set question status to VALIDATED.
+     *
+     * @param testQuestionDto
+     */
+    void validateQuestion(TestQuestionDto testQuestionDto);
+
 }

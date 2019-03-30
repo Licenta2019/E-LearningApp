@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import learningapp.entities.TestQuestion;
+import learningapp.entities.TestQuestionStatus;
 import learningapp.entities.Topic;
 
 @Repository
@@ -17,5 +18,5 @@ public interface TestQuestionRepository extends JpaRepository<TestQuestion, UUID
     @Query(value = "SELECT tq FROM TestQuestion tq where tq.id = ?1 AND tq.topic.id = ?2")
     Optional<TestQuestion> findByIdAndTopicId(UUID id, UUID topicId);
 
-    List<TestQuestion> findAllByTopicAndWasValidated(Topic topic, boolean wasValidated);
+    List<TestQuestion> findAllByTopicAndStatus(Topic topic, TestQuestionStatus status);
 }

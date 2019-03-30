@@ -17,41 +17,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import learningapp.apis.TestApi;
+import learningapp.apis.QuestionApi;
 import learningapp.dtos.question.TestQuestionDto;
-import learningapp.services.TestService;
+import learningapp.services.QuestionService;
 
 import static learningapp.mappers.GeneralMapper.uuidFromString;
 
-@RestController(value = "TestController")
-@RequestMapping(path = "/test")
+@RestController(value = "QuestionController")
+@RequestMapping(path = "/topic")
 @CrossOrigin
-public class TestController implements TestApi {
+class QuestionController implements QuestionApi {
 
-    private final TestService testService;
+    private final QuestionService questionService;
 
-    public TestController(TestService testService) {
-        this.testService = testService;
+    public QuestionController(QuestionService questionService) {
+        this.questionService = questionService;
     }
 
     @Override
-    @PostMapping("/topic/{topicId}/question")
+    @PostMapping("/{topicId}/question")
     @ResponseStatus(HttpStatus.CREATED)
     public UUID createQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
-        return testService.addTestQuestion(uuidFromString(topicId), questionDto);
+        return questionService.addTestQuestion(uuidFromString(topicId), questionDto);
     }
 
     @Override
-    @PutMapping("/topic/{topicId}/question/{questionId}")
+    @PutMapping("/{topicId}/question/{questionId}")
     public UUID updateQuestion(@PathVariable String topicId, @RequestBody TestQuestionDto questionDto) {
-        return testService.updateTestQuestion(uuidFromString(topicId), questionDto);
+        return questionService.updateTestQuestion(uuidFromString(topicId), questionDto);
     }
 
     @Override
-    @GetMapping("/topic/{topicId}/questions")
+    @GetMapping("/{topicId}/questions")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<TestQuestionDto> getAllInvalidatedQuestionsByTopic(String topicId) {
-        return testService.getAllQuestionsByTopic(uuidFromString(topicId));
+    public List<TestQuestionDto> getAllPendingQuestionsByTopic(@PathVariable String topicId) {
+        return questionService.getAllQuestionsByTopic(uuidFromString(topicId));
     }
 
 }

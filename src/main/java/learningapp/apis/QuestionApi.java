@@ -7,8 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import learningapp.dtos.question.TestQuestionDto;
 
-@Api(tags = "Tests API", description = "The API for tests")
-public interface TestApi {
+@Api(tags = "Question API", description = "The API for questions")
+public interface QuestionApi {
 
     UUID createQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,
                         @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
@@ -16,5 +16,5 @@ public interface TestApi {
     UUID updateQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,
                         @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
 
-    List<TestQuestionDto> getAllInvalidatedQuestionsByTopic(@ApiParam(value = "id of the related topic", required = true) String topicId);
+    List<TestQuestionDto> getAllPendingQuestionsByTopic(@ApiParam(value = "id of the related topic", required = true) String topicId);
 }

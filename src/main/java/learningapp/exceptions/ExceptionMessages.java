@@ -17,6 +17,9 @@ public final class ExceptionMessages {
     public static final String TEST_QUESTION_NOT_FOUND = "Question not found!";
     public static final String TEST_ANSWER_NOT_FOUND = "Answer not found!";
 
+    //Student
+    public static final String STUDENT_NOT_FOUND = "Student not found!";
+
     //Invalid Format
     public static final String STRING_TO_UUID_ERROR = "Invalid uuid format!";
 }

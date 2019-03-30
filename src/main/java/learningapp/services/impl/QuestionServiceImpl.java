@@ -11,12 +11,18 @@ import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
+import learningapp.entities.User;
 import learningapp.exceptions.NotFoundException;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
-import learningapp.services.TestService;
+import learningapp.repositories.UserRepository;
+import learningapp.services.QuestionService;
 
+import static learningapp.entities.TestQuestionStatus.PENDING;
+import static learningapp.entities.TestQuestionStatus.REQUESTED_CHANGES;
+import static learningapp.entities.TestQuestionStatus.VALIDATED;
+import static learningapp.exceptions.ExceptionMessages.STUDENT_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
@@ -25,7 +31,7 @@ import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDtoList;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionEntity;
 
 @Service
-public class TestServiceImpl implements TestService {
+public class QuestionServiceImpl implements QuestionService {
 
     private final TopicRepository topicRepository;
 
@@ -33,12 +39,16 @@ public class TestServiceImpl implements TestService {
 
     private final TestAnswerRepository testAnswerRepository;
 
-    public TestServiceImpl(TopicRepository topicRepository,
-                           TestQuestionRepository testQuestionRepository,
-                           TestAnswerRepository testAnswerRepository) {
+    private final UserRepository userRepository;
+
+    public QuestionServiceImpl(TopicRepository topicRepository,
+                               TestQuestionRepository testQuestionRepository,
+                               TestAnswerRepository testAnswerRepository,
+                               UserRepository userRepository) {
         this.topicRepository = topicRepository;
         this.testQuestionRepository = testQuestionRepository;
         this.testAnswerRepository = testAnswerRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -47,9 +57,12 @@ public class TestServiceImpl implements TestService {
         Topic topic = topicRepository.findById(topicId)
                 .orElseThrow(() -> new NotFoundException(TOPIC_NOT_FOUND));
 
+        User student = userRepository.findById(testQuestionDto.getStudentId())
+                .orElseThrow(() -> new NotFoundException(STUDENT_NOT_FOUND));
         TestQuestion testQuestion = toTestQuestionEntity(testQuestionDto);
 
         testQuestion.setTopic(topic);
+        testQuestion.setStudent(student);
         testQuestion = testQuestionRepository.save(testQuestion);
 
         for (TestAnswerDto testAnswerDto : testQuestionDto.getAnswerDtos()) {
@@ -62,19 +75,46 @@ public class TestServiceImpl implements TestService {
     @Override
     @Transactional
     public UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
-        //TODO(Paul) see if we can bind validated to some statuses
         //TODO(fix mapper for update)
-
+        //TODO(add subject and topic modifications here)
         TestQuestion testQuestion = testQuestionRepository.findByIdAndTopicId(testQuestionDto.getId(), topicId)
                 .orElseThrow(() -> new NotFoundException(TEST_QUESTION_NOT_FOUND));
 
         testQuestion.setText(testQuestionDto.getQuestionText());
 
-        testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer);
-
-        testQuestion.setWasValidated(true);
+        if (testQuestionDto.getStatus().equals(PENDING)) {
+            updateTestQuestionEntity(testQuestionDto);
+        } else {
+            updateTestQuestionAfterNotification(testQuestion, testQuestionDto);
+        }
 
         return testQuestionRepository.save(testQuestion).getId();
+    }
+
+    @Override
+    @Transactional
+    public void validateQuestion(TestQuestionDto testQuestionDto) {
+        TestQuestion testQuestion = testQuestionRepository.findById(testQuestionDto.getId())
+                .orElseThrow(() -> new NotFoundException(TEST_QUESTION_NOT_FOUND));
+
+        updateTestQuestionEntity(testQuestionDto); //possible changes made by professor
+        testQuestion.setStatus(VALIDATED); // set status to validated - now it's a valid question
+
+        testQuestionRepository.save(testQuestion);
+    }
+
+    private void updateTestQuestionEntity(TestQuestionDto testQuestionDto) {
+        testQuestionDto.setStatus(REQUESTED_CHANGES); // set status to requested_changes
+        testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer);
+    }
+
+    private void updateTestQuestionAfterNotification(TestQuestion testQuestion, TestQuestionDto testQuestionDto) {
+        testAnswerRepository.deleteAllByQuestion(testQuestion);
+
+        testQuestion.setStatus(PENDING);//reset status to pending
+        for (TestAnswerDto testAnswerDto : testQuestionDto.getAnswerDtos()) {
+            addTestAnswer(testAnswerDto, testQuestion);
+        }
     }
 
     @Override
@@ -82,7 +122,7 @@ public class TestServiceImpl implements TestService {
         Topic topic = topicRepository.findById(topicId)
                 .orElseThrow(() -> new NotFoundException(TOPIC_NOT_FOUND));
 
-        return toTestQuestionDtoList(testQuestionRepository.findAllByTopicAndWasValidated(topic,false));
+        return toTestQuestionDtoList(testQuestionRepository.findAllByTopicAndStatus(topic, PENDING));
     }
 
     private void updateTestAnswer(TestAnswerDto testAnswerDto) {
