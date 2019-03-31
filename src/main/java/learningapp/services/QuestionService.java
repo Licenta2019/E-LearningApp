@@ -41,4 +41,12 @@ public interface QuestionService {
      */
     void validateQuestion(TestQuestionDto testQuestionDto);
 
+    /**
+     * Retrieve a specific question via it's id
+     *
+     * @param uuid
+     * @return
+     */
+    TestQuestionDto getQuestion(UUID uuid);
+
 }

@@ -27,6 +27,7 @@ import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntity;
+import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDto;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDtoList;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionEntity;
 
@@ -101,6 +102,15 @@ public class QuestionServiceImpl implements QuestionService {
         testQuestion.setStatus(VALIDATED); // set status to validated - now it's a valid question
 
         testQuestionRepository.save(testQuestion);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public TestQuestionDto getQuestion(UUID id) {
+        TestQuestion testQuestion = testQuestionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(TEST_QUESTION_NOT_FOUND));
+
+        return toTestQuestionDto(testQuestion);
     }
 
     private void updateTestQuestionEntity(TestQuestionDto testQuestionDto) {

@@ -49,9 +49,16 @@ class QuestionController implements QuestionApi {
 
     @Override
     @GetMapping("/{topicId}/questions")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public List<TestQuestionDto> getAllPendingQuestionsByTopic(@PathVariable String topicId) {
         return questionService.getAllQuestionsByTopic(uuidFromString(topicId));
+    }
+
+    @Override
+    @GetMapping("/question/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public TestQuestionDto getQuestion(@PathVariable String id) {
+        return questionService.getQuestion(uuidFromString(id));
     }
 
 }
