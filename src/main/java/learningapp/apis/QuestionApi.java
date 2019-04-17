@@ -16,6 +16,9 @@ public interface QuestionApi {
     UUID updateQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,
                         @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
 
+    void validateQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,
+    @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
+
     List<TestQuestionDto> getAllPendingQuestionsByTopic(@ApiParam(value = "id of the related topic", required = true) String topicId);
 
     TestQuestionDto getQuestion(@ApiParam(value = "id of the question", required = true) String id);

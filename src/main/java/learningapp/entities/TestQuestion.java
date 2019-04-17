@@ -29,7 +29,6 @@ import lombok.Setter;
 public class TestQuestion extends BaseEntity {
 
     @CreationTimestamp
-    @Builder.Default
     private LocalDateTime created;
 
     @ManyToOne
@@ -46,6 +45,7 @@ public class TestQuestion extends BaseEntity {
 
     @Min(0)
     @Max(10)
+    @Builder.Default
     private int difficulty = 0;
 
     @NotBlank

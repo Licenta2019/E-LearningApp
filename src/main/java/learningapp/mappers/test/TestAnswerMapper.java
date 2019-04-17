@@ -10,8 +10,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class TestAnswerMapper {
 
-
-    //todo(Paul) investigate why mapper doesn't set is correct
     public static TestAnswer toTestAnswerEntity(TestAnswerDto dto) {
         return TestAnswer.builder()
                 .text(dto.getAnswerText())

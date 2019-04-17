@@ -42,9 +42,15 @@ class QuestionController implements QuestionApi {
     }
 
     @Override
-    @PutMapping("/{topicId}/question/{questionId}")
-    public UUID updateQuestion(@PathVariable String topicId, @RequestBody TestQuestionDto questionDto) {
+    @PostMapping("/{topicId}/question/{questionId}")
+    public UUID updateQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
         return questionService.updateTestQuestion(uuidFromString(topicId), questionDto);
+    }
+
+    @Override
+    @PutMapping("/{topicId}/question/{questionId}")
+    public void validateQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
+        questionService.validateQuestion(questionDto);
     }
 
     @Override

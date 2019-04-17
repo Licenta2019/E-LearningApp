@@ -27,7 +27,13 @@ public class TestQuestionDto implements Serializable {
 
     private UUID id;
 
-    @NotNull
+//    @NotNull
+    private UUID topicId;
+
+//    @NotNull
+    private UUID subjectId;
+
+//    @NotNull
     private UUID studentId;
 
     @NotBlank
@@ -39,7 +45,6 @@ public class TestQuestionDto implements Serializable {
     @NotNull
     private String explanation;
 
-    @NotNull
     private TestQuestionStatus status;
 
 }

@@ -3,6 +3,8 @@ package learningapp.services.impl;
 import java.util.List;
 import java.util.UUID;
 
+import learningapp.handlers.UpdateQuestionHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,7 @@ import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDtoList;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionEntity;
 
 @Service
+@Slf4j
 public class QuestionServiceImpl implements QuestionService {
 
     private final TopicRepository topicRepository;
@@ -42,14 +45,18 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final UserRepository userRepository;
 
+    private final UpdateQuestionHandler updateQuestionHandler;
+
     public QuestionServiceImpl(TopicRepository topicRepository,
                                TestQuestionRepository testQuestionRepository,
                                TestAnswerRepository testAnswerRepository,
-                               UserRepository userRepository) {
+                               UserRepository userRepository,
+                               UpdateQuestionHandler updateQuestionHandler) {
         this.topicRepository = topicRepository;
         this.testQuestionRepository = testQuestionRepository;
         this.testAnswerRepository = testAnswerRepository;
         this.userRepository = userRepository;
+        this.updateQuestionHandler = updateQuestionHandler;
     }
 
     @Override
@@ -60,6 +67,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         User student = userRepository.findById(testQuestionDto.getStudentId())
                 .orElseThrow(() -> new NotFoundException(STUDENT_NOT_FOUND));
+
         TestQuestion testQuestion = toTestQuestionEntity(testQuestionDto);
 
         testQuestion.setTopic(topic);
@@ -99,7 +107,10 @@ public class QuestionServiceImpl implements QuestionService {
                 .orElseThrow(() -> new NotFoundException(TEST_QUESTION_NOT_FOUND));
 
         updateTestQuestionEntity(testQuestionDto); //possible changes made by professor
-        testQuestion.setStatus(VALIDATED); // set status to validated - now it's a valid question
+        testQuestion.setText(testQuestionDto.getQuestionText());
+        testQuestion.setStatus(VALIDATED);
+
+        // set status to validated - now it's a valid question
 
         testQuestionRepository.save(testQuestion);
     }
@@ -110,11 +121,18 @@ public class QuestionServiceImpl implements QuestionService {
         TestQuestion testQuestion = testQuestionRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(TEST_QUESTION_NOT_FOUND));
 
-        return toTestQuestionDto(testQuestion);
+        Topic topic = testQuestion.getTopic();
+
+        TestQuestionDto testQuestionDto = toTestQuestionDto(testQuestion);
+        testQuestionDto.setTopicId(topic.getId());
+        testQuestionDto.setSubjectId(topic.getSubject().getId());
+
+        return testQuestionDto;
     }
 
     private void updateTestQuestionEntity(TestQuestionDto testQuestionDto) {
-        testQuestionDto.setStatus(REQUESTED_CHANGES); // set status to requested_changes
+//        testQuestionDto.setStatus(REQUESTED_CHANGES); // set status to requested_changes
+
         testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer);
     }
 
