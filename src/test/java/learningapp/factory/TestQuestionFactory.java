@@ -24,7 +24,6 @@ public class TestQuestionFactory {
         return TestQuestion.builder()
                 .text(QUESTION_TEXT)
                 .difficulty(10)
-                .wasValidated(false)
                 .build();
     }
 

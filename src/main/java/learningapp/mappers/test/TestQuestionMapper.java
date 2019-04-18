@@ -1,11 +1,12 @@
 package learningapp.mappers.test;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestQuestion;
+import learningapp.entities.TestQuestionStatus;
 import lombok.experimental.UtilityClass;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerDtoList;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntityList;
@@ -14,17 +15,21 @@ import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntityList;
 public class TestQuestionMapper {
 
     public static TestQuestion toTestQuestionEntity(TestQuestionDto dto) {
-        return TestQuestion.builder()
+        TestQuestion testQuestion = TestQuestion.builder()
                 .text(dto.getQuestionText())
-                .answers(toTestAnswerEntityList(dto.getAnswerDtos()))
                 .explanation(dto.getExplanation())
                 .status(dto.getStatus())
                 .build();
+        testQuestion.setAnswers(toTestAnswerEntityList(dto.getAnswerDtos(), testQuestion));
+
+        return testQuestion;
     }
 
-    public static void toTestQuestionEntity(TestQuestion testQuestion, TestQuestionDto dto) {
+    public static void toTestQuestionEntity(TestQuestion testQuestion, TestQuestionDto dto, TestQuestionStatus status) {
         testQuestion.setText(dto.getQuestionText());
-//        testQuestion.setDifficulty();
+        testQuestion.setDifficulty(dto.getDifficulty());
+        testQuestion.setExplanation(dto.getExplanation());
+        testQuestion.setStatus(status);
     }
 
     public static TestQuestionDto toTestQuestionDto(TestQuestion testQuestion) {
@@ -34,6 +39,8 @@ public class TestQuestionMapper {
                 .answerDtos(toTestAnswerDtoList(testQuestion.getAnswers()))
                 .explanation(testQuestion.getExplanation())
                 .status(testQuestion.getStatus())
+                .topicId(testQuestion.getTopic().getId())
+                .subjectId(testQuestion.getTopic().getSubject().getId())
                 .build();
     }
 

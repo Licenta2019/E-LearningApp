@@ -1,24 +1,14 @@
 package learningapp.entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.annotations.CreationTimestamp;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,7 +21,7 @@ public class TestQuestion extends BaseEntity {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Topic topic;
 
     @ManyToOne(optional = false)

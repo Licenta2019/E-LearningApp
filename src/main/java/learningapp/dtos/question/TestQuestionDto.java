@@ -1,20 +1,13 @@
 package learningapp.dtos.question;
 
+import learningapp.entities.TestQuestionStatus;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import learningapp.entities.TestQuestionStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Setter
@@ -27,13 +20,13 @@ public class TestQuestionDto implements Serializable {
 
     private UUID id;
 
-//    @NotNull
+    //    @NotNull
     private UUID topicId;
 
-//    @NotNull
+    //    @NotNull
     private UUID subjectId;
 
-//    @NotNull
+    //    @NotNull
     private UUID studentId;
 
     @NotBlank
@@ -46,5 +39,9 @@ public class TestQuestionDto implements Serializable {
     private String explanation;
 
     private TestQuestionStatus status;
+
+    private int difficulty;
+
+    private String notificationMessage;
 
 }

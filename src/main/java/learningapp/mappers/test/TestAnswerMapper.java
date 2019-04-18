@@ -1,19 +1,21 @@
 package learningapp.mappers.test;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import learningapp.dtos.question.TestAnswerDto;
 import learningapp.entities.TestAnswer;
+import learningapp.entities.TestQuestion;
 import lombok.experimental.UtilityClass;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class TestAnswerMapper {
 
-    public static TestAnswer toTestAnswerEntity(TestAnswerDto dto) {
+    public static TestAnswer toTestAnswerEntity(TestAnswerDto dto, TestQuestion question) {
         return TestAnswer.builder()
                 .text(dto.getAnswerText())
                 .isCorrect(dto.isCorrect())
+                .question(question)
                 .build();
     }
 
@@ -22,9 +24,9 @@ public class TestAnswerMapper {
         testAnswer.setText(dto.getAnswerText());
     }
 
-    public static List<TestAnswer> toTestAnswerEntityList(List<TestAnswerDto> testAnswerDtos) {
+    public static List<TestAnswer> toTestAnswerEntityList(List<TestAnswerDto> testAnswerDtos, TestQuestion testQuestion) {
         return testAnswerDtos.stream()
-                .map(TestAnswerMapper::toTestAnswerEntity)
+                .map(answerDto -> toTestAnswerEntity(answerDto, testQuestion))
                 .collect(Collectors.toList());
     }
 

@@ -32,7 +32,7 @@ import static learningapp.utils.TestConstants.UPDATED_QUESTION_TEXT;
 public class TestIT extends BaseIntegrationTest {
 
     @Autowired
-    private TestService testService;
+    private QuestionService testService;
 
     @Test
     public void givenValidTestQuestionDto_whenAddQuestion_thenUuidReturned() {
