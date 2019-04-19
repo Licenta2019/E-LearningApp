@@ -1,9 +1,9 @@
-package learningapp.dtos;
+package learningapp.dtos.subject;
 
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
-import learningapp.entities.Subject;
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,10 +17,9 @@ public class TopicDto {
 
     private static final long serialVersionUID = 2L;
 
-    @NotNull
-    private String name;
+    private UUID id;
 
-    @ManyToOne
-    private Subject subject;
+    @NotBlank
+    private String name;
 
 }

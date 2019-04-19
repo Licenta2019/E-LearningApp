@@ -1,9 +1,9 @@
-package learningapp.mappers;
+package learningapp.mappers.subject;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import learningapp.dtos.TopicDto;
+import learningapp.dtos.subject.TopicDto;
 import learningapp.entities.Topic;
 import lombok.experimental.UtilityClass;
 
@@ -12,15 +12,14 @@ public class TopicMapper {
 
     public static TopicDto toTopicDto(Topic entity) {
         return TopicDto.builder()
+                .id(entity.getId())
                 .name(entity.getName())
-                .subject(entity.getSubject())
                 .build();
     }
 
-    public Topic toTopicEntity(TopicDto dto) {
+    public static Topic toTopicEntity(TopicDto dto) {
         return Topic.builder()
                 .name(dto.getName())
-                .subject(dto.getSubject())
                 .build();
     }
 
@@ -30,7 +29,7 @@ public class TopicMapper {
                 .collect(Collectors.toList());
     }
 
-    public static List<Topic> toTopicEntityLisr(List<TopicDto> topicDtos) {
+    public static List<Topic> toTopicEntityList(List<TopicDto> topicDtos) {
         return topicDtos.stream()
                 .map(TopicMapper::toTopicEntity)
                 .collect(Collectors.toList());

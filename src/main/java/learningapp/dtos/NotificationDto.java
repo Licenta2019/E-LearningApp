@@ -1,8 +1,5 @@
 package learningapp.dtos;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -14,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDto implements Serializable {
+public class NotificationDto {
 
-    private static final long serialVersionUID = 1L;
+    private String from;
+
+    private String to;
 
     @NotNull
-    private String name;
-
-    private List<TopicDto> topicDtos;
+    private String message;
 
 }

@@ -1,7 +1,7 @@
 package learningapp.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -10,18 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class Answer extends BaseEntity {
-
-    @ManyToOne
-    private Question question;
+@NoArgsConstructor
+@AllArgsConstructor
+public class Student extends BaseEntity {
 
     @NotNull
-    private String text;
+    private String name;
 
-    private boolean isCorrect;
+    @OneToOne
+    private User user;
 
 }
