@@ -1,6 +1,7 @@
 package learningapp.services;
 
 import learningapp.dtos.AuthenticationDto;
+import learningapp.dtos.UserDto;
 
 public interface AuthenticationService {
 
@@ -9,6 +10,6 @@ public interface AuthenticationService {
      *
      * @param authenticationDto
      */
-    void login(AuthenticationDto authenticationDto);
+    UserDto login(AuthenticationDto authenticationDto);
 
 }
