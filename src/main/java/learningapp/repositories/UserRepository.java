@@ -1,14 +1,14 @@
 package learningapp.repositories;
 
-import java.util.Optional;
-import java.util.UUID;
-
+import learningapp.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import learningapp.entities.User;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByUsernameAndPassword(String username, String password);
 
+    Optional<User> findByUsername(String username);
 }
