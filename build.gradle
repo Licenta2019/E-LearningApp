@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.0.4.RELEASE'
+        swaggerVersion = '2.8.0'
     }
     repositories {
         mavenCentral()
@@ -24,10 +25,22 @@ repositories {
 
 
 dependencies {
+    //spring-boot
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
-    runtime('com.h2database:h2')
-    runtime('org.postgresql:postgresql')
-    compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //h2
+    runtime('com.h2database:h2')
+
+    //postgres
+    runtime('org.postgresql:postgresql')
+
+    //lombok
+    compileOnly('org.projectlombok:lombok')
+
+    //swagger
+    compile("io.springfox:springfox-swagger2:${swaggerVersion}")
+    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+
 }
