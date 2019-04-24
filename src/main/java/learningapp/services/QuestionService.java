@@ -1,9 +1,10 @@
 package learningapp.services;
 
+import learningapp.dtos.question.TableQuestionDto;
+import learningapp.dtos.question.TestQuestionDto;
+
 import java.util.List;
 import java.util.UUID;
-
-import learningapp.dtos.question.TestQuestionDto;
 
 public interface QuestionService {
 
@@ -31,7 +32,7 @@ public interface QuestionService {
      * @param topicId - the topic's id
      * @return
      */
-    List<TestQuestionDto> getAllQuestionsByTopic(UUID topicId);
+    List<TableQuestionDto> getAllQuestionsByTopic(UUID topicId);
 
     /**
      * Validate a test question via it's dto.

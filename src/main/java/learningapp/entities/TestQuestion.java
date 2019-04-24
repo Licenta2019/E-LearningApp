@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,13 +19,13 @@ import java.util.List;
 public class TestQuestion extends BaseEntity {
 
     @CreationTimestamp
-    private LocalDateTime created;
+    private LocalDate created;
 
     @ManyToOne(optional = false)
     private Topic topic;
 
     @ManyToOne(optional = false)
-    private User student;
+    private Student student;
 
     @NotBlank
     private String text;
