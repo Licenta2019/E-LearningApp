@@ -1,14 +1,13 @@
 package learningapp.services.impl;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import learningapp.dtos.AuthenticationDto;
 import learningapp.entities.User;
 import learningapp.exceptions.NotFoundException;
 import learningapp.repositories.UserRepository;
 import learningapp.services.AuthenticationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
 

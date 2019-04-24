@@ -1,25 +1,16 @@
 package learningapp.controllers;
 
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.validation.Valid;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import learningapp.apis.QuestionApi;
+import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.services.QuestionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 
 import static learningapp.mappers.GeneralMapper.uuidFromString;
 
@@ -56,7 +47,7 @@ class QuestionController implements QuestionApi {
     @Override
     @GetMapping("/{topicId}/questions")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<TestQuestionDto> getAllPendingQuestionsByTopic(@PathVariable String topicId) {
+    public List<TableQuestionDto> getAllPendingQuestionsByTopic(@PathVariable String topicId) {
         return questionService.getAllQuestionsByTopic(uuidFromString(topicId));
     }
 

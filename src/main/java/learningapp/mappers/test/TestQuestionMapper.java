@@ -1,5 +1,6 @@
 package learningapp.mappers.test;
 
+import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.TestQuestionStatus;
@@ -47,6 +48,23 @@ public class TestQuestionMapper {
     public static List<TestQuestionDto> toTestQuestionDtoList(List<TestQuestion> testQuestions) {
         return testQuestions.stream()
                 .map(TestQuestionMapper::toTestQuestionDto)
+                .collect(Collectors.toList());
+    }
+
+    public static TableQuestionDto toTableQuestionDto(TestQuestion testQuestion) {
+        return TableQuestionDto.builder()
+                .id(testQuestion.getId())
+                .subject(testQuestion.getTopic().getSubject().getName())
+                .topic(testQuestion.getTopic().getName())
+                .questionText(testQuestion.getText())
+                .author(testQuestion.getStudent().getName())
+                .creationDate(testQuestion.getCreated())
+                .build();
+    }
+
+    public static List<TableQuestionDto> toTableQuestionDtoList(List<TestQuestion> testQuestions) {
+        return testQuestions.stream()
+                .map(TestQuestionMapper::toTableQuestionDto)
                 .collect(Collectors.toList());
     }
 

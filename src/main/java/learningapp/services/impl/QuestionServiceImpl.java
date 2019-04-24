@@ -1,16 +1,17 @@
 package learningapp.services.impl;
 
+import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestAnswerDto;
 import learningapp.dtos.question.TestQuestionDto;
+import learningapp.entities.Student;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
-import learningapp.entities.User;
 import learningapp.exceptions.NotFoundException;
+import learningapp.repositories.StudentRepository;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
-import learningapp.repositories.UserRepository;
 import learningapp.services.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final TestAnswerRepository testAnswerRepository;
 
-    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
 
     public QuestionServiceImpl(TopicRepository topicRepository,
                                TestQuestionRepository testQuestionRepository,
                                TestAnswerRepository testAnswerRepository,
-                               UserRepository userRepository) {
+                               StudentRepository studentRepository) {
         this.topicRepository = topicRepository;
         this.testQuestionRepository = testQuestionRepository;
         this.testAnswerRepository = testAnswerRepository;
-        this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
     }
 
     private Topic getTopicEntity(UUID topicId) {
@@ -61,7 +62,7 @@ public class QuestionServiceImpl implements QuestionService {
     public UUID addTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
 
         Topic topic = getTopicEntity(topicId);
-        User student = userRepository.findById(testQuestionDto.getStudentId())
+        Student student = studentRepository.findById(testQuestionDto.getStudentId())
                 .orElseThrow(() -> new NotFoundException(STUDENT_NOT_FOUND));
 
         TestQuestion testQuestion = toTestQuestionEntity(testQuestionDto);
@@ -119,10 +120,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<TestQuestionDto> getAllQuestionsByTopic(UUID topicId) {
+    public List<TableQuestionDto> getAllQuestionsByTopic(UUID topicId) {
         Topic topic = getTopicEntity(topicId);
 
-        return toTestQuestionDtoList(testQuestionRepository.findAllByTopicAndStatus(topic, PENDING));
+        return toTableQuestionDtoList(testQuestionRepository.findAllByTopicAndStatus(topic, PENDING));
     }
 
     private void updateTestAnswer(TestAnswerDto testAnswerDto) {
