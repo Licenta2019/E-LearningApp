@@ -31,6 +31,7 @@ public class TestQuestionMapper {
         testQuestion.setDifficulty(dto.getDifficulty());
         testQuestion.setExplanation(dto.getExplanation());
         testQuestion.setStatus(status);
+        testQuestion.setDifficulty(dto.getDifficulty());
     }
 
     public static TestQuestionDto toTestQuestionDto(TestQuestion testQuestion) {

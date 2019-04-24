@@ -3,10 +3,7 @@ package learningapp.services.impl;
 import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestAnswerDto;
 import learningapp.dtos.question.TestQuestionDto;
-import learningapp.entities.Student;
-import learningapp.entities.TestAnswer;
-import learningapp.entities.TestQuestion;
-import learningapp.entities.Topic;
+import learningapp.entities.*;
 import learningapp.exceptions.NotFoundException;
 import learningapp.repositories.StudentRepository;
 import learningapp.repositories.TestAnswerRepository;
@@ -86,9 +83,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @Transactional
     public UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
-        TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
-
-        toTestQuestionEntity(testQuestion, testQuestionDto, PENDING);
+        TestQuestion testQuestion = updateTestQuestionEntity(testQuestionDto, REQUESTED_CHANGES);
 
         if (testQuestionDto.getNotificationMessage() != null) {
             testQuestion.setStatus(REQUESTED_CHANGES);
@@ -104,13 +99,20 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @Transactional
     public void validateQuestion(TestQuestionDto testQuestionDto) {
+        updateTestQuestionEntity(testQuestionDto, VALIDATED);
+    }
+
+    private TestQuestion updateTestQuestionEntity(TestQuestionDto testQuestionDto, TestQuestionStatus newStatus) {
         TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
+
+        Topic topic = getTopicEntity(testQuestionDto.getTopicId());
 
         testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer);
 
-        toTestQuestionEntity(testQuestion, testQuestionDto, VALIDATED);
+        toTestQuestionEntity(testQuestion, testQuestionDto, newStatus);
+        testQuestion.setTopic(topic);
 
-        testQuestionRepository.save(testQuestion);
+        return testQuestionRepository.save(testQuestion);
     }
 
     private void updateTestQuestionAfterNotification(TestQuestion testQuestion) {
