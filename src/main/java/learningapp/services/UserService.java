@@ -3,7 +3,7 @@ package learningapp.services;
 import learningapp.dtos.AuthenticationDto;
 import learningapp.dtos.UserDto;
 
-public interface AuthenticationService {
+public interface UserService {
 
     /**
      * Perform login for user described by the authentication dto.
