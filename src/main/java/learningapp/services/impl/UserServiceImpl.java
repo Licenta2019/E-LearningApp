@@ -6,19 +6,20 @@ import learningapp.entities.User;
 import learningapp.exceptions.NotFoundException;
 import learningapp.repositories.UserRepository;
 import learningapp.security.JwtTokenProvider;
-import learningapp.services.AuthenticationService;
+import learningapp.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
+import java.util.Collections;
+
 import static learningapp.mappers.UserMapper.toUserDto;
 
 @Service
 @Slf4j
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -26,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public UserServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
@@ -35,12 +36,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     @Transactional(readOnly = true)
     public UserDto login(AuthenticationDto authenticationDto) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDto.getUsername(), authenticationDto.getPassword()));
+
         User user = userRepository.findByUsername(authenticationDto.getUsername())
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("bfb"));
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDto.getUsername(),
-                authenticationDto.getPassword()));
+        String token = jwtTokenProvider.createToken(authenticationDto.getUsername(), Collections.singletonList(user.getUserRole()));
 
-        return toUserDto(user, jwtTokenProvider.createToken(user.getUsername(), user.getUserRole()));
+        return toUserDto(user, token);
     }
 }
