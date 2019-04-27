@@ -11,8 +11,8 @@ import learningapp.dtos.subject.SubjectDto;
 import learningapp.dtos.subject.TopicDto;
 import learningapp.entities.Subject;
 import learningapp.entities.Topic;
-import learningapp.exceptions.DuplicateEntityException;
-import learningapp.exceptions.NotFoundException;
+import learningapp.exceptions.base.DuplicateEntityException;
+import learningapp.exceptions.base.NotFoundException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

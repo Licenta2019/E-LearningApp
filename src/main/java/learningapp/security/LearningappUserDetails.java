@@ -1,11 +1,12 @@
 package learningapp.security;
 
-import learningapp.entities.User;
-import learningapp.exceptions.NotFoundException;
-import learningapp.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+
+import learningapp.entities.User;
+import learningapp.exceptions.base.NotFoundException;
+import learningapp.repositories.UserRepository;
 
 /**
  * Implementation for spring details service.

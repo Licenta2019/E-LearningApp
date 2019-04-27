@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import learningapp.dtos.subject.SubjectDto;
 import learningapp.entities.Subject;
-import learningapp.exceptions.DuplicateEntityException;
+import learningapp.exceptions.base.DuplicateEntityException;
 import learningapp.repositories.SubjectRepository;
 
 import static learningapp.exceptions.ExceptionMessages.DUPLICATE_SUBJECT;

@@ -1,4 +1,4 @@
-package learningapp.exceptions;
+package learningapp.exceptions.base;
 
 public class DuplicateEntityException extends LearningAppException {
 

@@ -1,19 +1,20 @@
 package learningapp.services.impl;
 
-import learningapp.dtos.AuthenticationDto;
-import learningapp.dtos.UserDto;
-import learningapp.entities.User;
-import learningapp.exceptions.NotFoundException;
-import learningapp.repositories.UserRepository;
-import learningapp.security.JwtTokenProvider;
-import learningapp.services.UserService;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Collections;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import learningapp.dtos.AuthenticationDto;
+import learningapp.dtos.UserDto;
+import learningapp.entities.User;
+import learningapp.exceptions.base.NotFoundException;
+import learningapp.repositories.UserRepository;
+import learningapp.security.JwtTokenProvider;
+import learningapp.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 
 import static learningapp.mappers.UserMapper.toUserDto;
 

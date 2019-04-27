@@ -10,7 +10,7 @@ import learningapp.dtos.subject.SubjectDto;
 import learningapp.dtos.subject.TopicDto;
 import learningapp.entities.Subject;
 import learningapp.entities.Topic;
-import learningapp.exceptions.NotFoundException;
+import learningapp.exceptions.base.NotFoundException;
 import learningapp.repositories.SubjectRepository;
 import learningapp.repositories.TopicRepository;
 import learningapp.services.SubjectService;

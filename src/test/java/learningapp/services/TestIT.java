@@ -14,7 +14,7 @@ import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
-import learningapp.exceptions.NotFoundException;
+import learningapp.exceptions.base.NotFoundException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

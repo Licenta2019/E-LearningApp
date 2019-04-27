@@ -7,7 +7,6 @@ import java.util.UUID;
 import learningapp.dtos.subject.SubjectDto;
 import learningapp.entities.Subject;
 
-import static learningapp.factory.TopicFactory.generateTopic;
 import static learningapp.factory.TopicFactory.generateTopicDto;
 import static learningapp.utils.TestConstants.SUBJECT_ID;
 import static learningapp.utils.TestConstants.SUBJECT_NAME;

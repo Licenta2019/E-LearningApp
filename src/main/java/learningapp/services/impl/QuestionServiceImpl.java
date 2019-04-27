@@ -1,28 +1,36 @@
 package learningapp.services.impl;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import learningapp.dtos.question.TestAnswerDto;
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
 import learningapp.entities.User;
-import learningapp.exceptions.NotFoundException;
+import learningapp.exceptions.base.NotFoundException;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
 import learningapp.repositories.UserRepository;
 import learningapp.services.QuestionService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
-
-import static learningapp.entities.TestQuestionStatus.*;
-import static learningapp.exceptions.ExceptionMessages.*;
+import static learningapp.entities.TestQuestionStatus.PENDING;
+import static learningapp.entities.TestQuestionStatus.REQUESTED_CHANGES;
+import static learningapp.entities.TestQuestionStatus.VALIDATED;
+import static learningapp.exceptions.ExceptionMessages.STUDENT_NOT_FOUND;
+import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
+import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
+import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntity;
-import static learningapp.mappers.test.TestQuestionMapper.*;
+import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDto;
+import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDtoList;
+import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionEntity;
 
 @Service
 @Slf4j

@@ -17,7 +17,7 @@ public interface QuestionApi {
                         @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
 
     void validateQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,
-    @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
+                          @ApiParam(value = "question data", required = true) TestQuestionDto questionDto);
 
     List<TestQuestionDto> getAllPendingQuestionsByTopic(@ApiParam(value = "id of the related topic", required = true) String topicId);
 
