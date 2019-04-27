@@ -20,7 +20,7 @@ public class TopicFactory {
         return generateTopicDtoBuilder().build();
     }
 
-    public static Topic generateTopic(){
+    public static Topic generateTopic() {
         return Topic.builder()
                 .name(TOPIC1_NAME)
                 .build();

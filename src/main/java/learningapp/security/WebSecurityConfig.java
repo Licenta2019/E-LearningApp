@@ -1,5 +1,7 @@
 package learningapp.security;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,8 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Configuration for spring security.
@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs")
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/login")
-                .antMatchers( HttpMethod.OPTIONS,"/**")
+                .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers("/swagger-ui.html")
                 .antMatchers("/configuration/**")
                 .antMatchers("/webjars/**");

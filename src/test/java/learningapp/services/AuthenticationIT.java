@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import learningapp.dtos.AuthenticationDto;
 import learningapp.entities.User;
-import learningapp.exceptions.NotFoundException;
+import learningapp.exceptions.base.NotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;

@@ -1,8 +1,9 @@
 package learningapp.handlers;
 
+import org.springframework.stereotype.Component;
+
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
-import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateQuestionHandler {

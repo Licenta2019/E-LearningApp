@@ -1,13 +1,13 @@
 package learningapp.mappers.test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.TestQuestionStatus;
 import lombok.experimental.UtilityClass;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerDtoList;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntityList;

@@ -1,8 +1,8 @@
-package learningapp.exceptions;
+package learningapp.exceptions.base;
 
 public class LearningAppException extends RuntimeException {
 
-    public LearningAppException(String msg) {
+    LearningAppException(String msg) {
         super(msg);
     }
 }
