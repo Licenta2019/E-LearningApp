@@ -58,7 +58,7 @@ public class TestQuestionMapper {
                 .subject(testQuestion.getTopic().getSubject().getName())
                 .topic(testQuestion.getTopic().getName())
                 .questionText(testQuestion.getText())
-                .author(testQuestion.getStudent().getName())
+                .author(testQuestion.getAuthor().getUsername())
                 .creationDate(testQuestion.getCreated())
                 .build();
     }
