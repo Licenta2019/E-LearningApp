@@ -2,7 +2,7 @@ package learningapp.mappers;
 
 import java.util.UUID;
 
-import learningapp.exceptions.InvalidFormatException;
+import learningapp.exceptions.base.InvalidFormatException;
 import lombok.experimental.UtilityClass;
 
 import static learningapp.exceptions.ExceptionMessages.STRING_TO_UUID_ERROR;

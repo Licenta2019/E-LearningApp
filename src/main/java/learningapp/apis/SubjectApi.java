@@ -33,7 +33,7 @@ public interface SubjectApi {
             @ApiResponse(code = 400, message = "The server cannot or will not process the request due to an apparent client error")
     })
     UUID addTopicToSubject(@ApiParam(value = "the subject id", required = true) String subjectId,
-                       @ApiParam(value = "the topic data", required = true) TopicDto topicDto);
+                           @ApiParam(value = "the topic data", required = true) TopicDto topicDto);
 
     @ApiOperation(
             value = "Get a subject"

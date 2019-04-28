@@ -10,23 +10,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import learningapp.apis.AuthenticationApi;
 import learningapp.dtos.AuthenticationDto;
-import learningapp.services.AuthenticationService;
+import learningapp.dtos.UserDto;
+import learningapp.services.UserService;
 
-@RestController(value = "authentication")
+@RestController(value = "user")
 @RequestMapping(path = "/")
 @CrossOrigin
-public class AuthenticationController implements AuthenticationApi {
+public class UserController implements AuthenticationApi {
 
-    private final AuthenticationService authenticationService;
+    private final UserService userService;
 
-    public AuthenticationController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     @PostMapping(value = "login")
-    public void login(@RequestBody @Valid AuthenticationDto authenticationDto) {
-        authenticationService.login(authenticationDto);
+    public UserDto login(@RequestBody @Valid AuthenticationDto authenticationDto) {
+        return userService.login(authenticationDto);
     }
 
 }
