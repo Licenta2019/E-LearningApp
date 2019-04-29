@@ -1,10 +1,14 @@
 package learningapp.entities;
 
-import lombok.*;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -19,6 +23,5 @@ public class Student extends BaseEntity {
 
     @OneToOne
     private User user;
-
 
 }

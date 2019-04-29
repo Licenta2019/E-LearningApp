@@ -32,7 +32,7 @@ public class TestQuestionDto implements Serializable {
     private UUID subjectId;
 
     //    @NotNull
-    private UUID studentId;
+    private UUID authorId; //student
 
     @NotBlank
     private String questionText;

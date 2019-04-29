@@ -9,25 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestAnswerDto;
 import learningapp.dtos.question.TestQuestionDto;
-import learningapp.entities.Student;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
+import learningapp.entities.User;
 import learningapp.exceptions.base.NotFoundException;
-import learningapp.repositories.StudentRepository;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
+import learningapp.repositories.UserRepository;
 import learningapp.services.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 
 import static learningapp.entities.TestQuestionStatus.PENDING;
 import static learningapp.entities.TestQuestionStatus.REQUESTED_CHANGES;
 import static learningapp.entities.TestQuestionStatus.VALIDATED;
-import static learningapp.exceptions.ExceptionMessages.STUDENT_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
+import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
+import static learningapp.handlers.SecurityContextHolderAdapter.getCurrentUser;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntity;
 import static learningapp.mappers.test.TestQuestionMapper.toTableQuestionDtoList;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDto;
@@ -43,16 +44,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final TestAnswerRepository testAnswerRepository;
 
-    private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
 
     public QuestionServiceImpl(TopicRepository topicRepository,
                                TestQuestionRepository testQuestionRepository,
                                TestAnswerRepository testAnswerRepository,
-                               StudentRepository studentRepository) {
+                               UserRepository userRepository) {
         this.topicRepository = topicRepository;
         this.testQuestionRepository = testQuestionRepository;
         this.testAnswerRepository = testAnswerRepository;
-        this.studentRepository = studentRepository;
+        this.userRepository = userRepository;
     }
 
     private Topic getTopicEntity(UUID topicId) {
@@ -70,13 +71,14 @@ public class QuestionServiceImpl implements QuestionService {
     public UUID addTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
 
         Topic topic = getTopicEntity(topicId);
-        Student student = studentRepository.findById(testQuestionDto.getStudentId())
-                .orElseThrow(() -> new NotFoundException(STUDENT_NOT_FOUND));
+
+        User author = userRepository.findByUsername(getCurrentUser())
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 
         TestQuestion testQuestion = toTestQuestionEntity(testQuestionDto);
 
         testQuestion.setTopic(topic);
-        testQuestion.setStudent(student);
+        testQuestion.setAuthor(author);
 
         addTestAnswer(testQuestion);
 

@@ -13,6 +13,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,11 +32,14 @@ public class TestQuestion extends BaseEntity {
     @CreationTimestamp
     private LocalDate created;
 
+    @UpdateTimestamp
+    private LocalDate updated;
+
     @ManyToOne(optional = false)
     private Topic topic;
 
     @ManyToOne(optional = false)
-    private Student student;
+    private User author;
 
     @NotBlank
     private String text;
