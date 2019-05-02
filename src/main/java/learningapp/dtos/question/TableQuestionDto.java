@@ -29,5 +29,5 @@ public class TableQuestionDto {
     private String author;
 
     @NotNull
-    private LocalDate creationDate;
+    private LocalDate updateDate;
 }

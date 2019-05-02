@@ -59,4 +59,8 @@ public class TestQuestion extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TestQuestionStatus status = TestQuestionStatus.PENDING;
 
+    public LocalDate getLastUpdateDate() {
+        return getUpdated() != null ? getUpdated() : getCreated();
+    }
+
 }
