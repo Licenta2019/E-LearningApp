@@ -21,7 +21,7 @@ public class Student extends BaseEntity {
     @NotNull
     private String name;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private User user;
 
 }

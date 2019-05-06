@@ -94,6 +94,31 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public List<TableQuestionDto> getAllQuestionForProfessor(UUID professorId) {
+        return testQuestionRepository.findAllByProfessor(professorId);
+    }
+
+    @Override
+    public List<TableQuestionDto> getAllQuestionForStudent(UUID studentId) {
+        return testQuestionRepository.findAllByStudent(studentId);
+    }
+
+    @Override
+    public int getNotificationsCount(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        switch (user.getUserRole()) {
+            case PROFESSOR:
+                return testQuestionRepository.getNotificationsCountForProfessor(userId);
+            case STUDENT:
+                return testQuestionRepository.getNotificationsCountForStudent(userId);
+            default:
+                return 0;
+        }
+    }
+
+    @Override
     @Transactional
     public UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
         TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
