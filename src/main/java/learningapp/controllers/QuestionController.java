@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ class QuestionController implements QuestionApi {
     @Override
     @PostMapping("/{topicId}/question")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority(STUDENT)")
     public UUID createQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
         return questionService.addTestQuestion(uuidFromString(topicId), questionDto);
     }
@@ -50,6 +52,7 @@ class QuestionController implements QuestionApi {
 
     @Override
     @PutMapping("/{topicId}/question/{questionId}")
+    @PreAuthorize("hasAuthority(PROFESSOR)")
     public void validateQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
         questionService.validateQuestion(questionDto);
     }
@@ -64,6 +67,7 @@ class QuestionController implements QuestionApi {
     @Override
     @GetMapping("/professor/{professorId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasAuthority(PROFESSOR)")
     public List<TableQuestionDto> getAllQuestionsForProfessor(@PathVariable String professorId) {
         return questionService.getAllQuestionForProfessor(uuidFromString(professorId));
     }
@@ -71,6 +75,7 @@ class QuestionController implements QuestionApi {
     @Override
     @GetMapping("/student/{studentId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasAuthority(STUDENT)")
     public List<TableQuestionDto> getAllQuestionsForStudent(@PathVariable String studentId) {
         return questionService.getAllQuestionForStudent(uuidFromString(studentId));
     }

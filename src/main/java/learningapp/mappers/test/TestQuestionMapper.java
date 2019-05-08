@@ -43,6 +43,7 @@ public class TestQuestionMapper {
                 .status(testQuestion.getStatus())
                 .topicId(testQuestion.getTopic().getId())
                 .subjectId(testQuestion.getTopic().getSubject().getId())
+                .difficulty(testQuestion.getDifficulty())
                 .build();
     }
 
