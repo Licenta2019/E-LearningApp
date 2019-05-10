@@ -2,18 +2,18 @@ package learningapp.entities;
 
 public enum TestQuestionStatus {
 
-    PENDING(1),
-    REQUESTED_CHANGES(2),
-    VALIDATED(3),
-    INVALIDATED(4);
+    PENDING("Pending"),
+    REQUESTED_CHANGES("Requested Changes"),
+    VALIDATED("Validated"),
+    INVALIDATED("Invalidated");
 
-    private int priority;
+    private String label;
 
-    TestQuestionStatus(int priority) {
-        this.priority = priority;
+    TestQuestionStatus(String label) {
+        this.label = label;
     }
 
-    public int getPriority() {
-        return this.priority;
+    public String getLabel() {
+        return this.label;
     }
 }

@@ -13,7 +13,9 @@ import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.Topic;
 import learningapp.entities.User;
+import learningapp.exceptions.base.InvalidTransitionException;
 import learningapp.exceptions.base.NotFoundException;
+import learningapp.handlers.StatusTransitionComputation;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
@@ -24,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import static learningapp.entities.TestQuestionStatus.PENDING;
 import static learningapp.entities.TestQuestionStatus.REQUESTED_CHANGES;
 import static learningapp.entities.TestQuestionStatus.VALIDATED;
+import static learningapp.exceptions.ExceptionMessages.INVALID_TRANSITION_ERROR;
 import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
@@ -46,14 +49,18 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final UserRepository userRepository;
 
+    private final StatusTransitionComputation statusTransitionComputation;
+
     public QuestionServiceImpl(TopicRepository topicRepository,
                                TestQuestionRepository testQuestionRepository,
                                TestAnswerRepository testAnswerRepository,
-                               UserRepository userRepository) {
+                               UserRepository userRepository,
+                               StatusTransitionComputation statusTransitionComputation) {
         this.topicRepository = topicRepository;
         this.testQuestionRepository = testQuestionRepository;
         this.testAnswerRepository = testAnswerRepository;
         this.userRepository = userRepository;
+        this.statusTransitionComputation = statusTransitionComputation;
     }
 
     private Topic getTopicEntity(UUID topicId) {
@@ -140,6 +147,10 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public void validateQuestion(TestQuestionDto testQuestionDto) {
         TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
+
+//        if (!statusTransitionComputation.isValidTransition(testQuestion.getStatus(), VALIDATED)) {
+//            throw new InvalidTransitionException(INVALID_TRANSITION_ERROR + testQuestion.getStatus() + "to " + VALIDATED);
+//        }
 
         testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer);
 

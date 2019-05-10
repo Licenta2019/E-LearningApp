@@ -1,10 +1,18 @@
 package learningapp.dtos.question;
 
-import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+
+import learningapp.entities.TestQuestionStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -27,6 +35,10 @@ public class TableQuestionDto {
 
     @NotNull
     private String author;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TestQuestionStatus status;
 
     @NotNull
     private LocalDate updateDate;

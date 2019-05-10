@@ -60,6 +60,7 @@ public class TestQuestionMapper {
                 .topic(testQuestion.getTopic().getName())
                 .questionText(testQuestion.getText())
                 .author(testQuestion.getAuthor().getUsername())
+                .status(testQuestion.getStatus())
                 .updateDate(testQuestion.getLastUpdateDate())
                 .build();
     }

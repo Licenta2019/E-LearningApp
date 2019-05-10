@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import learningapp.exceptions.base.DuplicateEntityException;
 import learningapp.exceptions.base.InvalidFormatException;
+import learningapp.exceptions.base.InvalidTransitionException;
 import learningapp.exceptions.base.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +37,7 @@ public class LearningappRestControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity handleException(InvalidFormatException e) {
-
+        log.error("invalid format exception");
         return ResponseEntity.builder()
                 .message(e.getMessage())
                 .build();
@@ -45,6 +46,16 @@ public class LearningappRestControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity handleException(BadCredentialsException e) {
+        log.error("bad credentials exception");
+        return ResponseEntity.builder()
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity handleException(InvalidTransitionException e) {
+        log.error("bad credentials exception");
         return ResponseEntity.builder()
                 .message(e.getMessage())
                 .build();

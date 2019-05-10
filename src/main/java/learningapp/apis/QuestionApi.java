@@ -22,10 +22,6 @@ public interface QuestionApi {
 
     List<TableQuestionDto> getAllPendingQuestionsByTopic(@ApiParam(value = "id of the related topic", required = true) String topicId);
 
-    List<TableQuestionDto> getAllQuestionsForProfessor(@ApiParam(value = "id of the professor", required = true) String professorId);
-
-    List<TableQuestionDto> getAllQuestionsForStudent(@ApiParam(value = "id of the student", required = true) String userId);
-
     int getNotificationsCount(@ApiParam(value = "user to be notified data", required = true) String userId);
 
     TestQuestionDto getQuestion(@ApiParam(value = "id of the question", required = true) String id);

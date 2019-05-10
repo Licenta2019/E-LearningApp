@@ -65,22 +65,6 @@ class QuestionController implements QuestionApi {
     }
 
     @Override
-    @GetMapping("/professor/{professorId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @PreAuthorize("hasAuthority(PROFESSOR)")
-    public List<TableQuestionDto> getAllQuestionsForProfessor(@PathVariable String professorId) {
-        return questionService.getAllQuestionForProfessor(uuidFromString(professorId));
-    }
-
-    @Override
-    @GetMapping("/student/{studentId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @PreAuthorize("hasAuthority(STUDENT)")
-    public List<TableQuestionDto> getAllQuestionsForStudent(@PathVariable String studentId) {
-        return questionService.getAllQuestionForStudent(uuidFromString(studentId));
-    }
-
-    @Override
     @GetMapping("/notificationsCount/{userId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public int getNotificationsCount(@PathVariable String userId) {
