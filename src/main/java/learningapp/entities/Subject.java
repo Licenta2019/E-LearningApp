@@ -35,6 +35,6 @@ public class Subject extends BaseEntity {
     @JoinTable(name = "professor_subject",
             joinColumns = {@JoinColumn(name = "subject_id")},
             inverseJoinColumns = {@JoinColumn(name = "professor_id")})
-    private List<Professor> professor;
+    private List<Professor> professors;
 
 }

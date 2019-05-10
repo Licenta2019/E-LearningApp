@@ -1,10 +1,10 @@
 package learningapp.services;
 
-import learningapp.dtos.question.TableQuestionDto;
-import learningapp.dtos.question.TestQuestionDto;
-
 import java.util.List;
 import java.util.UUID;
+
+import learningapp.dtos.question.TableQuestionDto;
+import learningapp.dtos.question.TestQuestionDto;
 
 public interface QuestionService {
 
@@ -50,4 +50,42 @@ public interface QuestionService {
      */
     TestQuestionDto getQuestion(UUID uuid);
 
+    /**
+     * Retrieve all questions related to subjects teached by a specific professor
+     *
+     * @return
+     */
+    List<TableQuestionDto> getAllQuestionForProfessor(UUID professorId);
+
+    /**
+     * Retrieve all questions added by a specific student
+     *
+     * @return
+     */
+    List<TableQuestionDto> getAllQuestionForStudent(UUID studentId);
+
+//    /**
+//     * Return number of pending questions added for all subjects teached by a specific professor
+//     *
+//     * @param professorId
+//     * @return
+//     */
+//    int getNotificationsCountForProfessor(UUID professorId);
+//
+//    /**
+//     * Return number of pending questions added for a specific student
+//     *
+//     * @param studentId
+//     * @return
+//     */
+//    int getNotificationsCountForStudent(UUID studentId);
+
+
+    /**
+     * Return number of all related questions with given user that are in a non-terminal status
+     *
+     * @param userId
+     * @return
+     */
+    int getNotificationsCount(UUID userId);
 }

@@ -23,7 +23,7 @@ import learningapp.services.SubjectService;
 
 import static learningapp.mappers.GeneralMapper.uuidFromString;
 
-@RestController(value = "ProfessorController")
+@RestController(value = "SubjectController")
 @RequestMapping(path = "/subject")
 @CrossOrigin
 public class SubjectController implements SubjectApi {

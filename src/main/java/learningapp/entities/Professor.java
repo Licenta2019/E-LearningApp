@@ -24,13 +24,13 @@ public class Professor extends BaseEntity {
     @NotNull
     private String name;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private User user;
 
     @ManyToMany
     @JoinTable(name = "professor_subject",
             joinColumns = {@JoinColumn(name = "professor_id")},
             inverseJoinColumns = {@JoinColumn(name = "subject_id")})
-    private List<Subject> subject;
+    private List<Subject> subjects;
 
 }

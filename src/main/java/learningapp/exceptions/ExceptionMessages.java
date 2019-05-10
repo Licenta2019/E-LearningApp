@@ -22,4 +22,8 @@ public final class ExceptionMessages {
 
     //Invalid Format
     public static final String STRING_TO_UUID_ERROR = "Invalid uuid format!";
+
+    //Invalid Transition
+    public static final String INVALID_TRANSITION_ERROR = "Invalid transition from ";
+
 }
