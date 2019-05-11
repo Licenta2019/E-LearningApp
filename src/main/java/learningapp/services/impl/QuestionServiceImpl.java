@@ -11,11 +11,11 @@ import learningapp.dtos.question.TestAnswerDto;
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
+import learningapp.entities.TestQuestionStatus;
 import learningapp.entities.Topic;
 import learningapp.entities.User;
 import learningapp.exceptions.base.InvalidTransitionException;
 import learningapp.exceptions.base.NotFoundException;
-import learningapp.handlers.StatusTransitionComputation;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
 import learningapp.repositories.TopicRepository;
@@ -24,7 +24,6 @@ import learningapp.services.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 
 import static learningapp.entities.TestQuestionStatus.PENDING;
-import static learningapp.entities.TestQuestionStatus.REQUESTED_CHANGES;
 import static learningapp.entities.TestQuestionStatus.VALIDATED;
 import static learningapp.exceptions.ExceptionMessages.INVALID_TRANSITION_ERROR;
 import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
@@ -32,6 +31,9 @@ import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
 import static learningapp.handlers.SecurityContextHolderAdapter.getCurrentUser;
+import static learningapp.handlers.StatusTransitionComputation.getNextStatus;
+import static learningapp.handlers.StatusTransitionComputation.isValidTransition;
+import static learningapp.handlers.StatusTransitionComputation.nonFinalStatuses;
 import static learningapp.mappers.test.TestAnswerMapper.toTestAnswerEntity;
 import static learningapp.mappers.test.TestQuestionMapper.toTableQuestionDtoList;
 import static learningapp.mappers.test.TestQuestionMapper.toTestQuestionDto;
@@ -49,18 +51,14 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final UserRepository userRepository;
 
-    private final StatusTransitionComputation statusTransitionComputation;
-
     public QuestionServiceImpl(TopicRepository topicRepository,
                                TestQuestionRepository testQuestionRepository,
                                TestAnswerRepository testAnswerRepository,
-                               UserRepository userRepository,
-                               StatusTransitionComputation statusTransitionComputation) {
+                               UserRepository userRepository) {
         this.topicRepository = topicRepository;
         this.testQuestionRepository = testQuestionRepository;
         this.testAnswerRepository = testAnswerRepository;
         this.userRepository = userRepository;
-        this.statusTransitionComputation = statusTransitionComputation;
     }
 
     private Topic getTopicEntity(UUID topicId) {
@@ -102,12 +100,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<TableQuestionDto> getAllQuestionForProfessor(UUID professorId) {
-        return testQuestionRepository.findAllByProfessor(professorId);
+        return testQuestionRepository.findAllByProfessorAndStatus(professorId, nonFinalStatuses);
     }
+
 
     @Override
     public List<TableQuestionDto> getAllQuestionForStudent(UUID studentId) {
-        return testQuestionRepository.findAllByStudent(studentId);
+        return testQuestionRepository.findAllByStudentAndStatus(studentId, nonFinalStatuses);
     }
 
     @Override
@@ -130,15 +129,13 @@ public class QuestionServiceImpl implements QuestionService {
     public UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
         TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
 
-        toTestQuestionEntity(testQuestion, testQuestionDto, PENDING);
+        User user = userRepository.findByUsername(getCurrentUser())
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 
-        if (testQuestionDto.getNotificationMessage() != null) {
-            testQuestion.setStatus(REQUESTED_CHANGES);
-            testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer); //possible changes made by professor
-        } else if (testQuestion.getStatus().equals(REQUESTED_CHANGES)) {
-            updateTestQuestionAfterNotification(testQuestion);
-            addTestAnswer(testQuestion);
-        }
+        TestQuestionStatus nextStatus = getNextStatus(testQuestion.getStatus(), user.getUserRole());
+        toTestQuestionEntity(testQuestion, testQuestionDto, nextStatus);
+
+        testQuestionDto.getAnswerDtos().forEach((testAnswerDto) -> updateTestAnswer(testAnswerDto, testQuestion)); //possible changes
 
         return testQuestionRepository.save(testQuestion).getId();
     }
@@ -148,21 +145,15 @@ public class QuestionServiceImpl implements QuestionService {
     public void validateQuestion(TestQuestionDto testQuestionDto) {
         TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
 
-//        if (!statusTransitionComputation.isValidTransition(testQuestion.getStatus(), VALIDATED)) {
-//            throw new InvalidTransitionException(INVALID_TRANSITION_ERROR + testQuestion.getStatus() + "to " + VALIDATED);
-//        }
+        if (!isValidTransition(testQuestion.getStatus(), VALIDATED)) {
+            throw new InvalidTransitionException(INVALID_TRANSITION_ERROR + testQuestion.getStatus() + " to " + VALIDATED);
+        }
 
-        testQuestionDto.getAnswerDtos().forEach(this::updateTestAnswer);
+        testQuestionDto.getAnswerDtos().forEach((testAnswerDto) -> updateTestAnswer(testAnswerDto, testQuestion));
 
         toTestQuestionEntity(testQuestion, testQuestionDto, VALIDATED);
 
         testQuestionRepository.save(testQuestion);
-    }
-
-    private void updateTestQuestionAfterNotification(TestQuestion testQuestion) {
-        testAnswerRepository.deleteAllByQuestion(testQuestion);
-
-        testQuestion.setStatus(PENDING);
     }
 
     @Override
@@ -172,13 +163,25 @@ public class QuestionServiceImpl implements QuestionService {
         return toTableQuestionDtoList(testQuestionRepository.findAllByTopicAndStatus(topic, PENDING));
     }
 
-    private void updateTestAnswer(TestAnswerDto testAnswerDto) {
-        TestAnswer testAnswer = testAnswerRepository.findById(testAnswerDto.getId())
-                .orElseThrow(() -> new NotFoundException(TEST_ANSWER_NOT_FOUND));
+    private void updateTestAnswer(TestAnswerDto testAnswerDto, TestQuestion question) {
+        if (testAnswerDto.getId() != null) {
+            TestAnswer testAnswer = testAnswerRepository.findById(testAnswerDto.getId())
+                    .orElseThrow(() -> new NotFoundException(TEST_ANSWER_NOT_FOUND));
 
-        toTestAnswerEntity(testAnswer, testAnswerDto);
+            toTestAnswerEntity(testAnswer, testAnswerDto);
 
-        testAnswerRepository.save(testAnswer);
+            testAnswerRepository.save(testAnswer);
+        } else {
+            saveNewTestAnswer(testAnswerDto, question);
+        }
+    }
+
+    private void saveNewTestAnswer(TestAnswerDto answerDto, TestQuestion question) {
+        TestAnswer answer = new TestAnswer();
+        toTestAnswerEntity(answer, answerDto);
+
+        answer.setQuestion(question);
+        testAnswerRepository.save(answer);
     }
 
     private void addTestAnswer(TestQuestion question) {

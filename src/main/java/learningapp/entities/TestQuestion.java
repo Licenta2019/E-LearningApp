@@ -55,6 +55,8 @@ public class TestQuestion extends BaseEntity {
     @NotBlank
     private String explanation;
 
+    private String notificationMessage;
+
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private TestQuestionStatus status = TestQuestionStatus.PENDING;

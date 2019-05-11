@@ -29,16 +29,16 @@ public interface TestQuestionRepository extends JpaRepository<TestQuestion, UUID
             "JOIN  t.subject s " +
             "JOIN s.professors p " +
             "JOIN p.user u " +
-            "WHERE u.id = ?1 and tq.status = 'PENDING'")
-    List<TableQuestionDto> findAllByProfessor(UUID professorId);
+            "WHERE u.id = ?1 and tq.status in ?2")
+    List<TableQuestionDto> findAllByProfessorAndStatus(UUID professorId, List<TestQuestionStatus> statuses);
 
     @Query(value = "SELECT " +
             "new learningapp.dtos.question.TableQuestionDto(" +
             "tq.id ,tq.text, tq.topic.subject.name," +
             "tq.topic.name, tq.author.username,tq.status, tq.updated) " +
             "FROM TestQuestion tq " +
-            "WHERE tq.author.id = ?1 and tq.status = 'PENDING'")
-    List<TableQuestionDto> findAllByStudent(UUID studentId);
+            "WHERE tq.author.id = ?1 and tq.status in ?2")
+    List<TableQuestionDto> findAllByStudentAndStatus(UUID studentId, List<TestQuestionStatus> statuses);
 
     @Query(value = "SELECT COUNT(tq) " +
             "FROM TestQuestion tq JOIN tq.topic t " +
