@@ -25,15 +25,14 @@ import static learningapp.factory.TopicFactory.generateTopicDto;
 import static learningapp.factory.TopicFactory.generateTopicDtoBuilder;
 import static learningapp.mappers.GeneralMapper.uuidFromString;
 import static learningapp.utils.TestConstants.INEXISTENT_ID;
+import static learningapp.utils.TestConstants.SUBJECT_A_NAME;
+import static learningapp.utils.TestConstants.SUBJECT_B_NAME;
+import static learningapp.utils.TestConstants.SUBJECT_NOT_UNIQUE;
+import static learningapp.utils.TestConstants.SUBJECT_UNIQUE_NAME;
+import static learningapp.utils.TestConstants.UPDATED_TOPIC_NAME;
 
 public class SubjectIT extends BaseIntegrationTest {
 
-    public static final String SUBJECT_A_NAME = "SubjectA";
-    public static final String SUBJECT_B_NAME = "SubjectB";
-    public static final String SUBJECT_UNIQUE_NAME = "Unique subject";
-    public static final String SUBJECT_NOT_UNIQUE = "Not-unique subject";
-
-    public static final String UPDATED_TOPIC_NAME = "Updated topic";
     @Autowired
     public SubjectService subjectService;
 

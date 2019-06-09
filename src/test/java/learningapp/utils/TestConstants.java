@@ -29,4 +29,13 @@ public class TestConstants {
     public static final String ANSWER_TEXT = "It's a class obviously!";
     public static final String UPDATED_ANSWER_TEXT = "There are a lot of  streams, yes!";
 
+    public static final String EXPLANATION = "Explanation";
+    //SUBJECT
+    public static final String SUBJECT_A_NAME = "SubjectA";
+    public static final String SUBJECT_B_NAME = "SubjectB";
+    public static final String SUBJECT_UNIQUE_NAME = "Unique subject";
+    public static final String SUBJECT_NOT_UNIQUE = "Not-unique subject";
+
+    public static final String UPDATED_TOPIC_NAME = "Updated topic";
+
 }

@@ -23,6 +23,7 @@ import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestQuestionDto;
 import learningapp.services.QuestionService;
 
+import static learningapp.handlers.SecurityContextHolderAdapter.getCurrentUser;
 import static learningapp.mappers.GeneralMapper.uuidFromString;
 
 @RestController(value = "QuestionController")
@@ -41,13 +42,14 @@ class QuestionController implements QuestionApi {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority(STUDENT)")
     public UUID createQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
-        return questionService.addTestQuestion(uuidFromString(topicId), questionDto);
+        return questionService.addTestQuestion(uuidFromString(topicId), getCurrentUser(), questionDto);
     }
 
     @Override
     @PostMapping("/{topicId}/question/{questionId}")
     public UUID updateQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
-        return questionService.updateTestQuestion(uuidFromString(topicId), questionDto);
+        questionDto.setTopicId(uuidFromString(topicId));
+        return questionService.updateTestQuestion(getCurrentUser(), questionDto);
     }
 
     @Override

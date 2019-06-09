@@ -12,19 +12,20 @@ public interface QuestionService {
      * Method that saves a test question dto via a specific test question dto.
      *
      * @param topicId         - id of the correlated topic
+     * @param currentUser     - logged-in user
      * @param testQuestionDto - test question's data
      * @return
      */
-    UUID addTestQuestion(UUID topicId, TestQuestionDto testQuestionDto);
+    UUID addTestQuestion(UUID topicId, String currentUser, TestQuestionDto testQuestionDto);
 
     /**
      * Method that updates a test question via a specific test question dto.
      *
+     * @param currentUser     - logged-in user
      * @param testQuestionDto - data for new question dto
-     * @param topicId
      * @return
      */
-    UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto);
+    UUID updateTestQuestion(String currentUser, TestQuestionDto testQuestionDto);
 
     /**
      * Return all questions for a specific topic.
@@ -63,23 +64,6 @@ public interface QuestionService {
      * @return
      */
     List<TableQuestionDto> getAllQuestionForStudent(UUID studentId);
-
-//    /**
-//     * Return number of pending questions added for all subjects teached by a specific professor
-//     *
-//     * @param professorId
-//     * @return
-//     */
-//    int getNotificationsCountForProfessor(UUID professorId);
-//
-//    /**
-//     * Return number of pending questions added for a specific student
-//     *
-//     * @param studentId
-//     * @return
-//     */
-//    int getNotificationsCountForStudent(UUID studentId);
-
 
     /**
      * Return number of all related questions with given user that are in a non-terminal status

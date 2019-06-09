@@ -27,8 +27,6 @@ import static learningapp.mappers.subject.TopicMapper.toTopicEntityList;
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
-    //TODO(Paul) add exceptions for validation
-
     private final SubjectRepository subjectRepository;
 
     private final TopicRepository topicRepository;

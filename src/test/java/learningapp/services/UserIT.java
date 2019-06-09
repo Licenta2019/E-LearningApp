@@ -2,6 +2,9 @@ package learningapp.services;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import learningapp.dtos.AuthenticationDto;
 import learningapp.entities.User;
@@ -12,25 +15,27 @@ import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
 import static learningapp.factory.UserFactory.generateAuthenticationDtoBuilder;
 import static learningapp.utils.TestConstants.INEXISTENT_PASSWORD;
 import static learningapp.utils.TestConstants.INEXISTENT_USER;
+import static learningapp.utils.TestConstants.USER_NAME;
+import static learningapp.utils.TestConstants.USER_PASSWORD;
 
-public class AuthenticationIT extends BaseIntegrationTest {
+public class UserIT extends BaseIntegrationTest {
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private UserService userService;
 
     @Test
     public void givenValidAuthDto_whenLogin_thenOk() {
 
         //given
-        User user = createRandomUser();
+        User user = findOrCreateUser(USER_NAME);
 
         AuthenticationDto authenticationDto = generateAuthenticationDtoBuilder()
                 .username(user.getUsername())
-                .password(user.getPassword())
+                .password(USER_PASSWORD)
                 .build();
 
         //when
-        assertThatCode(() -> authenticationService.login(authenticationDto))
+        assertThatCode(() -> userService.login(authenticationDto))
 
                 //then
                 .doesNotThrowAnyException();
@@ -46,10 +51,10 @@ public class AuthenticationIT extends BaseIntegrationTest {
                 .build();
 
         //when
-        assertThatThrownByError(() -> authenticationService.login(authenticationDto),
+        assertThatThrownByError(() -> userService.login(authenticationDto),
 
                 //then
-                NotFoundException.class, USER_NOT_FOUND);
+                InternalAuthenticationServiceException.class, USER_NOT_FOUND);
     }
 
 }

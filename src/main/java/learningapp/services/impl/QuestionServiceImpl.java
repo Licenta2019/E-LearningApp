@@ -30,7 +30,6 @@ import static learningapp.exceptions.ExceptionMessages.TEST_ANSWER_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TEST_QUESTION_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.TOPIC_NOT_FOUND;
 import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
-import static learningapp.handlers.SecurityContextHolderAdapter.getCurrentUser;
 import static learningapp.handlers.StatusTransitionComputation.getNextStatus;
 import static learningapp.handlers.StatusTransitionComputation.isValidTransition;
 import static learningapp.handlers.StatusTransitionComputation.nonFinalStatuses;
@@ -73,11 +72,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public UUID addTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
-
+    public UUID addTestQuestion(UUID topicId, String currentUser, TestQuestionDto testQuestionDto) {
         Topic topic = getTopicEntity(topicId);
 
-        User author = userRepository.findByUsername(getCurrentUser())
+        User author = userRepository.findByUsername(currentUser)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 
         TestQuestion testQuestion = toTestQuestionEntity(testQuestionDto);
@@ -126,14 +124,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public UUID updateTestQuestion(UUID topicId, TestQuestionDto testQuestionDto) {
+    public UUID updateTestQuestion(String currentUser, TestQuestionDto testQuestionDto) {
         TestQuestion testQuestion = getTestQuestionEntity(testQuestionDto.getId());
 
-        User user = userRepository.findByUsername(getCurrentUser())
+        User user = userRepository.findByUsername(currentUser)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 
+        Topic topic = getTopicEntity(testQuestionDto.getTopicId());
         TestQuestionStatus nextStatus = getNextStatus(testQuestion.getStatus(), user.getUserRole());
         toTestQuestionEntity(testQuestion, testQuestionDto, nextStatus);
+
+        testQuestion.setTopic(topic);
 
         testQuestionDto.getAnswerDtos().forEach((testAnswerDto) -> updateTestAnswer(testAnswerDto, testQuestion)); //possible changes
 

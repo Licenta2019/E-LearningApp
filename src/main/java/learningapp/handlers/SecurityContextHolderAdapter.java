@@ -12,6 +12,7 @@ import static java.util.Optional.ofNullable;
 public class SecurityContextHolderAdapter {
 
     public static String getCurrentUser() throws AuthenticationException {
+        log.info("get current logged in user...");
         return ofNullable((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
                 .map(UserDetails::getUsername)
                 .orElseThrow(() -> new AuthenticationException("Authentication not found") {

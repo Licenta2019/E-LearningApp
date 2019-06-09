@@ -1,6 +1,7 @@
 package learningapp.services;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.Test;
@@ -8,11 +9,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import learningapp.config.H2TestConfiguration;
 import learningapp.entities.Subject;
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
+import learningapp.entities.TestQuestionStatus;
 import learningapp.entities.Topic;
 import learningapp.entities.User;
 import learningapp.repositories.SubjectRepository;
@@ -27,6 +30,7 @@ import static learningapp.factory.TestAnswerFactory.generateTestAnswer;
 import static learningapp.factory.TestQuestionFactory.generateTestQuestion;
 import static learningapp.factory.TopicFactory.generateTopic;
 import static learningapp.factory.UserFactory.generateUser;
+import static learningapp.factory.UserFactory.generateUserBuilder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = H2TestConfiguration.class)
@@ -68,9 +72,13 @@ public class BaseIntegrationTest {
         return topicRepository.save(topic);
     }
 
-    public TestQuestion createRandomTestQuestion(Topic topic) {
+    @Transactional
+    public TestQuestion createRandomTestQuestion(Topic topic, User author, TestQuestionStatus status) {
         TestQuestion testQuestion = generateTestQuestion();
+
         testQuestion.setTopic(topic);
+        testQuestion.setAuthor(author);
+        testQuestion.setStatus(status);
 
         testQuestion = testQuestionRepository.save(testQuestion);
 
@@ -80,11 +88,20 @@ public class BaseIntegrationTest {
 
         testAnswerRepository.save(testAnswer);
 
-        return testQuestion;
+        return testQuestionRepository.save(testQuestion);
+    }
+
+    public User findOrCreateUser(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+
+        return userOptional.orElseGet(() -> userRepository.save(generateUserBuilder()
+                .username(username)
+                .build()));
     }
 
     public User createRandomUser() {
         return userRepository.save(generateUser());
     }
+
 
 }

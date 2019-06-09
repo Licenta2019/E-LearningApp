@@ -17,7 +17,7 @@ public interface SubjectService {
     UUID addSubject(SubjectDto subjectDto);
 
     /**
-     * Method that saves a topic via a specific topic dto.
+     * Method that saves a topic to a subject via a specific topic dto.
      *
      * @param id       - corellated subject's id
      * @param topicDto - topic's data
