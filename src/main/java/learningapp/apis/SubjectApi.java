@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import learningapp.dtos.subject.SubjectDto;
 import learningapp.dtos.subject.TopicDto;
 
-@Api(tags = "Subject API", description = "The API for subject")
+@Api(tags = "Subject API")
 public interface SubjectApi {
 
     @ApiOperation(

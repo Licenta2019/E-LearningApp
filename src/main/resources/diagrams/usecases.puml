@@ -1,14 +1,16 @@
 @startuml
 !pragma graphviz_dot jdot
-Professor --> (LogIn)
-Professor --> (LogOut)
-Professor --> (Add Subject)
-Professor --> (Add Topic)
-Professor --> (Validate question)
 
+[*] --> Pending
+Pending --> Validated
+Pending --> Invalidated
+Pending ---> Requested_changes
 
-Student --> (LogIn)
-Student --> (LogOut)
-Student --> (Add question)
+Requested_changes --> Pending
+Requested_changes --> Validated
+Requested_changes --> Invalidated
+
+Validated --> [*]
+Invalidated --> [*]
 
 @enduml

@@ -20,7 +20,7 @@ import static learningapp.mappers.GeneralMapper.uuidFromString;
 @RestController(value = "ProfessorController")
 @RequestMapping(path = "/professor")
 @CrossOrigin
-//@PreAuthorize("hasAuthority(PROFESSOR)")
+@PreAuthorize("hasAuthority(PROFESSOR)")
 public class ProfessorController implements ProfessorApi {
 
     private final QuestionService questionService;

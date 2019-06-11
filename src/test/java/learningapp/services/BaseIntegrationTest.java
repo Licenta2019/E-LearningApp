@@ -1,6 +1,7 @@
 package learningapp.services;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.assertj.core.api.ThrowableAssert;
@@ -18,6 +19,11 @@ import learningapp.entities.TestQuestion;
 import learningapp.entities.TestQuestionStatus;
 import learningapp.entities.Topic;
 import learningapp.entities.User;
+import learningapp.entities.notification.Notification;
+import learningapp.entities.notification.NotificationUser;
+import learningapp.entities.notification.NotificationUserId;
+import learningapp.repositories.NotificationRepository;
+import learningapp.repositories.NotificationUserRepository;
 import learningapp.repositories.SubjectRepository;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
@@ -25,6 +31,7 @@ import learningapp.repositories.TopicRepository;
 import learningapp.repositories.UserRepository;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static learningapp.entities.notification.NotificationType.INFO;
 import static learningapp.factory.SubjectFactory.generateSubject;
 import static learningapp.factory.TestAnswerFactory.generateTestAnswer;
 import static learningapp.factory.TestQuestionFactory.generateTestQuestion;
@@ -50,6 +57,12 @@ public class BaseIntegrationTest {
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected NotificationRepository notificationRepository;
+
+    @Autowired
+    protected NotificationUserRepository notificationUserRepository;
 
     @Test
     public void fakeTest() {
@@ -103,5 +116,20 @@ public class BaseIntegrationTest {
         return userRepository.save(generateUser());
     }
 
+    public void createRandomNotification(User user) {
+
+        Notification notification = new Notification();
+        notification.setMessage("Message");
+        notification.setType(INFO);
+        notificationRepository.save(notification);
+
+        NotificationUser notificationUser = new NotificationUser();
+        notificationUser.setNotificationUserId(new NotificationUserId(user.getId(), notification.getId()));
+        notificationUser.setUser(user);
+        notificationUser.setNotification(notification);
+        notificationUserRepository.save(notificationUser);
+
+        notification.setNotificationUsers(Collections.singletonList(notificationUser));
+    }
 
 }

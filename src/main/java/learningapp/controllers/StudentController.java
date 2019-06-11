@@ -21,7 +21,7 @@ import static learningapp.mappers.GeneralMapper.uuidFromString;
 @RestController(value = "StudentController")
 @RequestMapping(path = "/student")
 @CrossOrigin
-//@PreAuthorize("hasAuthority(STUDENT)")
+@PreAuthorize("hasAuthority(STUDENT)")
 public class StudentController implements StudentApi {
 
     private final QuestionService questionService;

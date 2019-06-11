@@ -1,7 +1,10 @@
 package learningapp.services;
 
+import java.util.UUID;
+
 import learningapp.dtos.AuthenticationDto;
-import learningapp.dtos.UserDto;
+import learningapp.dtos.user.BaseUserDto;
+import learningapp.dtos.user.UserDto;
 
 public interface UserService {
 
@@ -9,7 +12,21 @@ public interface UserService {
      * Perform login for user described by the authentication dto.
      *
      * @param authenticationDto
+     * @return
      */
-    UserDto login(AuthenticationDto authenticationDto);
+    BaseUserDto login(AuthenticationDto authenticationDto);
 
+    /**
+     * Update a specific user via it's id.
+     * @param uuidFromString
+     * @param userDto
+     */
+    void updateUser(UUID uuidFromString, UserDto userDto);
+
+    /**
+     * Retrieve a specific user.
+     * @param uuidFromString
+     * @return
+     */
+    UserDto getUser(UUID uuidFromString);
 }

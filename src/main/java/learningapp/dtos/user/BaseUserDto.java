@@ -1,4 +1,6 @@
-package learningapp.dtos;
+package learningapp.dtos.user;
+
+import java.util.UUID;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,18 +11,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotificationDto {
+public class BaseUserDto {
 
     @NotNull
-    private String userId;
+    private UUID id;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    //token
+    @NotNull
+    private String jwtToken;
+
+    @NotNull
+    private boolean notificationsEnabled;
 
 }

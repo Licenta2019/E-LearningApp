@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiParam;
 import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestQuestionDto;
 
-@Api(tags = "Question API", description = "The API for questions")
+@Api(tags = "Question API")
 public interface QuestionApi {
 
     UUID createQuestion(@ApiParam(value = "id of the related topic", required = true) String topicId,

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import learningapp.apis.QuestionApi;
 import learningapp.dtos.question.TableQuestionDto;
 import learningapp.dtos.question.TestQuestionDto;
+import learningapp.manager.NotificationManager;
 import learningapp.services.QuestionService;
 
 import static learningapp.handlers.SecurityContextHolderAdapter.getCurrentUser;
@@ -33,8 +34,11 @@ class QuestionController implements QuestionApi {
 
     private final QuestionService questionService;
 
-    public QuestionController(QuestionService questionService) {
+    private final NotificationManager notificationManager;
+
+    public QuestionController(QuestionService questionService, NotificationManager notificationManager) {
         this.questionService = questionService;
+        this.notificationManager = notificationManager;
     }
 
     @Override
@@ -42,7 +46,7 @@ class QuestionController implements QuestionApi {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority(STUDENT)")
     public UUID createQuestion(@PathVariable String topicId, @RequestBody @Valid TestQuestionDto questionDto) {
-        return questionService.addTestQuestion(uuidFromString(topicId), getCurrentUser(), questionDto);
+        return notificationManager.addQuestionAndNotify(uuidFromString(topicId), getCurrentUser(), questionDto);
     }
 
     @Override

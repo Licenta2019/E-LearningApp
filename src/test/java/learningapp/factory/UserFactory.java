@@ -1,10 +1,14 @@
 package learningapp.factory;
 
+import java.util.UUID;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import learningapp.dtos.AuthenticationDto;
+import learningapp.dtos.user.UserDto;
 import learningapp.entities.User;
+import learningapp.entities.UserRole;
 
 import static learningapp.utils.TestConstants.USER_EMAIL;
 import static learningapp.utils.TestConstants.USER_NAME;
@@ -29,6 +33,20 @@ public class UserFactory {
 
     public static User generateUser() {
         return generateUserBuilder().build();
+    }
+
+    public static UserDto.UserDtoBuilder generateUserDtoBuilder() {
+        return UserDto.builder()
+                .id(UUID.randomUUID())
+                .username(USER_NAME)
+                .password(USER_PASSWORD)
+                .email(USER_EMAIL)
+                .userRole(UserRole.STUDENT)
+                .notificationsEnabled(true);
+    }
+
+    public static UserDto generateUserDto() {
+        return generateUserDtoBuilder().build();
     }
 
 }

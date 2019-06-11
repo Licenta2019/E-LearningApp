@@ -1,15 +1,16 @@
 package learningapp.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import org.dom4j.util.UserDataElement;
-import org.springframework.security.core.userdetails.UserDetails;
-
+import learningapp.entities.notification.NotificationUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity  {
+public class User extends BaseEntity {
 
     @NotNull
     @Column(unique = true)
@@ -37,5 +38,11 @@ public class User extends BaseEntity  {
     @NotNull
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @NotNull
+    private boolean notificationEnabled = false;
+
+    @OneToMany(mappedBy = "user")
+    private List<NotificationUser> notificationUsers;
 
 }
