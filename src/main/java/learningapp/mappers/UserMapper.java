@@ -3,6 +3,7 @@ package learningapp.mappers;
 import learningapp.dtos.user.BaseUserDto;
 import learningapp.dtos.user.UserDto;
 import learningapp.entities.User;
+import learningapp.handlers.LearningappPasswordEncoder;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -24,7 +25,6 @@ public class UserMapper {
                 .id(user.getId())
                 .email(user.getEmail())
                 .notificationsEnabled(user.isNotificationEnabled())
-                .password(user.getPassword())
                 .username(user.getUsername())
                 .build();
     }
@@ -33,7 +33,7 @@ public class UserMapper {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setNotificationEnabled(userDto.isNotificationsEnabled());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(LearningappPasswordEncoder.getInstance().encode(userDto.getPassword()));
     }
 
 }

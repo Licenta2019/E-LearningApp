@@ -19,6 +19,9 @@ public interface UserApi {
     })
     UserDto getUser(@ApiParam(value = "the user id", required = true) String id);
 
+    void validatePassword(@ApiParam(value = "the user id", required = true) String id,
+                          @ApiParam(value = "the user password", required = true) String password);
+
     @ApiOperation(
             value = "login"
     )

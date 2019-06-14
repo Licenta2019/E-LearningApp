@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 
 import learningapp.dtos.AuthenticationDto;
@@ -11,15 +12,20 @@ import learningapp.dtos.user.BaseUserDto;
 import learningapp.dtos.user.UserDto;
 import learningapp.entities.User;
 import learningapp.exceptions.base.NotFoundException;
+import learningapp.handlers.LearningappPasswordEncoder;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static learningapp.exceptions.ExceptionMessages.USER_INVALID_PASSWORD;
 import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
 import static learningapp.factory.UserFactory.generateAuthenticationDtoBuilder;
 import static learningapp.factory.UserFactory.generateUserDto;
 import static learningapp.factory.UserFactory.generateUserDtoBuilder;
 import static learningapp.utils.TestConstants.INEXISTENT_PASSWORD;
 import static learningapp.utils.TestConstants.INEXISTENT_USER;
+import static learningapp.utils.TestConstants.INVALID_PASSWORD;
 import static learningapp.utils.TestConstants.USER_NAME;
 import static learningapp.utils.TestConstants.USER_PASSWORD;
 import static learningapp.utils.TestConstants.USER_UPDATED_EMAIL;
@@ -130,14 +136,39 @@ public class UserIT extends BaseIntegrationTest {
         assertUsersEquals(updatedUser, userDto);
     }
 
+    @Test
+    public void givenCorrectPassword_whenCheckPassword_thenOk() {
+
+        //given
+        User user = findOrCreateUser(USER_NAME);
+
+        //when
+        assertThatCode(() -> userService.checkPassword(user.getId(), USER_PASSWORD))
+
+                //then
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    public void givenInvalidPassword_whenCheckPassword_thenExceptionisThrown() {
+
+        //given
+        UUID id = findOrCreateUser(USER_NAME).getId();
+
+        //when
+        assertThatThrownByError(() -> userService.checkPassword(id, INVALID_PASSWORD),
+
+                //then
+                BadCredentialsException.class,
+                USER_INVALID_PASSWORD);
+    }
+
     private void assertUsersEquals(User user, UserDto userDto) {
         assertEquals(user.getId(), userDto.getId());
         assertEquals(user.getUsername(), userDto.getUsername());
-        assertEquals(user.getPassword(), userDto.getPassword());
+//        assertTrue(LearningappPasswordEncoder.getInstance().matches(userDto.getPassword(), user.getPassword()));
         assertEquals(user.getEmail(), userDto.getEmail());
-//        assertEquals(user.getUserRole(), userDto.getUserRole());
         assertEquals(user.isNotificationEnabled(), userDto.isNotificationsEnabled());
     }
-
 
 }

@@ -12,6 +12,7 @@ public class TestConstants {
     public static final String USER_UPDATED_NAME = "username2";
     public static final String USER_UPDATED_PASSWORD = "password2";
     public static final String USER_UPDATED_EMAIL = "a.user@ww.com2";
+    public static final String INVALID_PASSWORD = "invalid password";
     public static final UserRole USER_UPDATED_ROLE = UserRole.PROFESSOR;
 
     public static final String INEXISTENT_USER = "inuser";

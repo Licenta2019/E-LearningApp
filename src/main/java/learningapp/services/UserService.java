@@ -18,6 +18,7 @@ public interface UserService {
 
     /**
      * Update a specific user via it's id.
+     *
      * @param uuidFromString
      * @param userDto
      */
@@ -25,8 +26,18 @@ public interface UserService {
 
     /**
      * Retrieve a specific user.
+     *
      * @param uuidFromString
      * @return
      */
     UserDto getUser(UUID uuidFromString);
+
+    /**
+     * Check if the given password matches the password of the current logged-in user.
+     *
+     * @param id
+     * @param password
+     */
+    void checkPassword(UUID id, String password);
+
 }
