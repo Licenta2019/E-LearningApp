@@ -1,0 +1,228 @@
+Care dintre urmatoarele afirmatii sunt adevarate cu privire la modificatorul final?|Metodele final nu mai pot fi redefinite in clasele derivate.t|Atributele si variabile locale trebuie initializate la declarare.t|Clasele final pot fi extinse.f|Doar tipurile primitive de date pot primi modificatorul final.f|Daca o metoda are modificatorul final aceasta nu mai poate fi redefinita in clasele derivate.Modificatorul final folosit in cazul variabilelor/atributelor face variabila constanta deci trebuie initializata la declarare.Daca o clasa are modificatorul final aceasta nu poate fi extinsa #
+class A{
+    private int x;
+    public A(){x=1;}
+    public A(int val){x=2*val;}
+    public int getVal(){
+        return x;
+    }
+}
+
+class B extends A{
+    public B(){super(1);}
+    public B(int val){}
+}
+
+class Main{
+    public static void main(String []args){
+        A[] vect = new A[4];
+        vect[0] = new A();
+        vect[1] = new B();
+        vect[2] = new A(5);
+        vect[3] = new B(6);
+        int s = 0;
+        for(A a:vect) {
+            s = s + a.getVal();
+        }
+        System.out.println(s);
+    }
+} Ce se afiseaza?|eroaref|14t|13f|25f|se apeleaza constructorul default de la A => x=1se apeleaza constructorul default de la B, iar apoi se apeleaza constructorul cu parametru int din superclasa A => x=2*1=2
+se apeleaza constructorul cu parametru int din clasa A => x=2*5=10
+se apeleaza constructorul cu parametru int din clasa B, iar apoi constructorul default din superclasa A (deoarece nu se apeleaza explicit altul) => x=1
+rezultat : 14=1+2+10+1 #
+public class GrilaClass
+{
+    public GrilaClass(ArrayList<Integer> list)
+    {
+        System.out.println("ArrayList constructor");
+    }
+
+    public GrilaClass(List<Integer> list)
+    {
+        System.out.println("List constructor");
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        List<Integer> list=new ArrayList<>();
+        GrilaClass grilaClass=new GrilaClass(list);
+    }
+}
+
+Ce se afiseaza?|
+ArrayList constructorf|
+List constructort|
+nimicf|
+eroaref|
+Desi list este un ArrayList, el este declarat de tip List, motiv pentru care se va apela constructorul lui GrilaClass cu parametru de tip List. #
+Ce se afiseaza la rularea codului urmator?
+
+public abstract class Shape{
+    private String name;
+    public Shape(String name){
+        this.name = name;
+    };
+    abstract double Area();
+}
+
+public class Square extends Shape {
+    private double sideLength = 0;
+    public Square(String name, double sideLength) {
+        this.sideLength = sideLength;
+        super(name);
+    }
+    @Override
+    double Area() {
+        return this.sideLength * this.sideLength;
+    }
+}
+
+ public static void main(String[] args) {
+
+        Shape s = new Square("Awesome square.", 3.14);
+        System.out.println(s.Area());
+}|
+3.14f|
+eroaret|
+0f|
+9.8596f|
+Pentru a apela, din constructorul clasei derivate, un constructor al clasei de
+baza, apelul acestui constructor este prima instructiune din constructorul clasei 
+derivate. #
+Ce va afisa urmatorul program?
+public class Main {
+
+    public static void main(String[] args) {
+        Ying ying = Ying.getInstance();
+    }
+}
+class Ying{
+
+    private Ying(){
+        System.out.print("A");
+    }
+
+    static {
+        System.out.print("B");
+    }
+
+    private static class Yang{
+
+        static {
+            System.out.print("C");
+        }
+        private static final Ying ying = new Ying();
+        static {
+            System.out.print("D");
+        }
+    }
+
+    public static Ying getInstance(){
+        System.out.print("E");
+        return Yang.ying;
+    }
+
+    static {
+        System.out.print("F");
+    }
+
+}|
+ABFECDf|
+BECADFf|
+BFECADt|
+ABECDFf|
+Explicatie:
+    Blocurile statice se executa
+        -inaintea functiilor statice,
+        -inaintea unu constructor(deci si a functiilor de instanta)
+        -in ordinea in care au fost scrise
+    Ordinea corecta:
+    B - blocul static
+    F - blocul static
+    E - metoda getInstance
+    C - blocul static
+    A - constructor
+    D - bloc static#
+
+Ce afiseaza programul urmator?
+public class Stack<E> {
+    private E[] items = new E[100]();
+    private int size = 0;
+
+    public void push(E e){
+        items[size] = e;
+        size += 1;
+    }
+
+    public E pop(){
+        size -=1;
+        E e = items[size];
+        items[size] = null;
+        return e;
+    }
+}
+
+// intr-o metoda main
+Stack<Integer> e = new Stack<>();
+e.push(10);
+e.push(5);
+System.out.println(e.pop());|
+5f|
+10f|
+Errort|
+5 10f|
+private E[] items = new E[100](); // eroare
+E[] items=(E[])new Object[20]; //O varianta corecta de a rescrie linia de cod#
+
+Ce afiseaza programul urmator?
+// intr-o metoda main
+Person s = new Student("Alice");
+Person p = new Person("Bob");
+InfoManager m = new InfoManager();
+System.out.println(m.printInfo(s) +"; " + m.printInfo(p));
+ 
+// in clasa InfoManager
+public String printInfo(Person p){
+  return "Person " + p.getName();
+}
+ 
+public String printInfo(Student s){
+  return "Student " + s.getName();
+}|
+
+Person Bob; Student Alicef|
+Person Alice; Person Bobt|
+Student Alice; Student Bobf|
+Student Alice; Person Bobf|
+
+Si s si p sunt de tipul Person chiar daca s este un pointer spre tipul Student#
+
+Avand un container generic de tipul stiva
+(declarat Stack<Integer> stack = new Stack<Integer>();)
+care dintre urmatoarele instructiuni nu poate fi folosita pentru adaugarea unui intreg?
+
+stack.push(new Integer(10))f|
+stack.push(10);f|
+int a=10;
+stack.push(a);f|
+toate metodele mentionate anterior sunt corectet|
+Toate metodele enumerate mai sus sunt corecte.#
+
+Un obiect de tipul singleton trebuie sa aiba doar 2 functii: constructorul si functia getInstance.
+Cum arata antetul acestor functii?
+public static Singleton(){...};
+public static Singleton getInstance(){...};f|
+
+private static Singleton(){...}; 
+public static Singleton getInstance(){...};t|
+
+public static Singleton(){...};
+private static Singleton getInstance(){...};f|
+
+private static Singleton(){...}; 
+private static Singleton getInstance(){...};f|
+
+Constructorul este privat iar metoda get este publica.#

@@ -3,6 +3,7 @@ package learningapp.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -42,6 +43,7 @@ public class TestQuestion extends BaseEntity {
     private User author;
 
     @NotBlank
+    @Column(length = 2047)
     private String text;
 
     @OneToMany(mappedBy = "question")
@@ -53,6 +55,7 @@ public class TestQuestion extends BaseEntity {
     private int difficulty = 0;
 
     @NotBlank
+    @Column(length = 2047)
     private String explanation;
 
     private String notificationMessage;

@@ -21,7 +21,7 @@ public class Topic extends BaseEntity {
     @NotBlank
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Subject subject;
 
 }

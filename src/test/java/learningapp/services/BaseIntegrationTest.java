@@ -1,5 +1,6 @@
 package learningapp.services;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
@@ -27,6 +28,7 @@ import learningapp.repositories.NotificationUserRepository;
 import learningapp.repositories.SubjectRepository;
 import learningapp.repositories.TestAnswerRepository;
 import learningapp.repositories.TestQuestionRepository;
+import learningapp.repositories.TestRepository;
 import learningapp.repositories.TopicRepository;
 import learningapp.repositories.UserRepository;
 
@@ -63,6 +65,9 @@ public class BaseIntegrationTest {
 
     @Autowired
     protected NotificationUserRepository notificationUserRepository;
+
+    @Autowired
+    protected TestRepository testRepository;
 
     @Test
     public void fakeTest() {
@@ -130,6 +135,21 @@ public class BaseIntegrationTest {
         notificationUserRepository.save(notificationUser);
 
         notification.setNotificationUsers(Collections.singletonList(notificationUser));
+    }
+
+    public learningapp.entities.Test createRandomTest(Topic topic, User user) {
+        learningapp.entities.Test test = new learningapp.entities.Test();
+
+        test.setAuthor(user);
+        test.setName("test");
+        test.setCreationDate(LocalDate.now());
+
+        TestQuestion testQuestion = createRandomTestQuestion(topic, user, TestQuestionStatus.VALIDATED);
+
+        testRepository.save(test);
+        test.setQuestions(Arrays.asList(testQuestion));
+
+        return testRepository.save(test);
     }
 
 }

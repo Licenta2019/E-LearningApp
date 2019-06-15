@@ -53,4 +53,7 @@ public interface TestQuestionRepository extends JpaRepository<TestQuestion, UUID
             "WHERE tq.author.id = ?1 and tq.status = 'PENDING'")
     int getNotificationsCountForStudent(UUID studentId);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM test_question q WHERE q.topic_id = ?1 AND q.status = 'VALIDATED' ORDER BY random() LIMIT ?2")
+    List<TestQuestion> selectRandomQuestions(UUID topicId, int number);
+
 }

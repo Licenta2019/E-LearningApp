@@ -1,20 +1,29 @@
 package learningapp.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Test entity.
  */
-//@Entity
+@Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Test extends BaseEntity {
@@ -27,5 +36,12 @@ public class Test extends BaseEntity {
 
     @NotNull
     private String name;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    private User author;
+
+    @CreationTimestamp
+    private LocalDate creationDate;
 
 }
