@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import learningapp.dtos.test.BaseTestDto;
 import learningapp.dtos.test.CreationTestDto;
+import learningapp.dtos.test.TestDto;
 import learningapp.dtos.test.TopicTestDto;
 import learningapp.entities.Topic;
 import learningapp.entities.User;
+import learningapp.exceptions.base.NotFoundException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static learningapp.exceptions.ExceptionMessages.TEST_NOT_FOUND;
 import static learningapp.utils.TestConstants.USER_NAME;
 
 public class TestIT extends BaseIntegrationTest {
@@ -70,5 +73,30 @@ public class TestIT extends BaseIntegrationTest {
         assertNotNull(baseTestDtos);
         assertEquals(1, baseTestDtos.size());
     }
+
+    @Test
+    public void givenInexistentUUID_whenGetTest_thenExceptionIsThrown() {
+
+        assertThatThrownByError(() -> testService.getTest(UUID.randomUUID()),
+                NotFoundException.class,
+                TEST_NOT_FOUND
+        );
+    }
+
+    @Test
+    public void givenExistentTestId_whenGetTest_thenTestDtoReturned() {
+
+        User user = findOrCreateUser(USER_NAME);
+        learningapp.entities.Test test = createRandomTest(createRandomSubjectWithTopic(), user);
+
+        TestDto testDto = testService.getTest(test.getId());
+
+        assertNotNull(testDto);
+
+        assertNotNull(testDto.getBaseTestDto());
+
+        assertNotNull(testDto.getTestQuestionDtoList());
+    }
+
 
 }

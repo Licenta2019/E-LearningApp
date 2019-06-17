@@ -7,6 +7,9 @@ public class LearningappPasswordEncoder {
 
     private static PasswordEncoder instance = new BCryptPasswordEncoder();
 
+    private LearningappPasswordEncoder() {
+    }
+
     public static PasswordEncoder getInstance() {
         return instance;
     }

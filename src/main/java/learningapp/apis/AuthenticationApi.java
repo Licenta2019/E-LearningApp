@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import learningapp.dtos.AuthenticationDto;
 import learningapp.dtos.user.BaseUserDto;
-import learningapp.dtos.user.UserDto;
 
 @Api(tags = "Authentication API")
 public interface AuthenticationApi {

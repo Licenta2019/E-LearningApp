@@ -16,4 +16,14 @@ public enum TestDifficulty {
         this.maxDifficulty = maxDifficulty;
         this.minDifficulty = minDifficulty;
     }
+
+    public static TestDifficulty getAssociatedDificulty(double difficulty) {
+        if (difficulty <= EASY.maxDifficulty) {
+            return EASY;
+        } else if (difficulty >= HIGH.minDifficulty) {
+            return HIGH;
+        }
+        return MEDIUM;
+    }
+
 }

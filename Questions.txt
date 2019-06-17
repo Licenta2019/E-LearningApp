@@ -1,4 +1,4 @@
-Care dintre urmatoarele afirmatii sunt adevarate cu privire la modificatorul final?|Metodele final nu mai pot fi redefinite in clasele derivate.t|Atributele si variabile locale trebuie initializate la declarare.t|Clasele final pot fi extinse.f|Doar tipurile primitive de date pot primi modificatorul final.f|Daca o metoda are modificatorul final aceasta nu mai poate fi redefinita in clasele derivate.Modificatorul final folosit in cazul variabilelor/atributelor face variabila constanta deci trebuie initializata la declarare.Daca o clasa are modificatorul final aceasta nu poate fi extinsa #
+Care dintre urmatoarele afirmatii sunt adevarate cu privire la modificatorul final?|1|Metodele final nu mai pot fi redefinite in clasele derivate.t|Atributele si variabile locale trebuie initializate la declarare.t|Clasele final pot fi extinse.f|Doar tipurile primitive de date pot primi modificatorul final.f|Daca o metoda are modificatorul final aceasta nu mai poate fi redefinita in clasele derivate.Modificatorul final folosit in cazul variabilelor/atributelor face variabila constanta deci trebuie initializata la declarare.Daca o clasa are modificatorul final aceasta nu poate fi extinsa #
 class A{
     private int x;
     public A(){x=1;}
@@ -52,7 +52,7 @@ public class Main
     }
 }
 
-Ce se afiseaza?|
+Ce se afiseaza?|1|
 ArrayList constructorf|
 List constructort|
 nimicf|
@@ -84,7 +84,7 @@ public class Square extends Shape {
 
         Shape s = new Square("Awesome square.", 3.14);
         System.out.println(s.Area());
-}|
+}|1|
 3.14f|
 eroaret|
 0f|
@@ -129,12 +129,11 @@ class Ying{
         System.out.print("F");
     }
 
-}|
+}|3|
 ABFECDf|
 BECADFf|
 BFECADt|
 ABECDFf|
-Explicatie:
     Blocurile statice se executa
         -inaintea functiilor statice,
         -inaintea unu constructor(deci si a functiilor de instanta)
@@ -145,7 +144,7 @@ Explicatie:
     E - metoda getInstance
     C - blocul static
     A - constructor
-    D - bloc static#
+    D - bloc static #
 
 Ce afiseaza programul urmator?
 public class Stack<E> {
@@ -169,13 +168,13 @@ public class Stack<E> {
 Stack<Integer> e = new Stack<>();
 e.push(10);
 e.push(5);
-System.out.println(e.pop());|
+System.out.println(e.pop());|3|
 5f|
 10f|
 Errort|
 5 10f|
 private E[] items = new E[100](); // eroare
-E[] items=(E[])new Object[20]; //O varianta corecta de a rescrie linia de cod#
+E[] items=(E[])new Object[20]; //O varianta corecta de a rescrie linia de cod #
 
 Ce afiseaza programul urmator?
 // intr-o metoda main
@@ -191,7 +190,7 @@ public String printInfo(Person p){
  
 public String printInfo(Student s){
   return "Student " + s.getName();
-}|
+}|1|
 
 Person Bob; Student Alicef|
 Person Alice; Person Bobt|
@@ -202,17 +201,17 @@ Si s si p sunt de tipul Person chiar daca s este un pointer spre tipul Student#
 
 Avand un container generic de tipul stiva
 (declarat Stack<Integer> stack = new Stack<Integer>();)
-care dintre urmatoarele instructiuni nu poate fi folosita pentru adaugarea unui intreg?
+care dintre urmatoarele instructiuni nu poate fi folosita pentru adaugarea unui intreg?|3|
 
 stack.push(new Integer(10))f|
 stack.push(10);f|
 int a=10;
 stack.push(a);f|
 toate metodele mentionate anterior sunt corectet|
-Toate metodele enumerate mai sus sunt corecte.#
+Toate metodele enumerate mai sus sunt corecte. #
 
 Un obiect de tipul singleton trebuie sa aiba doar 2 functii: constructorul si functia getInstance.
-Cum arata antetul acestor functii?
+Cum arata antetul acestor functii?|1|
 public static Singleton(){...};
 public static Singleton getInstance(){...};f|
 
@@ -225,4 +224,132 @@ private static Singleton getInstance(){...};f|
 private static Singleton(){...}; 
 private static Singleton getInstance(){...};f|
 
-Constructorul este privat iar metoda get este publica.#
+Constructorul este privat iar metoda get este publica. #
+
+Fie urmatorul proram JAVA:
+int x=0;
+if (Double.isInfinite(2/x))
+System.out.println(“Infinit”);
+else
+System.out.println(“2/0”);
+
+Ce se poate spune despre acesta? |4|
+eroare la compilare din cauza impartirii cu 0f|
+eroare la executia programului din cauza impartirii cu 0(Arithmetic Exception)t|
+programul va afisa “Infinit”f|
+programul va afisa “2/0”f|
+Proramul,la excutie va arunca Arithmetic Exception,din cauza impartirii cu 0.Eroarea nu se va intampla la compilare deoarece codul este corect,din punct de vedere al sintaxei.#
+
+Fiind date clasele :
+
+public abstract class Fruit(){
+    	@Override String toString(){
+    		return "Fruit";
+    	}
+    }
+    public class Apple implements Fruit{
+        @Override String toString(){
+            return "Apple";
+        }
+    }
+    public class Pear implements Fruit{
+        @Override String toString(){
+            return "Pear";
+        }
+    }
+
+    List basket = new ArrayList<>();
+    basket.add(new Apple());
+    basket.add(new Pear());
+    basket.add(new Apple());
+    List<? extends Fruit> fridge = new ArrayList<>(basket);
+    fridge.forEach(fruit->System.out.print(fruit + " "));
+    List<? extends Fruit> store = new ArrayList<>(10);
+    Collections.copy(store, basket);
+    store.forEach(fruit->System.out.print(fruit + " "));
+
+Care este rezultatul executiei codului de mai sus?|4|
+
+Apple Pear Apple Apple Pear Applef|
+exceptie la "Collections.copy(store, basket)"t|
+Fruit Fruit Fruit Fruit Fruit Fruitf|
+eroare la "new ArrayList<>(basket)"f|
+eroare la "Collections.copy" exceptie la runtime java.lang.IndexOutOfBoundsException: Source does not fit in dest#
+
+Dată fiind expresia de constrângeri:
+ T extends C & I1 & I2
+cu ce element este înlocuit T la compilare?|3|
+Ct|
+I2f|
+I1 & I2f|
+C & I1 & I2f|
+C deoarece la compilare, T este înlocuit cu primul element din expresia de constrângeri#
+
+Ce se intampla la rularea urmatorului cod?
+
+String[] strings={“hello”,”world”};
+Object[] obj=strings;
+List<?>list=new ArrayList<Object>();
+For (Object o:obj){
+	System.out.println(obj);
+	list.add(o);|3|
+eroare de compilare la linia 6f|
+afișează “hello” și “world” pe linii diferitet|
+eroare de compilare la linia 2f|
+eroare de compilare la linia 3f|
+Linia 2 e corectă sintactic, deși dacă apoi încercăm ceva de tipul objects[1] = 1 vom obține un ArrayStoreException la runtime. Linia 3 e perfect în regulă, pentru că ArrayList implementează List și wildcard-ul se potrivește cu Object. Ce nu putem face e să apelăm metoda add pe variabila list, pentru că la compilare nu se cunoaște tipul obiectelor conținute în listă. Doar null poate fi folosit ca parametru, pentru că null aparține oricărui tip referință. #
+
+Clasele Helper diferă de clasele Factory prin faptul că:|4|
+Nu diferăf|
+Clasa Helper se concentrează pe crearea de obiectef|
+Clasa Helper se concentrează asupra manipulării obiectelor claselor existentet|
+Clasa Helper mostenesc clasele factoryf|
+
+Clasele helper și clasele factory sunt asemănătoare prin faptul că acestea sunt adesea compuse din metode statice are operează pe o anumită clasă, dar ele diferă prin scopul lor, astfel că clasele helper se concentrează asupra manipulării datelor, în timp ce clasele factory se concentrează pe crearea lor. (Curs 4 - pagina 50)#
+
+Ce se afișează la rularea codului urmator? Explicați.
+
+class Litere {
+    String str = "a";
+    void A(){
+        try{
+            str += "b";
+            B();
+        }
+        catch (Exception e){
+            str += "c";
+        }
+    }
+    void B() throws Exception{
+        try{
+            str += "d";
+            C();
+        }
+        catch (Exception e){
+            throw new Exception();
+
+        }
+        finally {
+            str += "e";
+        }
+
+        str += "f";
+    }
+    void C() throws Exception{
+        str += "g";
+        throw new Exception();
+    }
+    void afisare(){
+        System.out.println(str);
+    }
+    public static void main(String[] args){
+        Litere lit = new Litere();
+        lit.A();
+        lit.afisare();
+    }
+}|4|
+abcdegf|
+abdefgf|
+abdgect|
+abdfgcf|
+Se apelează funcția A, se adaugă litera „b”, apoi se apelează funcția B, unde se adaugă litera „d” și se apelează funcția C, unde se adaugă litera „g”, iar instrucțiunea throw aruncă o excepție care este prinsă in funcția B prin instrucțiunea catch, care aruncă o nouă excepție, se adaugă în variabila str litera „e” prin blocul finally deoarece se apeleaza indiferent dacă este prinsă o excepție sau nu, apoi excepția din funcția B este prinsă în funcția A, unde se adaugă litera „c”, varibila str devenind în final abdgec. #

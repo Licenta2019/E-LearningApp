@@ -1,5 +1,6 @@
 package learningapp.dtos.subject;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TopicDto {
+public class TopicDto implements Serializable {
 
     private static final long serialVersionUID = 2L;
 

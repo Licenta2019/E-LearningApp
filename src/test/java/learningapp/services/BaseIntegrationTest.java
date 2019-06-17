@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import learningapp.config.H2TestConfiguration;
 import learningapp.entities.Subject;
 import learningapp.entities.TestAnswer;
+import learningapp.entities.TestDifficulty;
 import learningapp.entities.TestQuestion;
 import learningapp.entities.TestQuestionStatus;
 import learningapp.entities.Topic;
@@ -143,6 +144,7 @@ public class BaseIntegrationTest {
         test.setAuthor(user);
         test.setName("test");
         test.setCreationDate(LocalDate.now());
+        test.setTestDifficulty(TestDifficulty.RANDOM);
 
         TestQuestion testQuestion = createRandomTestQuestion(topic, user, TestQuestionStatus.VALIDATED);
 

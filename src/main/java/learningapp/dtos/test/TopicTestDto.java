@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
+import learningapp.entities.TestDifficulty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,5 +23,8 @@ public class TopicTestDto {
 
     @NotNull
     private int questionsNumber;
+
+    @NotNull
+    private TestDifficulty difficulty;
 
 }

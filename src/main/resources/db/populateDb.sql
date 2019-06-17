@@ -21,6 +21,15 @@ INSERT INTO professor_subject (professor_id, subject_id) VALUES
     ('0bba19e9-3c15-43ca-8eb5-3124c0f80e1d','15ba3454-65e2-439c-8519-9ba135cf97b2');
 
 INSERT INTO topic VALUES
-    ('15ba3454-65e2-439c-8519-9ba135cf97ba', 'Java', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
-    ('15ba3454-65e2-439c-8519-9ba135cf97bb', 'C#', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
-    ('15ba3454-65e2-439c-8519-9ba135cf97bc', 'React', '15ba3454-65e2-439c-8519-9ba135cf97b2');
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d1', 'Course1-2_Java-Introduction-OOP', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d2', 'Course3_Java-InternalClasses-Generics-Collections', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d3', 'Course4_Java-Exceptions-I/O', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d4', 'Course5-6_Java8', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d5', 'Course7_Java8-Reflection-DesignPatters', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d6', 'Course8_JavaFX', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d7', 'Course9_C#-Introduction', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d8', 'Course10-11_C#-Generics-Collections-Delegates-Events-Lambdas', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+    ('40f261f8-4029-493f-ab7d-58ba7e1b12d9', 'Course12_C#-LINQ', '15ba3454-65e2-439c-8519-9ba135cf97b1'),
+
+    ('15ba3454-65e2-439c-8519-9ba135cf97bb', 'Android', '15ba3454-65e2-439c-8519-9ba135cf97b2'),
+    ('15ba3454-65e2-439c-8519-9ba135cf97bc', 'React-native', '15ba3454-65e2-439c-8519-9ba135cf97b2');

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import learningapp.apis.TestApi;
 import learningapp.dtos.test.BaseTestDto;
 import learningapp.dtos.test.CreationTestDto;
+import learningapp.dtos.test.TestDto;
+import learningapp.entities.TestDifficulty;
 import learningapp.services.TestService;
 
 import static learningapp.mappers.GeneralMapper.uuidFromString;
@@ -45,6 +47,20 @@ public class TestController implements TestApi {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public List<BaseTestDto> getTests(@PathVariable String subjectId) {
         return testService.getTests(uuidFromString(subjectId));
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public TestDto getTest(@PathVariable @Valid String id) {
+        return testService.getTest(uuidFromString(id));
+    }
+
+    @Override
+    @GetMapping("/difficulties")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<TestDifficulty> getTestDifficulties() {
+        return testService.getTestDifficulties();
     }
 
 }

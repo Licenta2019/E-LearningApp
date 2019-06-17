@@ -136,7 +136,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         testQuestion.setTopic(topic);
 
-        testQuestionDto.getAnswerDtos().forEach((testAnswerDto) -> updateTestAnswer(testAnswerDto, testQuestion)); //possible changes
+        testQuestionDto.getAnswerDtos().forEach(testAnswerDto -> updateTestAnswer(testAnswerDto, testQuestion)); //possible changes
 
         return testQuestionRepository.save(testQuestion).getId();
     }
@@ -150,7 +150,7 @@ public class QuestionServiceImpl implements QuestionService {
             throw new InvalidTransitionException(INVALID_TRANSITION_ERROR + testQuestion.getStatus() + " to " + VALIDATED);
         }
 
-        testQuestionDto.getAnswerDtos().forEach((testAnswerDto) -> updateTestAnswer(testAnswerDto, testQuestion));
+        testQuestionDto.getAnswerDtos().forEach(testAnswerDto -> updateTestAnswer(testAnswerDto, testQuestion));
 
         toTestQuestionEntity(testQuestion, testQuestionDto, VALIDATED);
 
@@ -186,7 +186,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private void addTestAnswer(TestQuestion question) {
-        question.getAnswers().forEach((answer) -> {
+        question.getAnswers().forEach(answer -> {
             answer.setQuestion(question);
             testAnswerRepository.save(answer);
         });

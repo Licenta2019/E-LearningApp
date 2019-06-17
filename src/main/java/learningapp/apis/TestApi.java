@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import learningapp.dtos.test.BaseTestDto;
 import learningapp.dtos.test.CreationTestDto;
+import learningapp.dtos.test.TestDto;
+import learningapp.entities.TestDifficulty;
 
 public interface TestApi {
 
@@ -32,4 +34,7 @@ public interface TestApi {
     })
     List<BaseTestDto> getTests(@ApiParam(value = "the subject id", required = true) String subjectId);
 
+    TestDto getTest(@ApiParam(value = "the test id", required = true) String id);
+
+    List<TestDifficulty> getTestDifficulties();
 }

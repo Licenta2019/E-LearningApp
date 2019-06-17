@@ -14,6 +14,9 @@ public final class ExceptionMessages {
     //Topic
     public static final String TOPIC_NOT_FOUND = "Topic not found!";
 
+    //Test
+    public static final String TEST_NOT_FOUND = "Test not found!";
+
     //Question
     public static final String TEST_QUESTION_NOT_FOUND = "Question not found!";
     public static final String TEST_ANSWER_NOT_FOUND = "Answer not found!";
