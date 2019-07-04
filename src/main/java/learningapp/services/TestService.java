@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import learningapp.dtos.test.BaseTestDto;
 import learningapp.dtos.test.CreationTestDto;
+import learningapp.dtos.test.GradeTestDto;
 import learningapp.dtos.test.TestDto;
 import learningapp.entities.TestDifficulty;
 
@@ -40,4 +41,19 @@ public interface TestService {
      * @return
      */
     TestDto getTest(UUID id);
+
+    /**
+     * Grade a test via specific dto.
+     *
+     * @param dto
+     */
+    double gradeTest(GradeTestDto dto);
+
+    /**
+     * Export given test to pdf.
+     * Return the path of new pdf file.
+     *
+     * @param id
+     */
+    String exportTest(UUID id);
 }

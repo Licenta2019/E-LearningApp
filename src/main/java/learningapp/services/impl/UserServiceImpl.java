@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import learningapp.handlers.LearningappPasswordEncoder;
 import learningapp.repositories.UserRepository;
 import learningapp.security.JwtTokenProvider;
 import learningapp.services.UserService;
+import learningapp.validator.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 
 import static learningapp.exceptions.ExceptionMessages.USER_INVALID_PASSWORD;
@@ -36,10 +38,16 @@ public class UserServiceImpl implements UserService {
 
     private final AuthenticationManager authenticationManager;
 
-    public UserServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    private final UserValidator userValidator;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, UserValidator userValidator) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
+        this.userValidator = userValidator;
+        this.passwordEncoder = LearningappPasswordEncoder.getInstance();
     }
 
     @Override
@@ -90,5 +98,16 @@ public class UserServiceImpl implements UserService {
         if (!LearningappPasswordEncoder.getInstance().matches(password, user.getPassword())) {
             throw new BadCredentialsException(USER_INVALID_PASSWORD);
         }
+    }
+
+    @Override
+    @Transactional
+    public void saveUser(UserDto userDto) {
+        userValidator.validateUser(userDto);
+
+        User user = new User();
+        toUser(user, userDto);
+
+        userRepository.save(user);
     }
 }

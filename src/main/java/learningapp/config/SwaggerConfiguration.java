@@ -42,12 +42,8 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("Service Account REST APIs")
                 .description("POC for service-account using Swagger and Spring5")
-//                .termsOfServiceUrl("https://www.pitechplus.com/")
-//                .license("PitechPlus")
-//                .licenseUrl("https://www.pitechplus.com/")
                 .version("1.0")
-//                .contact(new Contact("Interns", null, "anca.muresan@pitechplus.com"))
                 .build();
     }
-}
 
+}

@@ -6,6 +6,7 @@ public final class ExceptionMessages {
     //User
     public static final String USER_NOT_FOUND = "User not found!";
     public static final String USER_INVALID_PASSWORD = "Invalid password!";
+    public static final String DUPLICATE_USER = "Duplicate user!";
 
     //Subject
     public static final String SUBJECT_NOT_FOUND = "Subject not found!";

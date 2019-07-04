@@ -34,7 +34,6 @@ public class NotificationDto {
     @NotNull
     private String message;
 
-    //    @NotNull
     private UUID userId;
 
 }

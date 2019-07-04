@@ -26,7 +26,6 @@ public class LearningappRestControllerAdvice {
     }
 
     @ExceptionHandler
-//    @ResponseStatus(HttpStatus.)
     public ResponseEntity handleException(DuplicateEntityException e) {
         log.error("duplicate entity exception!");
         return ResponseEntity.builder()
@@ -37,7 +36,7 @@ public class LearningappRestControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity handleException(InvalidFormatException e) {
-        log.error("invalid format exception");
+        log.error("invalid format exception!");
         return ResponseEntity.builder()
                 .message(e.getMessage())
                 .build();
@@ -46,7 +45,7 @@ public class LearningappRestControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity handleException(BadCredentialsException e) {
-        log.error("bad credentials exception");
+        log.error("bad credentials exception!");
         return ResponseEntity.builder()
                 .message(e.getMessage())
                 .build();
@@ -55,7 +54,7 @@ public class LearningappRestControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity handleException(InvalidTransitionException e) {
-        log.error("bad credentials exception");
+        log.error("invalid transition exception!");
         return ResponseEntity.builder()
                 .message(e.getMessage())
                 .build();

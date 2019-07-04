@@ -18,5 +18,4 @@ public class SecurityContextHolderAdapter {
                 .orElseThrow(() -> new AuthenticationException("Authentication not found") {
                 });
     }
-
 }

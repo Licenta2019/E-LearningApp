@@ -61,4 +61,11 @@ public class UserController implements AuthenticationApi, UserApi {
         log.info("update user in controller" + userDto.getUsername());
         userService.updateUser(uuidFromString(id), userDto);
     }
+
+    @Override
+    @PostMapping("/register")
+    public void register(@RequestBody @Valid UserDto userDto) {
+        userService.saveUser(userDto);
+    }
+
 }

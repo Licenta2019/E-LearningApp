@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
+import learningapp.entities.TestDifficulty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +26,8 @@ public class BaseTestDto {
 
     @NotNull
     private String author;
+
+    @NotNull
+    private TestDifficulty difficulty;
 
 }

@@ -45,12 +45,12 @@ public interface TestQuestionRepository extends JpaRepository<TestQuestion, UUID
             "JOIN  t.subject s " +
             "JOIN s.professors p " +
             "JOIN p.user u " +
-            "WHERE u.id = ?1 and tq.status = 'PENDING'")
+            "WHERE u.id = ?1 and tq.status = 'PENDING' or tq.status = 'REQUESTED_CHANGES'")
     int getNotificationsCountForProfessor(UUID professorId);
 
     @Query(value = "SELECT COUNT(tq) " +
             "FROM TestQuestion tq " +
-            "WHERE tq.author.id = ?1 and tq.status = 'PENDING'")
+            "WHERE tq.author.id = ?1 and tq.status = 'PENDING' or tq.status = 'REQUESTED_CHANGES'")
     int getNotificationsCountForStudent(UUID studentId);
 
     @Query(nativeQuery = true, value = "SELECT * FROM test_question q " +

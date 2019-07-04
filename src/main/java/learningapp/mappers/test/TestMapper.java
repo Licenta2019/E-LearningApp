@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import learningapp.dtos.test.BaseTestDto;
 import learningapp.dtos.test.TestDto;
+import learningapp.entities.Feature;
 import learningapp.entities.Test;
 import learningapp.entities.User;
 import lombok.experimental.UtilityClass;
@@ -20,6 +21,7 @@ public class TestMapper {
                 .name(test.getName())
                 .author(test.getAuthor().getUsername())
                 .creationDate(test.getCreationDate())
+                .difficulty(test.getTestDifficulty())
                 .build();
     }
 
@@ -40,6 +42,14 @@ public class TestMapper {
         return TestDto.builder()
                 .baseTestDto(toBaseTestDto(test))
                 .testQuestionDtoList(toTestQuestionDtoList(test.getQuestions()))
+                .build();
+    }
+
+    public static Feature toFeatureEntity(User student, Test test, double grade) {
+        return Feature.builder()
+                .student(student)
+                .test(test)
+                .grade(grade)
                 .build();
     }
 

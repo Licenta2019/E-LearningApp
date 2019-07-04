@@ -11,7 +11,6 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
 import learningapp.entities.TestAnswer;
 import learningapp.entities.TestQuestion;
@@ -27,6 +26,7 @@ import learningapp.repositories.UserRepository;
 public class PopulateWithTests implements ApplicationRunner {
 
     private static String path = "Questions.txt";
+
     @Autowired
     private TestQuestionRepository testQuestionRepository;
 
@@ -39,7 +39,6 @@ public class PopulateWithTests implements ApplicationRunner {
     @Autowired
     private UserRepository userRepository;
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Random random = new Random();
@@ -47,7 +46,6 @@ public class PopulateWithTests implements ApplicationRunner {
             Scanner s = new Scanner(new BufferedReader(new FileReader(path)));
             Scanner ss;
             s.useDelimiter("#");
-
 
             User paul = userRepository.findByUsername("paul").get();
             while (s.hasNext()) {
@@ -57,28 +55,30 @@ public class PopulateWithTests implements ApplicationRunner {
                 String text = ss.next();
                 String topicNr = ss.next().trim();
 
+                int nr = ss.nextInt();
                 Topic topic = topicRepository.findAllContainingNumber(topicNr).get(0);
 
                 TestQuestion testQuestion = new TestQuestion();
                 testQuestion.setTopic(topic);
                 testQuestion.setStatus(TestQuestionStatus.VALIDATED);
                 testQuestion.setDifficulty(random.nextInt(9) + 1);
-                testQuestion.setText(text);
+                testQuestion.setText(text.trim());
                 testQuestion.setAuthor(paul);
 
                 String cuv;
 
                 List<TestAnswer> answerList = new ArrayList<>();
-                for (int i = 0; i < 4; ++i) {
+
+                for (int i = 0; i < nr; ++i) {
                     cuv = ss.next();
 
                     TestAnswer testAnswer = new TestAnswer();
                     testAnswer.setCorrect(cuv.endsWith("t"));
-                    testAnswer.setText(cuv.substring(0, cuv.length() - 1));
+                    testAnswer.setText(cuv.substring(0, cuv.length() - 1).trim());
                     answerList.add(testAnswer);
                 }
 
-                testQuestion.setExplanation(s.hasNext() ? s.next() : "explicatie:");
+                testQuestion.setExplanation(ss.hasNext() ? ss.next().trim() : "explicatie:");
                 testQuestionRepository.save(testQuestion);
 
                 answerList.forEach(answer -> answer.setQuestion(testQuestion));

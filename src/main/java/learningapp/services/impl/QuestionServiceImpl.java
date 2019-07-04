@@ -136,7 +136,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         testQuestion.setTopic(topic);
 
-        testQuestionDto.getAnswerDtos().forEach(testAnswerDto -> updateTestAnswer(testAnswerDto, testQuestion)); //possible changes
+        testQuestionDto.getAnswerDtos().forEach(testAnswerDto -> updateTestAnswer(testAnswerDto, testQuestion));
 
         return testQuestionRepository.save(testQuestion).getId();
     }

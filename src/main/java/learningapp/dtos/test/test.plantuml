@@ -1,0 +1,218 @@
+@startuml
+
+title __TEST's Class Diagram__\n
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.BaseTestDto {
+            - author : String
+            - creationDate : LocalDate
+            - id : UUID
+            - name : String
+            {static} + builder()
+            + getAuthor()
+            + getCreationDate()
+            + getDifficulty()
+            + getId()
+            + getName()
+            + setAuthor()
+            + setCreationDate()
+            + setDifficulty()
+            + setId()
+            + setName()
+            ~ BaseTestDto()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.BaseTestDto.BaseTestDtoBuilder {
+            - author : String
+            - creationDate : LocalDate
+            - id : UUID
+            - name : String
+            + author()
+            + build()
+            + creationDate()
+            + difficulty()
+            + id()
+            + name()
+            + toString()
+            ~ BaseTestDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.CreationTestDto {
+            - name : String
+            - topicTestDtoList : List<TopicTestDto>
+            + CreationTestDto()
+            + CreationTestDto()
+            {static} + builder()
+            + getName()
+            + getTopicTestDtoList()
+            + setName()
+            + setTopicTestDtoList()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.CreationTestDto.CreationTestDtoBuilder {
+            - name : String
+            - topicTestDtoList : List<TopicTestDto>
+            + build()
+            + name()
+            + toString()
+            + topicTestDtoList()
+            ~ CreationTestDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.GradeTestDto {
+            - questions : List<TakeTestDto>
+            - testId : UUID
+            + GradeTestDto()
+            + GradeTestDto()
+            + getQuestions()
+            + getTestId()
+            + setQuestions()
+            + setTestId()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.TakeTestDto {
+            - answers : List<UUID>
+            - questionId : UUID
+            + TakeTestDto()
+            + TakeTestDto()
+            + getAnswers()
+            + getQuestionId()
+            + setAnswers()
+            + setQuestionId()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.TestDto {
+            - testQuestionDtoList : List<TestQuestionDto>
+            {static} + builder()
+            + getBaseTestDto()
+            + getTestQuestionDtoList()
+            + setBaseTestDto()
+            + setTestQuestionDtoList()
+            ~ TestDto()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.TestDto.TestDtoBuilder {
+            - testQuestionDtoList : List<TestQuestionDto>
+            + baseTestDto()
+            + build()
+            + testQuestionDtoList()
+            + toString()
+            ~ TestDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.TopicTestDto {
+            - questionsNumber : int
+            - topicId : UUID
+            + TopicTestDto()
+            + TopicTestDto()
+            {static} + builder()
+            + getDifficulty()
+            + getQuestionsNumber()
+            + getTopicId()
+            + setDifficulty()
+            + setQuestionsNumber()
+            + setTopicId()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace test {
+        class learningapp.dtos.test.TopicTestDto.TopicTestDtoBuilder {
+            - questionsNumber : int
+            - topicId : UUID
+            + build()
+            + difficulty()
+            + questionsNumber()
+            + toString()
+            + topicId()
+            ~ TopicTestDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  learningapp.dtos.test.BaseTestDto o-- learningapp.entities.TestDifficulty : difficulty
+  learningapp.dtos.test.BaseTestDto +-down- learningapp.dtos.test.BaseTestDto.BaseTestDtoBuilder
+  learningapp.dtos.test.BaseTestDto.BaseTestDtoBuilder o-- learningapp.entities.TestDifficulty : difficulty
+  learningapp.dtos.test.CreationTestDto +-down- learningapp.dtos.test.CreationTestDto.CreationTestDtoBuilder
+  learningapp.dtos.test.GradeTestDto .up.|> java.io.Serializable
+  learningapp.dtos.test.TakeTestDto .up.|> java.io.Serializable
+  learningapp.dtos.test.TestDto o-- learningapp.dtos.test.BaseTestDto : baseTestDto
+  learningapp.dtos.test.TestDto +-down- learningapp.dtos.test.TestDto.TestDtoBuilder
+  learningapp.dtos.test.TestDto.TestDtoBuilder o-- learningapp.dtos.test.BaseTestDto : baseTestDto
+  learningapp.dtos.test.TopicTestDto o-- learningapp.entities.TestDifficulty : difficulty
+  learningapp.dtos.test.TopicTestDto +-down- learningapp.dtos.test.TopicTestDto.TopicTestDtoBuilder
+  learningapp.dtos.test.TopicTestDto.TopicTestDtoBuilder o-- learningapp.entities.TestDifficulty : difficulty
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

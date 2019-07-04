@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import learningapp.dtos.test.BaseTestDto;
 import learningapp.dtos.test.CreationTestDto;
+import learningapp.dtos.test.GradeTestDto;
 import learningapp.dtos.test.TestDto;
 import learningapp.entities.TestDifficulty;
 
@@ -37,4 +38,8 @@ public interface TestApi {
     TestDto getTest(@ApiParam(value = "the test id", required = true) String id);
 
     List<TestDifficulty> getTestDifficulties();
+
+    double gradeTest(@ApiParam(value = "the test data", required = true) GradeTestDto dto);
+
+    String exportTest(@ApiParam(value = "the test id", required = true) UUID id);
 }

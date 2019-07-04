@@ -32,8 +32,9 @@ public class UserMapper {
     public static void toUser(User user, UserDto userDto) {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        user.setNotificationEnabled(userDto.isNotificationsEnabled());
+//        user.setNotificationEnabled(userDto.isNotificationsEnabled());
         user.setPassword(LearningappPasswordEncoder.getInstance().encode(userDto.getPassword()));
+        user.setUserRole(userDto.getUserRole());
     }
 
 }

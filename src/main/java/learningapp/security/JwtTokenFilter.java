@@ -32,8 +32,6 @@ public class JwtTokenFilter extends GenericFilterBean {
 
             filterChain.doFilter(req, res);
         } catch (final IOException | ServletException e) {
-            //TODO(all) update new exception
-            //throw new ForbiddenException(INVALID_TOKEN, AUTHORIZATION_NOT_VALID);
         }
     }
 

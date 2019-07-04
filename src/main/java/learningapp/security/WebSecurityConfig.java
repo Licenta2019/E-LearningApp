@@ -51,7 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs")
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/user/login")
-                .antMatchers("/topic/professor/*") ///TODO for testing purposes, to be removed
+                .antMatchers("/user/register")
+//                .antMatchers("/topic/professor/*") ///TODO for testing purposes, to be removed
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers("/swagger-ui.html")
                 .antMatchers("/configuration/**")

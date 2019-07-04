@@ -27,6 +27,7 @@ import static learningapp.mappers.GeneralMapper.uuidFromString;
 import static learningapp.utils.TestConstants.INEXISTENT_ID;
 import static learningapp.utils.TestConstants.SUBJECT_A_NAME;
 import static learningapp.utils.TestConstants.SUBJECT_B_NAME;
+import static learningapp.utils.TestConstants.SUBJECT_NAME_2;
 import static learningapp.utils.TestConstants.SUBJECT_NOT_UNIQUE;
 import static learningapp.utils.TestConstants.SUBJECT_UNIQUE_NAME;
 import static learningapp.utils.TestConstants.UPDATED_TOPIC_NAME;
@@ -40,7 +41,9 @@ public class SubjectIT extends BaseIntegrationTest {
     public void givenValidSubjectDto_whenAddSubject_thenUuidReturned() {
 
         //given
-        SubjectDto subjectDto = generateSubjectDto();
+        SubjectDto subjectDto = generateSubjectDtoBuilder()
+                .name(SUBJECT_NAME_2)
+                .build();
 
         //when
         UUID subjectId = subjectService.addSubject(subjectDto);

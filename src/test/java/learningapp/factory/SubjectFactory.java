@@ -29,7 +29,6 @@ public class SubjectFactory {
     public static Subject generateSubject() {
         return Subject.builder()
                 .name(generateRandomSubjectName()).build();
-//                .topics(Arrays.asList(generateTopic());
     }
 
     public static String generateRandomSubjectName() {

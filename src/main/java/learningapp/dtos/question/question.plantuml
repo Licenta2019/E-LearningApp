@@ -1,0 +1,199 @@
+@startuml
+
+title __QUESTION's Class Diagram__\n
+
+  namespace learningapp {
+    namespace dtos {
+      namespace question {
+        class learningapp.dtos.question.TableQuestionDto {
+            - author : String
+            - id : UUID
+            - questionText : String
+            - subject : String
+            - topic : String
+            - updateDate : LocalDate
+            + TableQuestionDto()
+            + TableQuestionDto()
+            {static} + builder()
+            + getAuthor()
+            + getId()
+            + getQuestionText()
+            + getStatus()
+            + getSubject()
+            + getTopic()
+            + getUpdateDate()
+            + setAuthor()
+            + setId()
+            + setQuestionText()
+            + setStatus()
+            + setSubject()
+            + setTopic()
+            + setUpdateDate()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace question {
+        class learningapp.dtos.question.TableQuestionDto.TableQuestionDtoBuilder {
+            - author : String
+            - id : UUID
+            - questionText : String
+            - subject : String
+            - topic : String
+            - updateDate : LocalDate
+            + author()
+            + build()
+            + id()
+            + questionText()
+            + status()
+            + subject()
+            + toString()
+            + topic()
+            + updateDate()
+            ~ TableQuestionDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace question {
+        class learningapp.dtos.question.TestAnswerDto {
+            - answerText : String
+            - id : UUID
+            - isCorrect : boolean
+            {static} - serialVersionUID : long
+            + TestAnswerDto()
+            + TestAnswerDto()
+            {static} + builder()
+            + getAnswerText()
+            + getId()
+            + isCorrect()
+            + setAnswerText()
+            + setCorrect()
+            + setId()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace question {
+        class learningapp.dtos.question.TestAnswerDto.TestAnswerDtoBuilder {
+            - answerText : String
+            - id : UUID
+            - isCorrect : boolean
+            + answerText()
+            + build()
+            + id()
+            + isCorrect()
+            + toString()
+            ~ TestAnswerDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace question {
+        class learningapp.dtos.question.TestQuestionDto {
+            - answerDtos : List<TestAnswerDto>
+            - authorId : UUID
+            - difficulty : int
+            - explanation : String
+            - id : UUID
+            - notificationMessage : String
+            - questionText : String
+            {static} - serialVersionUID : long
+            - subjectId : UUID
+            - topicId : UUID
+            + TestQuestionDto()
+            + TestQuestionDto()
+            {static} + builder()
+            + getAnswerDtos()
+            + getAuthorId()
+            + getDifficulty()
+            + getExplanation()
+            + getId()
+            + getNotificationMessage()
+            + getQuestionText()
+            + getStatus()
+            + getSubjectId()
+            + getTopicId()
+            + setAnswerDtos()
+            + setAuthorId()
+            + setDifficulty()
+            + setExplanation()
+            + setId()
+            + setNotificationMessage()
+            + setQuestionText()
+            + setStatus()
+            + setSubjectId()
+            + setTopicId()
+        }
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace dtos {
+      namespace question {
+        class learningapp.dtos.question.TestQuestionDto.TestQuestionDtoBuilder {
+            - answerDtos : List<TestAnswerDto>
+            - authorId : UUID
+            - difficulty : int
+            - explanation : String
+            - id : UUID
+            - notificationMessage : String
+            - questionText : String
+            - subjectId : UUID
+            - topicId : UUID
+            + answerDtos()
+            + authorId()
+            + build()
+            + difficulty()
+            + explanation()
+            + id()
+            + notificationMessage()
+            + questionText()
+            + status()
+            + subjectId()
+            + toString()
+            + topicId()
+            ~ TestQuestionDtoBuilder()
+        }
+      }
+    }
+  }
+  
+
+  learningapp.dtos.question.TableQuestionDto o-- learningapp.entities.TestQuestionStatus : status
+  learningapp.dtos.question.TableQuestionDto +-down- learningapp.dtos.question.TableQuestionDto.TableQuestionDtoBuilder
+  learningapp.dtos.question.TableQuestionDto.TableQuestionDtoBuilder o-- learningapp.entities.TestQuestionStatus : status
+  learningapp.dtos.question.TestAnswerDto .up.|> java.io.Serializable
+  learningapp.dtos.question.TestAnswerDto +-down- learningapp.dtos.question.TestAnswerDto.TestAnswerDtoBuilder
+  learningapp.dtos.question.TestQuestionDto .up.|> java.io.Serializable
+  learningapp.dtos.question.TestQuestionDto o-- learningapp.entities.TestQuestionStatus : status
+  learningapp.dtos.question.TestQuestionDto +-down- learningapp.dtos.question.TestQuestionDto.TestQuestionDtoBuilder
+  learningapp.dtos.question.TestQuestionDto.TestQuestionDtoBuilder o-- learningapp.entities.TestQuestionStatus : status
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

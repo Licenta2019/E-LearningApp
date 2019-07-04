@@ -1,7 +1,9 @@
 package learningapp.services;
 
+import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,13 +13,14 @@ import learningapp.dtos.AuthenticationDto;
 import learningapp.dtos.user.BaseUserDto;
 import learningapp.dtos.user.UserDto;
 import learningapp.entities.User;
+import learningapp.exceptions.base.DuplicateEntityException;
 import learningapp.exceptions.base.NotFoundException;
-import learningapp.handlers.LearningappPasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static learningapp.exceptions.ExceptionMessages.DUPLICATE_USER;
 import static learningapp.exceptions.ExceptionMessages.USER_INVALID_PASSWORD;
 import static learningapp.exceptions.ExceptionMessages.USER_NOT_FOUND;
 import static learningapp.factory.UserFactory.generateAuthenticationDtoBuilder;
@@ -26,6 +29,7 @@ import static learningapp.factory.UserFactory.generateUserDtoBuilder;
 import static learningapp.utils.TestConstants.INEXISTENT_PASSWORD;
 import static learningapp.utils.TestConstants.INEXISTENT_USER;
 import static learningapp.utils.TestConstants.INVALID_PASSWORD;
+import static learningapp.utils.TestConstants.NEW_USER_NAME;
 import static learningapp.utils.TestConstants.USER_NAME;
 import static learningapp.utils.TestConstants.USER_PASSWORD;
 import static learningapp.utils.TestConstants.USER_UPDATED_EMAIL;
@@ -99,6 +103,7 @@ public class UserIT extends BaseIntegrationTest {
         //then
         assertNotNull(userDto);
         assertUsersEquals(user, userDto);
+        assertEquals(user.getId(), userDto.getId());
     }
 
     @Test
@@ -113,6 +118,7 @@ public class UserIT extends BaseIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void givenValidUserDto_whenUpdateUser_thenUserUpdated() {
 
         //given
@@ -134,6 +140,7 @@ public class UserIT extends BaseIntegrationTest {
         User updatedUser = userRepository.findById(user.getId()).get();
 
         assertUsersEquals(updatedUser, userDto);
+        assertEquals(user.getId(), userDto.getId());
     }
 
     @Test
@@ -163,10 +170,39 @@ public class UserIT extends BaseIntegrationTest {
                 USER_INVALID_PASSWORD);
     }
 
+    @Test
+    public void givenValidUserDto_whenRegisterUser_thenOk() {
+
+        UserDto userDto = generateUserDtoBuilder()
+                .username(NEW_USER_NAME)
+                .build();
+
+        userService.saveUser(userDto);
+
+        Optional<User> user = userRepository.findByUsername(NEW_USER_NAME);
+
+        assertTrue(user.isPresent());
+
+        assertUsersEquals(user.get(), userDto);
+    }
+
+    @Test
+    public void givenDuplicateUser_whenRegisterUser_thenOk() {
+
+        User user = findOrCreateUser(USER_NAME);
+
+        UserDto userDto = generateUserDtoBuilder()
+                .username(USER_NAME)
+                .build();
+
+        assertThatThrownByError(() -> userService.saveUser(userDto),
+                DuplicateEntityException.class,
+                DUPLICATE_USER + USER_NAME);
+
+    }
+
     private void assertUsersEquals(User user, UserDto userDto) {
-        assertEquals(user.getId(), userDto.getId());
         assertEquals(user.getUsername(), userDto.getUsername());
-//        assertTrue(LearningappPasswordEncoder.getInstance().matches(userDto.getPassword(), user.getPassword()));
         assertEquals(user.getEmail(), userDto.getEmail());
         assertEquals(user.isNotificationEnabled(), userDto.isNotificationsEnabled());
     }

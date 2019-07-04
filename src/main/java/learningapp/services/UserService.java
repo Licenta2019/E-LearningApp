@@ -40,4 +40,10 @@ public interface UserService {
      */
     void checkPassword(UUID id, String password);
 
+    /**
+     * Register a user to the platform.
+     *
+     * @param userDto
+     */
+    void saveUser(UserDto userDto);
 }

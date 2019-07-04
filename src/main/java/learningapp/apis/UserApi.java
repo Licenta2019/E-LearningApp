@@ -32,4 +32,6 @@ public interface UserApi {
     void updateUser(@ApiParam(value = "the user id", required = true) String id,
                     @ApiParam(value = "the user data", required = true) UserDto userDto);
 
+    void register(@ApiParam(value = "the user data", required = true) UserDto userDto);
+
 }

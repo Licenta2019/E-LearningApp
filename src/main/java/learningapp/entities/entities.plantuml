@@ -1,0 +1,422 @@
+@startuml
+
+title __ENTITIES's Class Diagram__\n
+
+  namespace learningapp {
+    namespace entities {
+      abstract class learningapp.entities.BaseEntity {
+          - id : UUID
+          + getId()
+          + setId()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Feature {
+          - date : LocalDate
+          - grade : double
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Professor {
+          - name : String
+          - subjects : List<Subject>
+          + Professor()
+          + Professor()
+          + getName()
+          + getSubjects()
+          + getUser()
+          + setName()
+          + setSubjects()
+          + setUser()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Student {
+          - name : String
+          + Student()
+          + Student()
+          {static} + builder()
+          + getName()
+          + getUser()
+          + setName()
+          + setUser()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Student.StudentBuilder {
+          - name : String
+          + build()
+          + name()
+          + toString()
+          + user()
+          ~ StudentBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Subject {
+          - name : String
+          - professors : List<Professor>
+          - topics : List<Topic>
+          + Subject()
+          + Subject()
+          {static} + builder()
+          + getName()
+          + getProfessors()
+          + getTopics()
+          + setName()
+          + setProfessors()
+          + setTopics()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Subject.SubjectBuilder {
+          - name : String
+          - professors : List<Professor>
+          - topics : List<Topic>
+          + build()
+          + name()
+          + professors()
+          + toString()
+          + topics()
+          ~ SubjectBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Test {
+          - creationDate : LocalDate
+          - name : String
+          - questions : List<TestQuestion>
+          + Test()
+          + Test()
+          {static} + builder()
+          + getAuthor()
+          + getCreationDate()
+          + getName()
+          + getQuestions()
+          + getTestDifficulty()
+          + setAuthor()
+          + setCreationDate()
+          + setName()
+          + setQuestions()
+          + setTestDifficulty()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Test.TestBuilder {
+          - creationDate : LocalDate
+          - name : String
+          - questions : List<TestQuestion>
+          + author()
+          + build()
+          + creationDate()
+          + name()
+          + questions()
+          + testDifficulty()
+          + toString()
+          ~ TestBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.TestAnswer {
+          - isCorrect : boolean
+          - text : String
+          + TestAnswer()
+          + TestAnswer()
+          {static} + builder()
+          + getQuestion()
+          + getText()
+          + isCorrect()
+          + setCorrect()
+          + setQuestion()
+          + setText()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.TestAnswer.TestAnswerBuilder {
+          - isCorrect : boolean
+          - text : String
+          + build()
+          + isCorrect()
+          + question()
+          + text()
+          + toString()
+          ~ TestAnswerBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      enum TestDifficulty {
+        EASY
+        HIGH
+        MEDIUM
+        RANDOM
+        maxDifficulty
+        minDifficulty
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.TestQuestion {
+          - answers : List<TestAnswer>
+          - created : LocalDate
+          - difficulty : int
+          - explanation : String
+          - notificationMessage : String
+          - text : String
+          - updated : LocalDate
+          + TestQuestion()
+          + TestQuestion()
+          {static} + builder()
+          + getAnswers()
+          + getAuthor()
+          + getCreated()
+          + getDifficulty()
+          + getExplanation()
+          + getLastUpdateDate()
+          + getNotificationMessage()
+          + getStatus()
+          + getText()
+          + getTopic()
+          + getUpdated()
+          + setAnswers()
+          + setAuthor()
+          + setCreated()
+          + setDifficulty()
+          + setExplanation()
+          + setNotificationMessage()
+          + setStatus()
+          + setText()
+          + setTopic()
+          + setUpdated()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.TestQuestion.TestQuestionBuilder {
+          - answers : List<TestAnswer>
+          - created : LocalDate
+          - difficulty : int
+          - explanation : String
+          - notificationMessage : String
+          - text : String
+          - updated : LocalDate
+          + answers()
+          + author()
+          + build()
+          + created()
+          + difficulty()
+          + explanation()
+          + notificationMessage()
+          + status()
+          + text()
+          + toString()
+          + topic()
+          + updated()
+          ~ TestQuestionBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      enum TestQuestionStatus {
+        INVALIDATED
+        PENDING
+        REQUESTED_CHANGES
+        VALIDATED
+        label
+        priority
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Topic {
+          - name : String
+          + Topic()
+          + Topic()
+          {static} + builder()
+          + getName()
+          + getSubject()
+          + setName()
+          + setSubject()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.Topic.TopicBuilder {
+          - name : String
+          + build()
+          + name()
+          + subject()
+          + toString()
+          ~ TopicBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.User {
+          - email : String
+          - notificationEnabled : boolean
+          - notificationUsers : List<NotificationUser>
+          - password : String
+          - username : String
+          + User()
+          + User()
+          {static} + builder()
+          + getEmail()
+          + getNotificationUsers()
+          + getPassword()
+          + getUserRole()
+          + getUsername()
+          + isNotificationEnabled()
+          + setEmail()
+          + setNotificationEnabled()
+          + setNotificationUsers()
+          + setPassword()
+          + setUserRole()
+          + setUsername()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      class learningapp.entities.User.UserBuilder {
+          - email : String
+          - notificationEnabled : boolean
+          - notificationUsers : List<NotificationUser>
+          - password : String
+          - username : String
+          + build()
+          + email()
+          + notificationEnabled()
+          + notificationUsers()
+          + password()
+          + toString()
+          + userRole()
+          + username()
+          ~ UserBuilder()
+      }
+    }
+  }
+  
+
+  namespace learningapp {
+    namespace entities {
+      enum UserRole {
+        PROFESSOR
+        STUDENT
+        SUPER_STUDENT
+      }
+    }
+  }
+  
+
+  learningapp.entities.Feature -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.Feature o-- learningapp.entities.Student : student
+  learningapp.entities.Feature o-- learningapp.entities.Test : test
+  learningapp.entities.Professor -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.Professor o-- learningapp.entities.User : user
+  learningapp.entities.Student -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.Student o-- learningapp.entities.User : user
+  learningapp.entities.Student +-down- learningapp.entities.Student.StudentBuilder
+  learningapp.entities.Student.StudentBuilder o-- learningapp.entities.User : user
+  learningapp.entities.Subject -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.Subject +-down- learningapp.entities.Subject.SubjectBuilder
+  learningapp.entities.Test -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.Test o-- learningapp.entities.User : author
+  learningapp.entities.Test o-- learningapp.entities.TestDifficulty : testDifficulty
+  learningapp.entities.Test +-down- learningapp.entities.Test.TestBuilder
+  learningapp.entities.Test.TestBuilder o-- learningapp.entities.User : author
+  learningapp.entities.Test.TestBuilder o-- learningapp.entities.TestDifficulty : testDifficulty
+  learningapp.entities.TestAnswer -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.TestAnswer o-- learningapp.entities.TestQuestion : question
+  learningapp.entities.TestAnswer +-down- learningapp.entities.TestAnswer.TestAnswerBuilder
+  learningapp.entities.TestAnswer.TestAnswerBuilder o-- learningapp.entities.TestQuestion : question
+  learningapp.entities.TestQuestion -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.TestQuestion o-- learningapp.entities.User : author
+  learningapp.entities.TestQuestion o-- learningapp.entities.TestQuestionStatus : status
+  learningapp.entities.TestQuestion o-- learningapp.entities.Topic : topic
+  learningapp.entities.TestQuestion +-down- learningapp.entities.TestQuestion.TestQuestionBuilder
+  learningapp.entities.TestQuestion.TestQuestionBuilder o-- learningapp.entities.User : author
+  learningapp.entities.TestQuestion.TestQuestionBuilder o-- learningapp.entities.TestQuestionStatus : status
+  learningapp.entities.TestQuestion.TestQuestionBuilder o-- learningapp.entities.Topic : topic
+  learningapp.entities.Topic -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.Topic o-- learningapp.entities.Subject : subject
+  learningapp.entities.Topic +-down- learningapp.entities.Topic.TopicBuilder
+  learningapp.entities.Topic.TopicBuilder o-- learningapp.entities.Subject : subject
+  learningapp.entities.User -up-|> learningapp.entities.BaseEntity
+  learningapp.entities.User o-- learningapp.entities.UserRole : userRole
+  learningapp.entities.User +-down- learningapp.entities.User.UserBuilder
+  learningapp.entities.User.UserBuilder o-- learningapp.entities.UserRole : userRole
+  learningapp.entities.UserRole .up.|> org.springframework.security.core.GrantedAuthority
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

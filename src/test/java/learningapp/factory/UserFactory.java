@@ -42,7 +42,7 @@ public class UserFactory {
                 .password(encoder.encode(USER_PASSWORD))
                 .email(USER_EMAIL)
                 .userRole(UserRole.STUDENT)
-                .notificationsEnabled(true);
+                .notificationsEnabled(false);
     }
 
     public static UserDto generateUserDto() {

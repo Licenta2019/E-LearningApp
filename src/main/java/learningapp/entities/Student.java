@@ -23,5 +23,4 @@ public class Student extends BaseEntity {
 
     @OneToOne(optional = false)
     private User user;
-
 }

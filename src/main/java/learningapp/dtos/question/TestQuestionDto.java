@@ -25,13 +25,10 @@ public class TestQuestionDto implements Serializable {
 
     private UUID id;
 
-//    @NotNull
     private UUID topicId;
 
-//    @NotNull
     private UUID subjectId;
 
-//    @NotNull
     private UUID authorId; //student
 
     @NotBlank

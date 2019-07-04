@@ -41,8 +41,6 @@ import static learningapp.utils.TestConstants.UPDATED_ANSWER_TEXT;
 import static learningapp.utils.TestConstants.UPDATED_QUESTION_TEXT;
 import static learningapp.utils.TestConstants.USER_NAME;
 
-//@RunWith(PowerMockRunner.class)
-//@PrepareForTest(StatusTransitionComputation.class)
 public class QuestionIT extends BaseIntegrationTest {
 
     @Autowired
@@ -246,7 +244,6 @@ public class QuestionIT extends BaseIntegrationTest {
 
     @Test
     @Ignore
-    //TODO(Paul - create separate test for transition computation
     public void givenAlreadyValidatedQuestion_whenValidateQuestion_thenExceptionIsThrown() {
 
         //given

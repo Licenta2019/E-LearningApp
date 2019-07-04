@@ -1,4 +1,4 @@
-Care dintre urmatoarele afirmatii sunt adevarate cu privire la modificatorul final?|1|Metodele final nu mai pot fi redefinite in clasele derivate.t|Atributele si variabile locale trebuie initializate la declarare.t|Clasele final pot fi extinse.f|Doar tipurile primitive de date pot primi modificatorul final.f|Daca o metoda are modificatorul final aceasta nu mai poate fi redefinita in clasele derivate.Modificatorul final folosit in cazul variabilelor/atributelor face variabila constanta deci trebuie initializata la declarare.Daca o clasa are modificatorul final aceasta nu poate fi extinsa #
+Care dintre urmatoarele afirmatii sunt adevarate cu privire la modificatorul final?|1|4|Metodele final nu mai pot fi redefinite in clasele derivate.t|Atributele si variabile locale trebuie initializate la declarare.t|Clasele final pot fi extinse.f|Doar tipurile primitive de date pot primi modificatorul final.f|Daca o metoda are modificatorul final aceasta nu mai poate fi redefinita in clasele derivate.Modificatorul final folosit in cazul variabilelor/atributelor face variabila constanta deci trebuie initializata la declarare.Daca o clasa are modificatorul final aceasta nu poate fi extinsa #
 class A{
     private int x;
     public A(){x=1;}
@@ -26,7 +26,7 @@ class Main{
         }
         System.out.println(s);
     }
-} Ce se afiseaza?|eroaref|14t|13f|25f|se apeleaza constructorul default de la A => x=1se apeleaza constructorul default de la B, iar apoi se apeleaza constructorul cu parametru int din superclasa A => x=2*1=2
+} Ce se afiseaza?|1|4|eroaref|14t|13f|25f|se apeleaza constructorul default de la A => x=1se apeleaza constructorul default de la B, iar apoi se apeleaza constructorul cu parametru int din superclasa A => x=2*1=2
 se apeleaza constructorul cu parametru int din clasa A => x=2*5=10
 se apeleaza constructorul cu parametru int din clasa B, iar apoi constructorul default din superclasa A (deoarece nu se apeleaza explicit altul) => x=1
 rezultat : 14=1+2+10+1 #
@@ -52,7 +52,7 @@ public class Main
     }
 }
 
-Ce se afiseaza?|1|
+Ce se afiseaza?|1|4|
 ArrayList constructorf|
 List constructort|
 nimicf|
@@ -84,7 +84,7 @@ public class Square extends Shape {
 
         Shape s = new Square("Awesome square.", 3.14);
         System.out.println(s.Area());
-}|1|
+}|1|4|
 3.14f|
 eroaret|
 0f|
@@ -129,7 +129,7 @@ class Ying{
         System.out.print("F");
     }
 
-}|3|
+}|3|4|
 ABFECDf|
 BECADFf|
 BFECADt|
@@ -168,7 +168,7 @@ public class Stack<E> {
 Stack<Integer> e = new Stack<>();
 e.push(10);
 e.push(5);
-System.out.println(e.pop());|3|
+System.out.println(e.pop());|3|4|
 5f|
 10f|
 Errort|
@@ -190,7 +190,7 @@ public String printInfo(Person p){
  
 public String printInfo(Student s){
   return "Student " + s.getName();
-}|1|
+}|1|4|
 
 Person Bob; Student Alicef|
 Person Alice; Person Bobt|
@@ -201,7 +201,7 @@ Si s si p sunt de tipul Person chiar daca s este un pointer spre tipul Student#
 
 Avand un container generic de tipul stiva
 (declarat Stack<Integer> stack = new Stack<Integer>();)
-care dintre urmatoarele instructiuni nu poate fi folosita pentru adaugarea unui intreg?|3|
+care dintre urmatoarele instructiuni nu poate fi folosita pentru adaugarea unui intreg?|3|4|
 
 stack.push(new Integer(10))f|
 stack.push(10);f|
@@ -211,7 +211,7 @@ toate metodele mentionate anterior sunt corectet|
 Toate metodele enumerate mai sus sunt corecte. #
 
 Un obiect de tipul singleton trebuie sa aiba doar 2 functii: constructorul si functia getInstance.
-Cum arata antetul acestor functii?|1|
+Cum arata antetul acestor functii?|1|4|
 public static Singleton(){...};
 public static Singleton getInstance(){...};f|
 
@@ -233,7 +233,7 @@ System.out.println(“Infinit”);
 else
 System.out.println(“2/0”);
 
-Ce se poate spune despre acesta? |4|
+Ce se poate spune despre acesta? |4|4|
 eroare la compilare din cauza impartirii cu 0f|
 eroare la executia programului din cauza impartirii cu 0(Arithmetic Exception)t|
 programul va afisa “Infinit”f|
@@ -268,7 +268,7 @@ public abstract class Fruit(){
     Collections.copy(store, basket);
     store.forEach(fruit->System.out.print(fruit + " "));
 
-Care este rezultatul executiei codului de mai sus?|4|
+Care este rezultatul executiei codului de mai sus?|4|4|
 
 Apple Pear Apple Apple Pear Applef|
 exceptie la "Collections.copy(store, basket)"t|
@@ -278,7 +278,7 @@ eroare la "Collections.copy" exceptie la runtime java.lang.IndexOutOfBoundsExcep
 
 Dată fiind expresia de constrângeri:
  T extends C & I1 & I2
-cu ce element este înlocuit T la compilare?|3|
+cu ce element este înlocuit T la compilare?|3|4|
 Ct|
 I2f|
 I1 & I2f|
@@ -292,14 +292,14 @@ Object[] obj=strings;
 List<?>list=new ArrayList<Object>();
 For (Object o:obj){
 	System.out.println(obj);
-	list.add(o);|3|
+	list.add(o);|3|4|
 eroare de compilare la linia 6f|
 afișează “hello” și “world” pe linii diferitet|
 eroare de compilare la linia 2f|
 eroare de compilare la linia 3f|
 Linia 2 e corectă sintactic, deși dacă apoi încercăm ceva de tipul objects[1] = 1 vom obține un ArrayStoreException la runtime. Linia 3 e perfect în regulă, pentru că ArrayList implementează List și wildcard-ul se potrivește cu Object. Ce nu putem face e să apelăm metoda add pe variabila list, pentru că la compilare nu se cunoaște tipul obiectelor conținute în listă. Doar null poate fi folosit ca parametru, pentru că null aparține oricărui tip referință. #
 
-Clasele Helper diferă de clasele Factory prin faptul că:|4|
+Clasele Helper diferă de clasele Factory prin faptul că:|4|4|
 Nu diferăf|
 Clasa Helper se concentrează pe crearea de obiectef|
 Clasa Helper se concentrează asupra manipulării obiectelor claselor existentet|
@@ -347,9 +347,745 @@ class Litere {
         lit.A();
         lit.afisare();
     }
-}|4|
+}|4|4|
 abcdegf|
 abdefgf|
 abdgect|
 abdfgcf|
-Se apelează funcția A, se adaugă litera „b”, apoi se apelează funcția B, unde se adaugă litera „d” și se apelează funcția C, unde se adaugă litera „g”, iar instrucțiunea throw aruncă o excepție care este prinsă in funcția B prin instrucțiunea catch, care aruncă o nouă excepție, se adaugă în variabila str litera „e” prin blocul finally deoarece se apeleaza indiferent dacă este prinsă o excepție sau nu, apoi excepția din funcția B este prinsă în funcția A, unde se adaugă litera „c”, varibila str devenind în final abdgec. #
+Se apelează funcția A, se adaugă litera „b”, apoi se apelează funcția B, unde se adaugă litera „d” și se apelează funcția C, unde se adaugă litera „g”, iar instrucțiunea throw aruncă o excepție care este prinsă in funcția B prin instrucțiunea catch, care aruncă o nouă excepție, se adaugă în variabila str litera „e” prin blocul finally deoarece se apeleaza indiferent dacă este prinsă o excepție sau nu, apoi excepția din funcția B este prinsă în funcția A, unde se adaugă litera „c”, varibila str devenind în final abdgec.#
+
+Ce se afiseaza la rularea codului urmator? Explicati.
+public class Main {
+    public static <T> Predicate<T> noSugestiveNamePredicate(Predicate<T>...tests){
+        Predicate<T> result = e -> true;
+        for(Predicate<T> test: tests) {
+            result = result.and(test);
+        }
+        return(result);
+    }
+    public static <T> T showSomeWords(Stream<T> elements, Predicate<T>... tests) {
+        Predicate<T> combinedTest = noSugestiveNamePredicate(tests);
+        return(elements.filter(combinedTest).findFirst().orElse(null));
+    }
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hello", "hola", "goodbye", "adios");
+
+        String word1 = showSomeWords(words.stream(),
+                s -> s.contains("o"),
+                s -> s.length() > 5);
+        System.out.println(word1);
+
+        String word2 = showSomeWords(words.stream(),
+                s -> s.contains("o"),
+                s -> s.length() > 8);
+        System.out.println(word2);
+    }|3|4|
+    null nullf|
+    hello nullf|
+    hello hola goodbye adios nullf|
+    goodbye nullt|Metoda noSugestiveNamePredicate returneaza un Predicate care este rezultatul operatiei de AND a argumentelor Predicatului. Valoarea default este true, daca nu exista predicate.
+                  Metoda showSomeWords returneaza primul element care se potriveste pentru toate testele date de predicatul anterior, sau null in caz contrar.#
+
+Ce se va afișa în urma rulării următoarei secvențe de cod?
+Arrays.asList(10,12,12,4,6,3,7,4,100,12,34,45,3,54)
+.stream()
+.forEach(z->{
+            if(z.toString().length()==2)
+                z = z/2;
+            System.out.print(z + " ");
+        })
+.sorted()
+.distinct();|5|4|Eroare la compilaret|3 4 5 6 7 17 22 27 100f|3 4 5 6 7 5 6 17 22 27 100f|3 4 5 6 6 7 17 22 27 100f|
+Eroare la compilare, deoarece foreach este o operatie finala pe stream-uri.#
+
+Fie funcția definita mai jos presupunând ca clasa UserDefinedException a fost creată mai sus și moștenește clasa Exception, ce se va afișa după un apel de genul
+ System.out.println(func(-1));? Explicați.
+
+public int func(int x){
+	if(x>=0)
+		return x;
+	else
+		throw new UserDefinedException();|4|4|-1f|1f|UserDefinedExceptionf|Eroare de compilaret|
+
+Din cauza ca funcția nu are clauza throws in definiție si excepția aruncata nu este de tipul
+RunTimeException sau Error si nu exista o un bloc try/catch care sa prindă excepția
+funcția nu va putea fi compilata #
+
+Care dintre liniile de  cod numerotate se execută din următoarea secvență de cod?
+public class ExceptiaMea extends Error {
+    public ExceptiaMea(String message) {
+        super(message);
+    }
+}
+public static void main(String[] args) {
+    try {
+1.       printeaza("Examen fain!");
+2.       printeaza(6.0);
+3.       printeaza(6.0f);
+4.       printeaza(6);
+    } catch(Error err){
+5.       System.out.println(err.getMessage());
+    }
+}
+
+public static <T> void printeaza(T dePrintat){
+6.    if (dePrintat.getClass().isInstance(0.0f)){
+7.      throw new ExceptiaMea("Eroare!");
+    }
+    else{
+8.        System.out.println(dePrintat);
+    }|4|4|
+    0 (funcția „printeaza” trebuia să aibă „throws ExceptiaMea” la signatură)f|
+    8f|6f|7t|
+Se oprește când dă de un obiect din aceeași clasă ca și 0.0f (float).
+„Examen fain” este String
+6.0 este double#
+Care este efectul rularii urmatoarei secvente de cod? Explicati.
+class Test
+{
+    public static void main(String[] args)
+    {
+        try
+        {
+            int a[]= {1, 2, 3, 4};
+            for (int i = 1; i <= 4; i++)
+            {
+                System.out.println ("a[" + i + "]=" + a[i] + "n");
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println ("eroare = " + e);
+        }
+
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println ("ArrayIndexOutOfBoundsException");
+        }
+    }
+}|4|5|Eroare la compilaret|
+    Eroare la runtimef|
+    ArrayIndexOutOfBoundsExceptionf|
+    Este printat codul de eroaref|
+    Este afisat vectorulf|
+    Exceptia java.lang.ArrayIndexOutOfBoundsException a fost deja prinsa in instructiunea catch (Exception e) deoarece clasa ArrayIndexOutOfBoundsException are la baza clasa Exception.#
+
+Ce se afișează la rularea codului urmator? Explicați.
+
+class Litere {
+    String str = "a";
+    void A(){
+        try{
+            str += "b";
+            B();
+        }
+        catch (Exception e){
+            str += "c";
+        }
+    }
+    void B() throws Exception{
+        try{
+            str += "d";
+            C();
+        }
+        catch (Exception e){
+            throw new Exception();
+
+        }
+        finally {
+            str += "e";
+        }
+
+        str += "f";
+    }
+    void C() throws Exception{
+        str += "g";
+        throw new Exception();
+    }
+    void afisare(){
+        System.out.println(str);
+    }
+    public static void main(String[] args){
+        Litere lit = new Litere();
+        lit.A();
+        lit.afisare();
+    }
+}|4|4|abcdegdf|abdefgf|abdgect|abdfgcf|Se apelează funcția A, se adaugă litera „b”, apoi se apelează funcția B, unde se adaugă litera „d” și se apelează funcția C, unde se adaugă litera „g”, iar instrucțiunea throw aruncă o excepție care este prinsă in funcția B prin instrucțiunea catch, care aruncă o nouă excepție, se adaugă în variabila str litera „e” prin blocul finally deoarece se apeleaza indiferent dacă este prinsă o excepție sau nu, apoi excepția din funcția B este prinsă în funcția A, unde se adaugă litera „c”, varibila str devenind în final abdgec#
+
+Ce se afișează la rularea codului urmator? Explicați.
+
+public abstract class AA {
+   protected Integer[] arr = new Integer[10];
+
+   public AA(){
+       arr[0] = 0;
+       arr[1] = 1;
+   }
+   public abstract int getItemAt(String index) throws
+ArrayIndexOutOfBoundsException;
+}
+
+
+public class BB extends AA {
+
+   @Override
+   public int getItemAt(String index) throws ArrayIndexOutOfBoundsException {
+       int position;
+       try {
+           position = Integer.valueOf(index);
+       }catch (NumberFormatException e){
+           throw new Exception("Nu se poate converti");
+       }
+       return arr[position];
+   }
+}
+
+public class Main {
+   public static void main(String[] args) {
+       AA a = new BB();
+
+       System.out.println(a.getItemAt("1a"));
+   }
+}|4|3|1f|eroare la compilaret|"Nu se poate converti"f|Metodele suprascrise (overriden) pot arunca numai exceptiile specificate de metoda din clasa de bază sau excepții derivate din acestea
+                                                    -> linia  throw new Exception("Nu se poate converti");
+                                                    Va cauza o eroare de compilare.#
+
+
+Ce se afișează la rularea codului urmator? Explicați.
+
+public static class MyOtherException extends MyException{
+    MyOtherException(String mesaj){super(mesaj);}
+}
+
+static class MyException extends Exception{
+    MyException(String mesaj){super(mesaj);}
+}
+
+
+    private static void f(int i) throws MyException {
+
+        if (i > 5)
+            throw new MyException("peste 5");
+        else
+            throw new MyOtherException("sub 5");
+
+    }
+
+public static void main(String[] args) {
+
+    try {
+
+        f(6);
+
+    } catch (MyException e ) {
+	System.out.println(e);
+
+    } catch (MyOtherException e){
+	System.out.println(e);
+
+    }
+
+}|4|4|	eroaret|
+      	peste 5f|
+      	sub 5f|
+      	peste 5 \n  sub 5f|
+      	Apare eroare de compilare daca exceptia sau superclasa ei a fost deja prinsa#
+
+	Ce se afișează la rularea codului urmator? Explicați.
+
+public static class MyException extends IllegalStateException{
+    MyException(String mesaj){super(mesaj);}
+
+    MyException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+private static void f() {
+
+    try {
+
+        throw new Throwable("1");
+
+    } catch (Throwable e) {
+        throw new IllegalStateException("2", e);
+    }
+
+}
+
+public static void main(String[] args) {
+
+    try {
+
+        f();
+
+    }  catch (IllegalStateException e) {
+        System.out.print(e.getMessage());
+    } finally {
+        System.out.print(3);
+    }
+
+}|4|4|
+
+123f|
+23t|
+3f|
+2f|
+Explicatie: este aruncat un Throwable cu mesajul “1”, este prins si aruncat un IllegalStateException ce contine “2” si cauza ei (mesaul lui throwable, “1”). Este prins si el si este afisat mesajul (doar “2”) dupa care este afisat “3” din blocul finally#
+
+Ce se întampla în urma executarii liniilor de cod?
+public class Exceptie extends Error {
+            public Exceptie(String message){
+                super(message);
+            }
+}
+public class A {
+        public void  afis(String s){
+            if(s.equals("")){ throw new Exceptie("E gol"); }
+            else{ System.out.println(s); }
+        }
+}
+public class Main {
+    public static void main(String[] args) {
+           A obj= new A();
+           obj.afis("bafta");
+           obj.afis("la" );
+           obj.afis("");
+           obj.afis("examen");
+    }
+}|4|4|
+Programul nu este executat din cauză ca functia afis nu are „throws  Exceptie”f|
+Programul afiseaza eroarea dar nu se afiseaza nimic altcevaf|
+Programul afiseaza :”bafta\n la\n” dupa care se afiseaza eroareat|
+Programul afiseaza : „bafta\n la\n examen\n”f|
+
+Programul apeleaza pe rand functia afis si afiseaza mesajele pana cand intalneste un obiect String gol moment in care arunca exceptia. Exceptia nu este „prinsa” asa ca programul se opreste din rulare si se afiseaza eroarea.#
+
+public class EX1 {
+
+    public EX1(){   System.out.println("AB"); }
+
+    public void print(boolean var) throws  Exception{
+            if(!var){
+                throw  new Exception("B");
+            }
+            System.out.println("A");
+    }
+}
+
+public class EX2 extends EX1 {
+    public EX2() {
+    }
+
+    @Override
+    public void print(boolean var) throws Exception{
+        super.print(var);
+        System.out.println("B");
+    }
+}
+
+public class Exercitiu {
+    public static void main(String[] args) {
+       EX2 ex2=new EX2();
+       try {
+           ex2.print(true);
+           ex2.print(false);
+	   ex2.print(true);
+
+       }
+       catch (Exception ex){
+           System.out.println(ex.getMessage());
+       }
+       finally {
+           System.out.println("AB");
+       }
+    }
+}|4|4|
+A B B ABf|
+AB B A B ABf|
+EROAREf|
+AB A B B ABt|
+
+Se apeleaza constructorul clasei EX1 si se afiseaza mai intai AB.
+Apoi primul apel al functiei print este true deci nu se arunca exceptie si se afiseaza A si B deoarece clasa EX2 pe langa print-ul din prima clasa mai afiseaza si un B.Al doilea apel se apeleaza cu false si se intra pe exceptie ,in consecinta in catch-ul din main se afiseaza inca o data B(Nu se afiseaza 2 de B deoarece s-a aruncat exceptia deja).La al treilea apel nici nu se ajunge deoarece exceptia a fost aruncata deja.Iar in final orice cod din finally se executa si se mai afiseaza o data AB.#
+
+
+public  class A
+{
+	String str="A ";
+	A()
+	{
+		try{
+		  throw  new Exception();
+		}
+		catch (Exception exc)
+		{
+			str+="AE "
+		}
+	}
+	public abstract void show(){
+		str+="AS ";
+	}
+}
+public class B extends A {
+    B() throws Exception
+    {
+       str+="B ";
+    }
+    @Override
+    public void show()
+    {
+
+        try
+        {
+            str +="B1 ";
+            show2();
+        }
+        catch (Exception e)
+        {
+            str += "BE1 ";
+        }
+    }
+    public void show2() throws Exception
+    {
+        try
+        {
+            str += "B2" ;
+            show3();
+        }
+        catch(Exception e)
+        {
+            throw new Exception();
+        }
+        finally
+        {
+            str += "BF ";
+        }
+
+        str += "BS2 ";
+    }
+    public void show3() throws Exception
+    {
+        throw new Exception();
+    }
+}
+
+public class App {
+    public static void main(String[] args) throws  Exception{
+
+        A a=new B();
+        a.show();
+        System.out.print( a.str);
+     }
+ }
+Ce se afiseaza?|1|4|
+ A B AE B1 B2 BF BE1f|
+ A AE B B1 B2 BF BE1t|
+ A AE B B1 B2 BE1 BFf|
+ eroare de compilaret|
+
+ Deoarece se apeleaza constructorul clasei A in momentul in care se creaaza un nou obiect de tip B,aceasta clasa avand ca clasa de baza clasa A. Constructorul clasei A arunca o exceptie care se prinde adaugand o noua valoare strigului "AE ". Dupa aceasta se va apela constructorul clasei B.In momentul in care se apeleaza functia show,aceasta va fi functia din clasa B. Initial se va concatena la sirul care il avem pana in prezent valoarea "B1 ",dupa care se va apela functia show2,care va adauga stringului "B2 ". Apelandu-se functia show3 se va arunca exceptie,dar inainte de asta se va intra in clauza finally si str va avea in plus "BF ",dupa care se va intra in clauza catch di show2,care arunca din nou exceptie,astfel se revine in functia show si la str se va adauga "BE1 ".#
+
+Ce se scrie in fisier in urma rulari prograului?
+public class Exception extends Error {
+            public Exception(String message){
+                super(message);
+            }
+}
+public class O {
+        public void writeData(){
+            try{BufferedWriter writer= new BufferedWriter(new FileWriter("pl.txt"));
+                writer.write("Examen");
+                writer.write("2010");
+                writer.close();
+                writer.newLine();
+                writer.write("Bafta");}
+            catch (IOException io){
+                throw new Exception("Error");
+            }
+        }
+}
+public class Main {
+    public static void main(String[] args) {
+           O obj= new O();
+           try {obj.writeData(); }
+           catch (Exception ex){
+               try {  BufferedWriter writer = new BufferedWriter(new FileWriter("pl.txt"));
+                   writer.write(ex.getMessage());
+                   writer.close();   }
+               catch (IOException io){ }
+     }
+}}|4|4|
+”Examen2010Error”f|
+”Examen2010Bafta”f|
+”Examen2010BaftaError”f|
+”Error”t|
+Se scrie in fisier prima data „Examen2010” dar deoarece programul inchide bufferul si dupa incearca sa scrie in el se arunca eroarea. Programul prinde eroarea si creandu-se un buffer nou singurul text din fisier este cel de ”Error”.#
+
+Care afirmatie este falsa?|3|4|
+
+interfata Comparable<T> contine o metoda int compareTo(T o)f|
+interfața Comparator<T> conține o metodă int compare(T o1, T o2)f|
+interfața Comparator<T> conține o metodă int compareTo(T o)t|
+interfața Comparator<T> conține o metodă boolean equals(Object obj) ce face override metodei din Objectf|
+
+Interfața Comparable face ca obiectele de tip T care o implementează să devină comparabile între ele, în timp ce interfața Comparatorr permite clasei care o implementează să compare două obiecte de un anumit tip T. Primele două afirmații sunt adevărate pentru că metoda de comparare are un singur parametru pentru Comparable și doi pentru Comparator. A treia varianta este cea falsă pentru că avem un singur parametru în metoda Comparatorului. #
+
+public class AA<E,T>
+{
+	private E e;
+	private T t;
+
+	public void setValue(E e) { this.e = e; }
+
+	public void setValue(T t){ this.t = t; }
+
+	public E getValue(){ return e; }
+
+	public T getValue1(){ return t; }
+}
+public class Main {
+	public static void main(String[] args)
+{
+	AA bb = new AA<Integer, String>();
+	bb.setValue(5);
+bb.setValue(“String”);
+System.out.println(bb.getValue1());
+}
+}|3|4|
+
+Eroare la compilaret|
+Eroare la execuțief|
+5f|
+Stringf|
+
+Eroare de compilare – datorită procesului de erasure cele două funcții setValue vor fi identice. #
+
+Ce se afiseaza la apelul functiei urmatoare?
+public static void s(  )
+    {
+        Stack<int>s=new Stack<>();
+        int[] data = {5, 2, 1, 9, 0, 10};
+        for (int i = 0; i < data.length; i++){
+            s.push(data[i]);
+        }
+        Stack<int> temp = new Stack<>();
+        while( !s.isEmpty() )
+        {
+            int s1 = (int) s.pop();
+            while( !temp.isEmpty() && (temp.peek() > s1) )
+            {
+                s.push( temp.pop() );
+            }
+            temp.push( s1 );
+        }
+        for( int i = 0; i < temp.size(); i++ )
+        {
+            System.out.print( temp.elementAt( i )+" " );
+        }
+    }
+|3|4|
+Nu se afiseaza nimicf|
+5  2  1  9  0 10f|
+0 1 2 5 9 10f|
+eroaret|
+
+La rularea acestei functii apare o eroare deoarece când se creează instanțe ale unor clase generice, nu se pot folosi tipurile primitive.(int trebuie inlocuit cu Integer)#
+
+Pe câte linii există erori în următoarea secvență de cod?
+List<Integer> l1 = new LinkedList<Integer>();
+List<Number> l2 = new LinkedList<Integer>();
+List<Integer> l3 = new LinkedList<int>();
+List<Number> l4 = new List<Integer>();|3|4|
+
+1f|
+2f|
+3t|
+4f|
+
+Explicatie: Atribuirile polimorfice se aplică doar tipului de bază nu și tipului generic. Din acest motiv, l2 și l4 sunt greșite. Atribuirea l3 este greșită deoarece tipurile primitive int/double/float/short/byte/boolean nu pot fi folosite ca tipuri generice.#
+
+Care este rezultatul rularii urmatorului cod?
+import java.util.HashSet;
+import java.util.TreeSet;
+
+public class Main {
+
+    public static void main(String [] args)
+    {
+
+        TreeSet<String> treeSet = new TreeSet<>();
+
+        treeSet.add("String1");
+        treeSet.add("fff");
+        treeSet.add("String1");
+        treeSet.add("alibi");
+
+        System.out.println(treeSet);
+
+        HashSet<String> hashSet = new HashSet<>();
+
+        hashSet.add("String1");
+        hashSet.add("fff");
+        hashSet.add("String1");
+        hashSet.add("alibi");
+
+        System.out.println(hashSet);
+    }
+}|3|4|
+[String1, alibi, fff][fff, alibi, String1, String1]f|
+[fff, alibi, String1][fff, alibi, String1]f|
+eroare in momentul in care inseram elemente duplicate intr-un setf|
+[String1, alibi, fff]’Afiseaza toate elementele fara duplicate intr-o ordine nedefinita’t|
+
+Un TreeSet sorteaza elementele in ordine crescatoare (lexicografica in cazul nostru) avand la baza o implementare de tipul arbore rosu-negru.  Un HashSet are la baza o implementare pe o tabela de dispersie, nestiind functia de Hash utilizata, nu stim in ce ordine vor fi elementele parcurse. Fiind set-uri nu sunt premise duplicatele.#
+
+class Test {
+    static void print(Object object) {
+        System.out.println("object");
+    }
+
+    static void print(String string) {
+        System.out.println("string");
+    }
+}
+
+public class Proposal {
+    public static void main(String[] args) {
+        execute(null);
+    }
+
+    static void execute(Test test) {
+        test.print(null);
+    }
+}
+
+Ce se afiseaza in urma rularii?|
+1|4|
+objectf|
+eroare la compilaref|
+stringt|
+NullPointerExceptionf|
+
+test.print(null) este echivalent (și va fi înlocuit) cu Test.print(null) la compilare, ceea ce nu reprezintă un NPE. Dintre cele două metode print este aleasă cea cu specificitatea cea mai mare, adică String în cazul de față (deoarece String moștenește Object). Dacă ar fi fost două metode având un parametru cu același grad de specificitate ar fi fost eroare la compilare (de ex String și StringBuffer). #
+
+Fiind date clasele :
+
+public abstract class Fruit {
+		@Override
+		public String toString(){
+			return "Fruit";
+		}
+	}
+
+	public class Tomato extends Fruit {
+	@Override
+	public String toString(){
+		return "Tomato";
+		}
+	}
+
+	public class Apple extends Fruit {
+    @Override
+    public String toString(){
+        return "Apple";
+		}
+	}
+
+	public class Pear extends Fruit {
+    @Override
+    public String toString(){
+        return "Pear";
+		}
+	}
+
+	public class Fresh<F extends Fruit> {
+		private F fruit;
+		public Fresh(F fruit){
+			this.fruit = fruit;
+		}
+
+		public F getFruit() {
+			return fruit;
+		}
+	}
+
+	List<Fresh<Fruit>> listFruit = new ArrayList<>();
+	listFruit.add(new Fresh<Apple>(new Apple()));
+	listFruit.add(new Fresh<Tomato>(new Tomato()));
+	listFruit.add(new Fresh<Pear>(new Pear()));
+	for(Fresh<Fruit> item : listFruit){
+		System.out.println(item.getFruit());
+	}
+
+	rezultatul executiei codului?|1|4|
+ Fruit
+ Fruit
+ Fruitf|
+ Apple
+ Tomato
+ Pearf|
+ eroare la compilaref|
+ eroare la runtimef|
+
+eroare la compilare, deoarece tipul template-ului la adaugarea elementelor difera de tipul initial al listei(avem lista de Fresh<Fruit> dar adaugam Fresh<Apple>, Fresh<Tomato>, Fresh<Pear>#
+
+Fiind data clasa :
+
+class Contact {
+
+    public  String Name="Nume Persoana ";
+
+    public class Numar1 {
+
+        private String nr="0987654321";
+
+        public String ContactNou() {
+            return Name+nr;
+        }
+    }
+    public static class Numar2 {
+
+        private String nr="0987654321";
+
+        public String Contactnou() {
+
+            return Name+nr;
+        }}}
+Programul va : |1|4|
+Clasa Numar1 nu are acces la un membru al clasei exterioaref|
+Clasa Numar2 nu are acces la un membru al clasei exterioaret|
+Niciuna din cele 2 clase interioare nu au acces la un membru al clasei exterioaref|
+Ambele clase au acces la un membru al clasei exterioaref|
+
+Deoarece clasa Numar2 nu poate avea acces la un membru nestatic al clasei exterioare.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
